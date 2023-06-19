@@ -50,19 +50,19 @@ export class DashboardComponent {
         amount: '500',
       },
       {
-        img: 'assets/img/icons/rating.svg',
+        img: 'assets/img/icons/link.png',
         title: 'Total Link',
         amount: '15230',
       },
       {
-        img: 'assets/img/icons/chat.svg',
-        title: 'Messages',
+        img: 'assets/img/icons/country-icon.png',
+        title: 'Total Country',
         amount: '15',
       },
       {
-        img: 'assets/img/icons/bookmark.svg',
-        title: 'Bookmark',
-        amount: '30',
+        img: 'assets/img/icons/traffic-source.png',
+        title: 'Total Source Reference',
+        amount: '6',
       },
     ];
 

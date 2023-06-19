@@ -208,8 +208,8 @@ export class DataService {
     },
     {
       img: 'assets/img/icons/bookmark.svg',
-      title: 'Bookmark',
-      amount: '30',
+      title: 'Total Source Referrals',
+      amount: '6',
     },
   ];
   public electronicsList = [
