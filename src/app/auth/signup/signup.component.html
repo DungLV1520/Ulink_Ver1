@@ -1,0 +1,88 @@
+<!-- Login Section -->
+<div class="login-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-lg-5 mx-auto">
+        <div class="login-wrap register-form">
+          <div class="login-header">
+            <h3>Create an Account</h3>
+            <p>Lets start with <span>Ulink</span></p>
+          </div>
+
+          <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <div class="form-group group-img">
+              <div class="group-img">
+                <i class="feather-user"></i>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter username"
+                  formControlName="username"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['username'].errors
+                  }"
+                />
+                <div class="invalid-feedback">Please enter username</div>
+              </div>
+            </div>
+            <div class="form-group group-img">
+              <div class="group-img">
+                <i class="feather-mail"></i>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Email Address"
+                  formControlName="email"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['email'].errors
+                  }"
+                />
+                <div class="invalid-feedback">Please enter email</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="pass-group group-img">
+                <i class="feather-lock"></i>
+                <input
+                  [type]="Toggledata ? 'password' : 'text'"
+                  class="form-control pass-input"
+                  placeholder="Password"
+                  formControlName="password"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['password'].errors
+                  }"
+                />
+                <span
+                  [ngClass]="
+                    Toggledata == true
+                      ? 'toggle-password feather-eye'
+                      : 'toggle-password feather-eye-off'
+                  "
+                  (click)="iconLogle()"
+                ></span>
+                <div class="invalid-feedback">Please enter password</div>
+              </div>
+            </div>
+            <button class="btn btn-primary w-100 login-btn" type="submit">
+              Create Account
+            </button>
+            <div class="register-link text-center">
+              <p>
+                Already have an account?
+                <a class="forgot-link" [routerLink]="routes.login">Sign In</a>
+              </p>
+            </div>
+            <div class="social-login">
+              <a href="#" class="btn btn-google w-100"
+                ><img src="assets/img/google.svg" class="me-1" alt="img" />Sign
+                in with Google</a
+              >
+            </div>
+          </form>
+          <!-- /Login Form -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Login Section -->

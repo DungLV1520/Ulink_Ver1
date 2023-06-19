@@ -1,0 +1,60 @@
+<!-- Header -->
+<header class="header">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg header-nav">
+      <div class="navbar-header">
+        <a (click)="toggleSidebar()" id="mobile_btn" href="javascript:void(0);">
+          <span class="bar-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </a>
+        <a
+          class="navbar-brand logo section-search section-search-eight aos"
+          [routerLink]="'/'"
+          style="font-weight: 800; font-size: 28px; color: #c10037"
+        >
+          <!-- <img src="assets/img/logo1.png" class="img-fluid" alt="Logo" style="width: 112px;"/> -->
+          ULINK
+        </a>
+      </div>
+      <div class="main-menu-wrapper">
+        <ul class="main-nav">
+          <ng-container *ngFor="let mainMenus of header">
+            <ng-container *ngIf="mainMenus.separateRoute == true">
+              <li [class.active]="base === mainMenus.base">
+                <a [routerLink]="mainMenus.route">{{ mainMenus.tittle }}</a>
+              </li>
+            </ng-container>
+          </ng-container>
+        </ul>
+      </div>
+
+      <ul class="nav header-navbar-rht" *ngIf="nav == true">
+        <li class="nav-item">
+          <a class="nav-link header-reg" [routerLink]="routes.signup"
+            >Sign Up</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link header-login" [routerLink]="routes.login">
+            Sign In</a
+          >
+        </li>
+      </ul>
+
+      <ul class="nav header-navbar-rht" *ngIf="nav == false">
+        <li class="nav-item">
+          <a class="nav-link header-reg" [routerLink]="routes.dashboard"
+            >Dashboard</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link header-reg" (click)="logout()" style="cursor: pointer;">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<!-- /Header -->

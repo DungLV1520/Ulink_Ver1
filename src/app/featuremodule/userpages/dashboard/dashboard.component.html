@@ -1,0 +1,292 @@
+<!-- Dashboard Content -->
+<div class="dashboard-content mt-4">
+  <div class="container">
+    <div class="">
+      <ul class="dashborad-menus">
+        <li class="active">
+          <a [routerLink]="routes.dashboard">
+            <i class="feather-grid"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="routes.mylisting">
+            <i class="feather-list"></i> <span>My Listing</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="routes.profile">
+            <i class="fa-solid fa-user"></i> <span>Profile</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="dashboard-details">
+      <div class="row">
+        <div class="col-lg-3 col-md-3" *ngFor="let data of dashboarddata">
+          <div class="card dash-cards">
+            <div class="card-body">
+              <div class="dash-top-content">
+                <div class="dashcard-img">
+                  <img [src]="data.img" class="img-fluid" alt="" />
+                </div>
+              </div>
+              <div class="dash-widget-info">
+                <h6>{{ data.title }}</h6>
+                <h3 class="counter">{{ data.amount }}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row dashboard-info">
+        <div class="col-lg-6 d-flex">
+          <div class="card dash-cards w-100">
+            <div class="card-header">
+              <h4>Agent Type</h4>
+              <div class="card-dropdown">
+                <ul>
+                  <li class="nav-item dropdown has-arrow logged-item">
+                    <a
+                      href="#"
+                      class="dropdown-toggle pageviews-link"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span>This week</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="javascript:void();"
+                        >Next Week</a
+                      >
+                      <a class="dropdown-item" href="javascript:void()"
+                        >Last Month</a
+                      >
+                      <a class="dropdown-item" href="javascript:void()"
+                        >Next Month</a
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="review-chart">
+                <div id="chart">
+                  <apx-chart
+                    [series]="simplePieChart.series"
+                    [chart]="simplePieChart.chart"
+                    [labels]="simplePieChart.labels"
+                    [legend]="simplePieChart.legend"
+                    [dataLabels]="simplePieChart.dataLabels"
+                    [responsive]="simplePieChart.responsive"
+                    [colors]="simplePieChart.colors"
+                    dir="ltr"
+                  ></apx-chart>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 d-flex">
+          <div class="card dash-cards w-100">
+            <div class="card-header">
+              <h4>Device</h4>
+              <div class="card-dropdown">
+                <ul>
+                  <li class="nav-item dropdown has-arrow logged-item">
+                    <a
+                      href="#"
+                      class="dropdown-toggle pageviews-link"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span>All Listing</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Next Week</a
+                      >
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Last Month</a
+                      >
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Next Month</a
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="review-chart">
+                <div id="chart">
+                  <apx-chart
+                    [series]="simplePieChart.series"
+                    [chart]="simplePieChart.chart"
+                    [labels]="simplePieChart.labels"
+                    [legend]="simplePieChart.legend"
+                    [dataLabels]="simplePieChart.dataLabels"
+                    [responsive]="simplePieChart.responsive"
+                    [colors]="simplePieChart.colors"
+                    dir="ltr"
+                  ></apx-chart>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 mt-4">
+          <div class="card dash-cards w-100">
+            <div class="card-header">
+              <h4>Country</h4>
+              <div class="card-dropdown">
+                <ul>
+                  <li class="nav-item dropdown has-arrow logged-item">
+                    <a
+                      href="#"
+                      class="dropdown-toggle pageviews-link"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span>All Listing</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Next Week</a
+                      >
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Last Month</a
+                      >
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Next Month</a
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="review-chart">
+                <div id="chart">
+                  <apx-chart
+                    [series]="columnWithDataChart.series"
+                    [chart]="columnWithDataChart.chart"
+                    [dataLabels]="columnWithDataChart.dataLabels"
+                    [plotOptions]="columnWithDataChart.plotOptions"
+                    [yaxis]="columnWithDataChart.yaxis"
+                    [xaxis]="columnWithDataChart.xaxis"
+                    [fill]="columnWithDataChart.fill"
+                    [title]="columnWithDataChart.title"
+                    [colors]="columnWithDataChart.colors"
+                    dir="ltr"
+                  ></apx-chart>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 mt-4">
+          <div class="card dash-cards w-100">
+            <div class="card-header">
+              <h4>Click</h4>
+              <div class="card-dropdown">
+                <ul>
+                  <li class="nav-item dropdown has-arrow logged-item">
+                    <a
+                      href="#"
+                      class="dropdown-toggle pageviews-link"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span>All Listing</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Next Week</a
+                      >
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Last Month</a
+                      >
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Next Month</a
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="review-chart">
+                <div id="chart">
+                  <apx-chart
+                    [series]="columnWithDataChart.series"
+                    [chart]="columnWithDataChart.chart"
+                    [dataLabels]="columnWithDataChart.dataLabels"
+                    [plotOptions]="columnWithDataChart.plotOptions"
+                    [yaxis]="columnWithDataChart.yaxis"
+                    [xaxis]="columnWithDataChart.xaxis"
+                    [fill]="columnWithDataChart.fill"
+                    [title]="columnWithDataChart.title"
+                    [colors]="columnWithDataChart.colors"
+                    dir="ltr"
+                  ></apx-chart>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 mt-4">
+          <div class="card dash-cards w-100">
+            <div class="card-header">
+              <h4>Refrence</h4>
+              <div class="card-dropdown">
+                <ul>
+                  <li class="nav-item dropdown has-arrow logged-item">
+                    <a
+                      href="#"
+                      class="dropdown-toggle pageviews-link"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span>All Listing</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Next Week</a
+                      >
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Last Month</a
+                      >
+                      <a class="dropdown-item" href="javascript:void(0)"
+                        >Next Month</a
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="review-chart">
+                <div id="chart">
+                  <apx-chart
+                    [series]="columnWithDataChart.series"
+                    [chart]="columnWithDataChart.chart"
+                    [dataLabels]="columnWithDataChart.dataLabels"
+                    [plotOptions]="columnWithDataChart.plotOptions"
+                    [yaxis]="columnWithDataChart.yaxis"
+                    [xaxis]="columnWithDataChart.xaxis"
+                    [fill]="columnWithDataChart.fill"
+                    [title]="columnWithDataChart.title"
+                    [colors]="columnWithDataChart.colors"
+                    dir="ltr"
+                  ></apx-chart>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Dashboard Content -->
