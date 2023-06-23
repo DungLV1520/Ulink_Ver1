@@ -211,9 +211,7 @@
                         <div class="pass-group group-img">
                           <div class="filter-content form-group">
                             <mat-form-field class="mat-custom-select w-100">
-                              <mat-select
-                                formControlName="domain"
-                              >
+                              <mat-select formControlName="domain">
                                 <mat-option value="https://ulink.asia">
                                   https://ulink.asia
                                 </mat-option>
@@ -299,6 +297,7 @@
                               placeholder="Result link"
                               [readonly]="true"
                               formControlName="urlULink"
+                              [(ngModel)]="urlULink"
                             />
                           </div>
                         </div>
@@ -399,7 +398,9 @@
                             placeholder="Enter Description"
                             formControlName="description"
                           />
-                          <div *ngIf="submitted && fFake['description'].invalid">
+                          <div
+                            *ngIf="submitted && fFake['description'].invalid"
+                          >
                             <div
                               *ngIf="fFake['description'].errors!['required']"
                               class="error"
@@ -427,15 +428,21 @@
                             placeholder="Enter Custom Alias"
                             formControlName="aliasRegister"
                           />
-                          <div *ngIf="submitted && fFake['aliasRegister'].invalid">
+                          <div
+                            *ngIf="submitted && fFake['aliasRegister'].invalid"
+                          >
                             <div
-                              *ngIf="fFake['aliasRegister'].errors!['minlength']"
+                              *ngIf="
+                                fFake['aliasRegister'].errors!['minlength']
+                              "
                               class="error"
                             >
                               Alias min 2 character
                             </div>
                             <div
-                              *ngIf="fFake['aliasRegister'].errors!['maxlength']"
+                              *ngIf="
+                                fFake['aliasRegister'].errors!['maxlength']
+                              "
                               class="error"
                             >
                               Alias max 50 character

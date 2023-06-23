@@ -25,6 +25,7 @@ export class routes {
     return this.baseUrl + '/listings';
   }
 
+
   public static get pages(): string {
     return this.baseUrl + '/pages';
   }
@@ -107,6 +108,9 @@ export class routes {
   }
   public static get profile(): string {
     return this.baseUrl + '/userpages/profile';
+  }
+  public static get domain(): string {
+    return this.baseUrl + '/userpages/domain';
   }
   public static get reviews(): string {
     return this.baseUrl + '/userpages/reviews';

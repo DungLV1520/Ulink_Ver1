@@ -14,12 +14,19 @@
           </a>
         </li>
         <li>
-          <a [routerLink]="routes.profile">
+          <a [routerLink]="routes.domain">
+            <i class="fa-solid fa-user"></i> <span> My Domain</span>
+          </a>
+        </li>
+        <li>
+          <a class="disabled-link">
+            <!-- <a [routerLink]="routes.profile"> -->
             <i class="fa-solid fa-user"></i> <span>Profile</span>
           </a>
         </li>
       </ul>
     </div>
+
     <div class="dashboard-details">
       <div class="row">
         <div class="col-lg-3 col-md-3" *ngFor="let data of dashboarddata">
@@ -27,7 +34,12 @@
             <div class="card-body">
               <div class="dash-top-content">
                 <div class="dashcard-img">
-                  <img [src]="data.img" class="img-fluid" alt="" />
+                  <img
+                    [src]="data.img"
+                    class="img-fluid"
+                    alt=""
+                    style="width: 54px"
+                  />
                 </div>
               </div>
               <div class="dash-widget-info">
@@ -39,48 +51,103 @@
         </div>
       </div>
 
-      <div class="row dashboard-info">
-        <div class="col-lg-6 d-flex">
-          <div class="card dash-cards w-100">
-            <div class="card-header">
-              <h4>Agent Type</h4>
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-lg-6">
+              <ul>
+                <li class="active">
+                  <div class="form-group">
+                    <div class="pass-group group-img">
+                      <input
+                        style="padding: 14px 15px 17px 35px"
+                        class="form-control flatpickr-input"
+                        type="text"
+                        placeholder="Choose datepicker"
+                        mwlFlatpickr
+                        [allowInput]="true"
+                        [convertModelValue]="true"
+                        dateFormat="d/m/Y"
+                        locale="de"
+                        mode="range"
+                        [(ngModel)]="selectedDate"
+                      />
+                      <span class="lock-icon"
+                        ><i class="feather-calendar"></i
+                      ></span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-6">
               <div class="card-dropdown">
                 <ul>
                   <li class="nav-item dropdown has-arrow logged-item">
-                    <a
-                      href="#"
-                      class="dropdown-toggle pageviews-link"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <span>This week</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                      <a class="dropdown-item" href="javascript:void();"
-                        >Next Week</a
-                      >
-                      <a class="dropdown-item" href="javascript:void()"
-                        >Last Month</a
-                      >
-                      <a class="dropdown-item" href="javascript:void()"
-                        >Next Month</a
-                      >
+                    <div class="pass-group group-img">
+                      <div class="filter-content form-group">
+                        <mat-form-field class="mat-custom-select w-100">
+                          <mat-select
+                            [(ngModel)]="idPage"
+                            placeholder="Choose link"
+                          >
+                            <ng-container *ngFor="let item of allPage">
+                              <mat-option [value]="item.pageId">
+                                {{ item.urlResult }}
+                              </mat-option>
+                            </ng-container>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
                     </div>
                   </li>
                 </ul>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <button
+          class="category-btn"
+          type="button"
+          style="padding: 12px; margin: 0 13px"
+
+          (click)="dashboardFilter()"
+        >
+        <i class="feather-grid"></i>
+          Filter
+        </button>
+          <button
+          class="category-btn"
+          type="button"
+          style="padding: 12px; margin: 0 13px"
+
+          (click)="clearFilter()"
+        >
+        <i class="feather-grid"></i>
+          Clear Filter
+        </button>
+        </div>
+      </div>
+
+      <div class="row dashboard-info">
+        <div class="col-lg-6 d-flex">
+          <div class="card dash-cards w-100">
+            <div class="card-header">
+              <h4>Agent Type</h4>
+            </div>
             <div class="card-body">
               <div id="review-chart">
                 <div id="chart">
                   <apx-chart
-                    [series]="simplePieChart.series"
-                    [chart]="simplePieChart.chart"
-                    [labels]="simplePieChart.labels"
-                    [legend]="simplePieChart.legend"
-                    [dataLabels]="simplePieChart.dataLabels"
-                    [responsive]="simplePieChart.responsive"
-                    [colors]="simplePieChart.colors"
+                    [series]="pieChartAgentType.series"
+                    [chart]="pieChartAgentType.chart"
+                    [labels]="pieChartAgentType.labels"
+                    [legend]="pieChartAgentType.legend"
+                    [dataLabels]="pieChartAgentType.dataLabels"
+                    [responsive]="pieChartAgentType.responsive"
+                    [colors]="pieChartAgentType.colors"
                     dir="ltr"
                   ></apx-chart>
                 </div>
@@ -92,93 +159,18 @@
           <div class="card dash-cards w-100">
             <div class="card-header">
               <h4>Device</h4>
-              <div class="card-dropdown">
-                <ul>
-                  <li class="nav-item dropdown has-arrow logged-item">
-                    <a
-                      href="#"
-                      class="dropdown-toggle pageviews-link"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <span>All Listing</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Next Week</a
-                      >
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Last Month</a
-                      >
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Next Month</a
-                      >
-                    </div>
-                  </li>
-                </ul>
-              </div>
             </div>
             <div class="card-body">
               <div id="review-chart">
                 <div id="chart">
                   <apx-chart
-                    [series]="simplePieChart.series"
-                    [chart]="simplePieChart.chart"
-                    [labels]="simplePieChart.labels"
-                    [legend]="simplePieChart.legend"
-                    [dataLabels]="simplePieChart.dataLabels"
-                    [responsive]="simplePieChart.responsive"
-                    [colors]="simplePieChart.colors"
-                    dir="ltr"
-                  ></apx-chart>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-12 mt-4">
-          <div class="card dash-cards w-100">
-            <div class="card-header">
-              <h4>Country</h4>
-              <div class="card-dropdown">
-                <ul>
-                  <li class="nav-item dropdown has-arrow logged-item">
-                    <a
-                      href="#"
-                      class="dropdown-toggle pageviews-link"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <span>All Listing</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Next Week</a
-                      >
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Last Month</a
-                      >
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Next Month</a
-                      >
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="card-body">
-              <div id="review-chart">
-                <div id="chart">
-                  <apx-chart
-                    [series]="columnWithDataChart.series"
-                    [chart]="columnWithDataChart.chart"
-                    [dataLabels]="columnWithDataChart.dataLabels"
-                    [plotOptions]="columnWithDataChart.plotOptions"
-                    [yaxis]="columnWithDataChart.yaxis"
-                    [xaxis]="columnWithDataChart.xaxis"
-                    [fill]="columnWithDataChart.fill"
-                    [title]="columnWithDataChart.title"
-                    [colors]="columnWithDataChart.colors"
+                    [series]="pieChartStatisticDevice.series"
+                    [chart]="pieChartStatisticDevice.chart"
+                    [labels]="pieChartStatisticDevice.labels"
+                    [legend]="pieChartStatisticDevice.legend"
+                    [dataLabels]="pieChartStatisticDevice.dataLabels"
+                    [responsive]="pieChartStatisticDevice.responsive"
+                    [colors]="pieChartStatisticDevice.colors"
                     dir="ltr"
                   ></apx-chart>
                 </div>
@@ -190,45 +182,20 @@
           <div class="card dash-cards w-100">
             <div class="card-header">
               <h4>Click</h4>
-              <div class="card-dropdown">
-                <ul>
-                  <li class="nav-item dropdown has-arrow logged-item">
-                    <a
-                      href="#"
-                      class="dropdown-toggle pageviews-link"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <span>All Listing</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Next Week</a
-                      >
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Last Month</a
-                      >
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Next Month</a
-                      >
-                    </div>
-                  </li>
-                </ul>
-              </div>
             </div>
-            <div class="card-body">
+            <div class="card-body" *ngIf="columnWithDataChartClick">
               <div id="review-chart">
                 <div id="chart">
                   <apx-chart
-                    [series]="columnWithDataChart.series"
-                    [chart]="columnWithDataChart.chart"
-                    [dataLabels]="columnWithDataChart.dataLabels"
-                    [plotOptions]="columnWithDataChart.plotOptions"
-                    [yaxis]="columnWithDataChart.yaxis"
-                    [xaxis]="columnWithDataChart.xaxis"
-                    [fill]="columnWithDataChart.fill"
-                    [title]="columnWithDataChart.title"
-                    [colors]="columnWithDataChart.colors"
+                    [series]="columnWithDataChartClick?.series"
+                    [chart]="columnWithDataChartClick?.chart"
+                    [dataLabels]="columnWithDataChartClick?.dataLabels"
+                    [plotOptions]="columnWithDataChartClick?.plotOptions"
+                    [yaxis]="columnWithDataChartClick?.yaxis"
+                    [xaxis]="columnWithDataChartClick?.xaxis"
+                    [fill]="columnWithDataChartClick?.fill"
+                    [title]="columnWithDataChartClick?.title"
+                    [colors]="columnWithDataChartClick?.colors"
                     dir="ltr"
                   ></apx-chart>
                 </div>
@@ -236,49 +203,51 @@
             </div>
           </div>
         </div>
+
         <div class="col-lg-12 mt-4">
           <div class="card dash-cards w-100">
             <div class="card-header">
               <h4>Refrence</h4>
-              <div class="card-dropdown">
-                <ul>
-                  <li class="nav-item dropdown has-arrow logged-item">
-                    <a
-                      href="#"
-                      class="dropdown-toggle pageviews-link"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <span>All Listing</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Next Week</a
-                      >
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Last Month</a
-                      >
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >Next Month</a
-                      >
-                    </div>
-                  </li>
-                </ul>
-              </div>
             </div>
-            <div class="card-body">
+            <div class="card-body" *ngIf="columnWithDataChartReference">
               <div id="review-chart">
                 <div id="chart">
                   <apx-chart
-                    [series]="columnWithDataChart.series"
-                    [chart]="columnWithDataChart.chart"
-                    [dataLabels]="columnWithDataChart.dataLabels"
-                    [plotOptions]="columnWithDataChart.plotOptions"
-                    [yaxis]="columnWithDataChart.yaxis"
-                    [xaxis]="columnWithDataChart.xaxis"
-                    [fill]="columnWithDataChart.fill"
-                    [title]="columnWithDataChart.title"
-                    [colors]="columnWithDataChart.colors"
+                    [series]="columnWithDataChartReference?.series"
+                    [chart]="columnWithDataChartReference?.chart"
+                    [dataLabels]="columnWithDataChartReference?.dataLabels"
+                    [plotOptions]="columnWithDataChartReference?.plotOptions"
+                    [yaxis]="columnWithDataChartReference?.yaxis"
+                    [xaxis]="columnWithDataChartReference?.xaxis"
+                    [fill]="columnWithDataChartReference?.fill"
+                    [title]="columnWithDataChartReference?.title"
+                    [colors]="columnWithDataChartReference?.colors"
+                    dir="ltr"
+                  ></apx-chart>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 mt-4">
+          <div class="card dash-cards w-100">
+            <div class="card-header">
+              <h4>Country</h4>
+            </div>
+            <div class="card-body" *ngIf="columnWithDataChartCountry">
+              <div id="review-chart">
+                <div id="chart">
+                  <apx-chart
+                    [series]="columnWithDataChartCountry?.series"
+                    [chart]="columnWithDataChartCountry?.chart"
+                    [dataLabels]="columnWithDataChartCountry?.dataLabels"
+                    [plotOptions]="columnWithDataChartCountry?.plotOptions"
+                    [yaxis]="columnWithDataChartCountry?.yaxis"
+                    [xaxis]="columnWithDataChartCountry?.xaxis"
+                    [fill]="columnWithDataChartCountry?.fill"
+                    [title]="columnWithDataChartCountry?.title"
+                    [colors]="columnWithDataChartCountry?.colors"
                     dir="ltr"
                   ></apx-chart>
                 </div>

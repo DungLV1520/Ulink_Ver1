@@ -35,7 +35,6 @@ export class HeaderComponent implements OnInit {
     });
     this.getroutes(this.router);
     this.authService.currentManagerSubject.subscribe((data)=>{
-      console.log(data);
       if (data) {
         this.nav = false;
       } else {

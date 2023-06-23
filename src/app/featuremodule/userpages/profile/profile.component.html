@@ -10,10 +10,15 @@
         </li>
         <li>
           <a [routerLink]="routes.mylisting">
-            <i class="feather-list"></i> <span>My Links</span>
+            <i class="feather-list"></i> <span>My Link</span>
           </a>
         </li>
-        <li class="active">
+        <li>
+          <a [routerLink]="routes.domain">
+            <i class="fa-solid fa-user"></i> <span>My Domain</span>
+          </a>
+        </li>
+        <li class="disabled-link">
           <a [routerLink]="routes.profile">
             <i class="fa-solid fa-user"></i> <span>Profile</span>
           </a>

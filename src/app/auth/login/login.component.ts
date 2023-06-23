@@ -13,8 +13,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-  public routes = routes;
-  public Toggledata = true;
+  routes = routes;
+  Toggledata = true;
   submitted = false;
 
   constructor(

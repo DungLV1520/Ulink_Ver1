@@ -37,7 +37,7 @@ export class AuthService {
 
             localStorage.setItem(
               GlobalComponent.ACESS_TOKEN,
-              user?.accessToken!
+              user?.token!
             );
 
             this.currentManagerSubject.next(user);

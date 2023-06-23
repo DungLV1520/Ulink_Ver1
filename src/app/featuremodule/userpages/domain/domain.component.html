@@ -1,0 +1,165 @@
+<!-- Profile Content -->
+<div class="dashboard-content mt-4">
+  <div class="container">
+    <div class="">
+      <ul class="dashborad-menus">
+        <li>
+          <a [routerLink]="routes.dashboard">
+            <i class="feather-grid"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="routes.mylisting">
+            <i class="feather-list"></i> <span>My Link</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="routes.domain">
+            <i class="fa-solid fa-user"></i> <span>My Domain</span>
+          </a>
+        </li>
+        <li>
+          <a class="disabled-link">
+            <!-- <a [routerLink]="routes.profile"> -->
+            <i class="fa-solid fa-user"></i> <span>Profile</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="profile-content">
+      <div class="row dashboard-info">
+        <div class="col-lg-12">
+          <div class="card dash-cards">
+            <div class="card-header">
+              <h4>My Domain</h4>
+            </div>
+
+            <div class="card-body">
+              <div class="profile-form">
+                <form [formGroup]="myDomainForm" (ngSubmit)="registerDomain()">
+                  <div class="row">
+                    <h5>Make your URL Amazing</h5>
+                    <span style="font-style: italic; font-size: 13px"
+                      >Bước 1: Thêm các bản ghi DNS với type và value bên dưới
+                      <br />
+                      <div style="margin: 5px 0 10px 25px">
+                        1. Host: * || Loại: A || Giá trị: 123.30.234.128
+                        <br />
+                        2. Host: @ || Loại: CNAME || Giá trị: 123.30.234.128
+                        <br />
+                        3. Host: www || Loại CNAME || Giá trị: domain của
+                        bạn(không chứa wwww, ví dụ: ulink.asia)
+                      </div>
+                    </span>
+                    <br />
+                    <span
+                      style="
+                        font-style: italic;
+                        font-size: 13px;
+                        margin-top: 3px;
+                      "
+                      >Bước 2: Thêm domain trên portal.ulink.asia và đợi tối đa
+                      5 phút hoàn thành.</span
+                    >
+
+                    <div class="col-lg-6 col-md-6 mt-4">
+                      <div class="form-group">
+                        <label class="col-form-label">Domain</label>
+                        <div class="pass-group group-img">
+                          <span class="lock-icon"
+                            ><i class="feather-link"></i
+                          ></span>
+                          <input
+                            type="tel"
+                            class="form-control"
+                            formControlName="domain"
+                            placeholder="Enter my domain"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 mt-4">
+                      <div class="form-group">
+                        <label class="col-form-label">Email Address</label>
+                        <div class="group-img">
+                          <i class="feather-mail"></i>
+                          <input
+                            type="email"
+                            class="form-control"
+                            formControlName="email"
+                            placeholder="Enter email"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <button
+                        class="btn btn-primary w-25"
+                        type="submit"
+                        [disabled]="myDomainForm.invalid"
+                      >
+                        Add Domain
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <div class="table-responsive mt-3">
+                  <table
+                    matSort
+                    class="listing-table datatable"
+                    id="listdata-table"
+                  >
+                    <thead>
+                      <tr>
+                        <th class="no-sort">#</th>
+                        <th class="no-sort">ID</th>
+                        <th class="no-sort">Domain</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of domainAll; let i = index">
+                        <td>
+                          <div>
+                            <span class="discount-amt">{{ i + 1 }}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <span class="discount-amt">{{ data.id }}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <span class="discount-amt">{{
+                              data.domainName
+                            }}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <span
+                            [ngClass]="{ unpublish: data.isActive === true }"
+                            class="status-text"
+                          >
+                            <i
+                              class="feather-check-circle"
+                              *ngIf="data.isActive; else inactive"
+                            ></i>
+                            <ng-template #inactive>
+                              <i class="feather-x"></i
+                            ></ng-template>
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Profile Content -->

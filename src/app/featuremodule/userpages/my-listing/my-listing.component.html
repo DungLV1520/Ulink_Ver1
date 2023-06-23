@@ -10,11 +10,17 @@
         </li>
         <li class="active">
           <a [routerLink]="routes.mylisting">
-            <i class="feather-list"></i> <span>My Links</span>
+            <i class="feather-list"></i> <span>My Link</span>
           </a>
         </li>
         <li>
-          <a [routerLink]="routes.profile">
+          <a [routerLink]="routes.domain">
+            <i class="fa-solid fa-user"></i> <span>My Domain</span>
+          </a>
+        </li>
+        <li>
+          <a class="disabled-link">
+            <!-- <a [routerLink]="routes.profile"> -->
             <i class="fa-solid fa-user"></i> <span>Profile</span>
           </a>
         </li>
@@ -22,12 +28,6 @@
     </div>
     <div class="dash-listingcontent dashboard-info">
       <div class="dash-cards card">
-        <div class="card-header">
-          <h4>My Links</h4>
-          <a class="nav-link header-login add-listing"
-            ><i class="fa-solid fa-plus"></i> Add Listing</a
-          >
-        </div>
         <div class="card-body">
           <div class="listing-search">
             <div class="filter-content form-group">
@@ -40,18 +40,7 @@
                 <i class="feather-search"></i>
               </div>
             </div>
-            <div class="sorting-div">
-              <div class="sortbyset">
-                <span class="sortbytitle">Sort by</span>
-                <div class="sorting-select">
-                  <select class="form-control select">
-                    <option>Newest</option>
-                    <option>Newest</option>
-                    <option>Oldest</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+            <div class="sorting-div"></div>
           </div>
           <div class="table-responsive">
             <table
@@ -66,41 +55,60 @@
                   <th mat-sort-header="details" class="no-sort">Details</th>
                   <th mat-sort-header="status">Status</th>
                   <th mat-sort-header="view">TotalClick</th>
-                  <th mat-sort-header="Action" class="text-center">Action</th>
+                  <th
+                    mat-sort-header="Action"
+                    class="text-center"
+                    style="display: flex; justify-content: center !important"
+                  >
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let data of electronics">
+                <tr *ngFor="let data of linkData">
                   <td>
-                    <div class="listingtable-img">
-                      <span class="discount-amt">{{ data.oldamount }}</span>
+                    <div
+                      class="listingtable-img"
+                      style="display: flex; align-items: center"
+                    >
+                      <span class="discount-amt">{{ data.pageId }}</span>
                     </div>
                   </td>
                   <td>
                     <h6>
-                      <a [routerLink]="routes.servicedetails">{{
-                        data.details
-                      }}</a>
+                      <a
+                        [routerLink]="routes.servicedetails"
+                        style="color: #2a5bd7"
+                        target="_blank"
+                        >{{ data.urlResult }}</a
+                      >
                     </h6>
                     <div class="listingtable-rate">
-                      <a href="javascript:void(0)" class="cat-icon"
-                        ><i class="fa-regular fa-circle-stop"></i>
-                        {{ data.select }}</a
+                      <a
+                        href="javascript:void(0)"
+                        class="cat-icon"
+                        target="_blank"
                       >
-                      <span class="discount-amt">{{ data.oldamount }}</span
-                      ><span class="fixed-amt">{{ data.newamount }}</span>
+                        {{ data.urlOriginal }}</a
+                      >
                     </div>
-                    <p>{{ data.description }}</p>
                   </td>
                   <td>
                     <span
-                      [ngClass]="{ unpublish: data.status === 'Un Published' }"
+                      [ngClass]="{ unpublish: data.isActive === true }"
                       class="status-text"
-                      >{{ data.status }}</span
                     >
+                      <i
+                        class="feather-check-circle"
+                        *ngIf="data.isActive; else inactive"
+                      ></i>
+                      <ng-template #inactive>
+                        <i class="feather-x"></i
+                      ></ng-template>
+                    </span>
                   </td>
-                  <td>
-                    <span class="views-count">{{ data.view }}</span>
+                  <td style="text-align: left">
+                    <span class="views-count">{{ data.totalClick }}</span>
                   </td>
                   <td>
                     <div class="action">

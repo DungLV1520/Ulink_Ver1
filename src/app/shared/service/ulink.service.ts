@@ -2,27 +2,137 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RegisterDomain } from '../model/register.model';
+import { GlobalComponent } from 'src/app/app.constant';
+import { createRequestOption } from '../request.util';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ULinkService {
-    baseBackendUrl = 'https://ulink.asia/api/facebook';
-    //baseBackendUrl = 'http://165.232.127.15:8080/api/facebook';
-    //baseBackendUrl = 'http://localhost:8080/api/facebook';
+  baseBackendUrl = 'https://ulink.asia/api/facebook';
+  URL_ULINK = 'https://portal.u-link.asia';
+  //baseBackendUrl = 'http://165.232.127.15:8080/api/facebook';
+  //baseBackendUrl = 'http://localhost:8080/api/facebook';
 
-     // Http Headers
-     httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' })  };
+  // Http Headers
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
-     httpOptionsUploadFile = { headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' })  };
+  httpOptionsUploadFile = {
+    headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' }),
+  };
 
-     constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   registerDomain(register: RegisterDomain): Observable<HttpResponse<any>> {
     return this.http.post<any>(
-        this.baseBackendUrl + '/register-page',
-        JSON.stringify(register),
-        this.httpOptions
+      this.baseBackendUrl + '/register-page',
+      JSON.stringify(register),
+      this.httpOptions
+    );
+  }
+
+  getStatisticOverviewDashboard() {
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + '/statistic-overview-dashboard'
+    );
+  }
+
+  getLink() {
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL +
+        '/links?pageNo=0&pageSize=100&sortBy=id&sortDir=desc'
+    );
+  }
+
+  getStatisticAgentType(from: string, to: string, pageId: string) {
+    const req = {
+      from,
+      to,
+      pageId,
+    };
+    const options = createRequestOption(req);
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + `/links/statistic-click-by-agent-type`,
+      {
+        params: options,
+      }
+    );
+  }
+
+  getStatisticDevice(from: string, to: string, pageId: string) {
+    const req = {
+      from,
+      to,
+      pageId,
+    };
+    const options = createRequestOption(req);
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + `/links/statistic-click-by-device-name`,
+      {
+        params: options,
+      }
+    );
+  }
+
+  getStatisticCountry(from: string, to: string, pageId: string) {
+    const req = {
+      from,
+      to,
+      pageId,
+    };
+    const options = createRequestOption(req);
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + `/links/statistic-click-by-country`,
+      {
+        params: options,
+      }
+    );
+  }
+
+  getStatisticReference(from: string, to: string, pageId: string) {
+    const req = {
+      from,
+      to,
+      pageId,
+    };
+    const options = createRequestOption(req);
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + `/links/statistic-click-by-reference`,
+      {
+        params: options,
+      }
+    );
+  }
+
+  getStatisticClick(from: string, to: string, pageId: string) {
+    const req = {
+      from,
+      to,
+      pageId,
+    };
+    const options = createRequestOption(req);
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + `/links/statistic-click`,
+      {
+        params: options,
+      }
+    );
+  }
+
+  getAllMyDomain() {
+    return this.http.get(GlobalComponent.API_URL_LOCAL + '/domain/all');
+  }
+
+  createMyDomain(data: any) {
+    return this.http.post(GlobalComponent.API_URL_LOCAL + '/domain', data);
+  }
+
+  checkDNSDomain(domain: string) {
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL +
+        `/domain/check-pointing-dns?domain=${domain}`
     );
   }
 
@@ -31,40 +141,14 @@ export class ULinkService {
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
 
-    return this.http.post<any>(this.baseBackendUrl + '/upload-file-image', data, { headers });
+    return this.http.post<any>(
+      this.baseBackendUrl + '/upload-file-image',
+      data,
+      { headers }
+    );
   }
 
-  // login(email: string, password: string) {
-  //   return this.http
-  //     .post<User>(GlobalComponent.API_URL_LOCAL + `users/login`, {
-  //       email,
-  //       password,
-  //     })
-  //     .pipe(
-  //       map((user) => {
-  //         if (user) {
-  //           localStorage.setItem(
-  //             GlobalComponent.CUSTOMER_KEY,
-  //             JSON.stringify(user)
-  //           );
-
-  //           localStorage.setItem(
-  //             GlobalComponent.ACESS_TOKEN,
-  //             user?.accessToken!
-  //           );
-
-  //           localStorage.setItem(
-  //             GlobalComponent.REFRESH_TOKEN,
-  //             user?.refreshToken!
-  //           );
-
-  //           this.currentManagerSubject.next(user);
-  //         }
-
-  //         // this.cryptoService.getPublicKey().subscribe();
-
-  //         return user;
-  //       })
-  //     );
-  // }
+  getAllPage() {
+    return this.http.get(GlobalComponent.API_URL_LOCAL + '/page/all');
+  }
 }

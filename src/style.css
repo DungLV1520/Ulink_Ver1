@@ -6335,7 +6335,7 @@ body table.listing-table.datatable {
   color: #c10037;
   font-weight: 700;
   font-size: 16px;
-  margin: 0 10px;
+  /* margin: 0 10px; */
 }
 .listing-table .status-text,
 .listing-table .views-count {

@@ -10,6 +10,7 @@ import { ULinkService } from 'src/app/shared/service/ulink.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HotToastService } from '@ngneat/hot-toast';
 import { catchError, finalize, from, of, switchMap, tap } from 'rxjs';
+import { RegisterDomain } from 'src/app/shared/model/register.model';
 
 @Component({
   selector: 'app-home',
@@ -159,29 +160,39 @@ export class HomeComponent {
     formData.append('file', this.fileToUpload);
 
     const toastRef = this.toast.loading('Loading...', {
-      duration: 5000,
+      duration: 20000,
       position: 'top-center',
     });
 
     from(this.ulinkService.uploadImage(formData))
       .pipe(
         switchMap((res) => {
-          const register: any = {};
+          let register = new RegisterDomain();
+          register.type = 'FACEBOOK';
           register.source_page = this.formFake.get('domain')!.value;
           register.url_original = this.formFake.get('originalLink')!.value;
-          register.alias_register = this.formFake.get('aliasRegister')!.value;
-          register.title = this.formFake.get('title')!.value;
-          register.type = this.formFake.get('typeDisplay')!.value;
-          register.description = this.formFake.get('description')!.value;
-          register.thumbnail = res.data;
+          register.content.alias_register =
+            this.formFake.get('aliasRegister')!.value;
+          register.content.url_normal_user =
+            this.formFake.get('originalLink')!.value;
+          register.content.url_manager_fb_user = 'https://www.youtube.com';
+          register.content.title = this.formFake.get('title')!.value;
+          register.content.type = this.formFake.get('displayType')!.value;
+          register.content.description =
+            this.formFake.get('description')!.value;
+          register.content.thumbnail = res.data;
 
           return this.ulinkService.registerDomain(register);
         }),
         tap((res: any) => {
           this.urlULink = res.data.url_ulink;
-          this.formShort.patchValue({
-            urlULink: this.urlULink,
-          });
+          console.log(this.urlULink);
+
+          setTimeout(() => {
+            this.formFake.patchValue({
+              urlULink: res.data.url_ulink,
+            });
+          }, 0);
           this.clipboard.copy(this.urlULink);
           this.resetForm();
           this.toast.success(
@@ -189,6 +200,8 @@ export class HomeComponent {
           );
         }),
         catchError((error) => {
+          console.log(error);
+
           this.toast.error(error);
           this.submitted = false;
           return of(null);
@@ -206,14 +219,23 @@ export class HomeComponent {
     }
 
     const toastRef = this.toast.loading('Loading...', {
-      duration: 5000,
+      duration: 20000,
       position: 'top-center',
     });
 
-    const register: any = {};
-    register.source_page = this.formFake.get('domain')!.value;
-    register.url_original = this.formFake.get('originalLink')!.value;
-    register.content.alias_register = this.formFake.get('aliasRegister')!.value;
+    let register = new RegisterDomain();
+    register.type = 'FACEBOOK';
+    register.source_page = this.formShort.get('domain')!.value;
+    register.url_original = this.formShort.get('originalLink')!.value;
+    register.content.alias_register =
+      this.formShort.get('aliasRegister')!.value;
+    register.content.url_normal_user =
+      this.formShort.get('originalLink')!.value;
+    register.content.url_manager_fb_user = '';
+    register.content.title = '';
+    register.content.type = '';
+    register.content.description = '';
+    register.content.thumbnail = '';
 
     this.ulinkService
       .registerDomain(register)
@@ -221,13 +243,16 @@ export class HomeComponent {
       .subscribe({
         next: (res: any) => {
           this.urlULink = res.data.url_ulink;
-          this.formShort.patchValue({
-            urlULink: this.urlULink,
-          });
+          setTimeout(() => {
+            this.formShort.patchValue({
+              urlULink: res.data.url_ulink,
+            });
+          }, 0);
+
           this.clipboard.copy(this.urlULink);
           this.resetFormShort();
           this.toast.success(
-            'Copy ' + this.urlULink + ' into clipboard. Register url success!'
+            `Copy ${res.data.url_ulink} into clipboard. Register url success!`
           );
         },
         error: (error) => {

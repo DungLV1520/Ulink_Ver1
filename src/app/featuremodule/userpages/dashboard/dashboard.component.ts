@@ -1,81 +1,207 @@
 import { Component, ViewChild } from '@angular/core';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { DataService } from 'src/app/shared/service/data.service';
-import {
-  ApexAxisChartSeries,
-  ApexTitleSubtitle,
-  ApexChart,
-  ApexXAxis,
-  ChartComponent,
-} from 'ng-apexcharts';
-export type ChartOptions = {
-  series: ApexAxisChartSeries | any;
-  chart: ApexChart | any;
-  title: ApexTitleSubtitle | any;
-  xaxis: ApexXAxis | any;
-  dataLabels: any;
-  animations: any;
-  colors: any;
-  toolbar: any;
-  legend: any;
-  markers: any;
-  stroke: any;
-};
+import { ChartComponent } from 'ng-apexcharts';
+import { ULinkService } from '../../../shared/service/ulink.service';
+import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
+  providers: [DatePipe],
 })
 export class DashboardComponent {
-  public routes = routes;
-  public dashboarddata: any = [];
-  public dashboardreview: any = [];
-  simplePieChart: any;
-  columnWithDataChart: any;
   @ViewChild('chart') chart!: ChartComponent;
+  routes = routes;
+  dashboarddata: any = [];
+  dashboardreview: any = [];
+  pieChartAgentType: any;
+  pieChartStatisticDevice: any;
+  columnWithDataChart: any;
+  columnWithDataChartCountry: any;
+  columnWithDataChartReference: any;
+  columnWithDataChartClick: any;
+  yourDateValue!: Date;
+  allPage: any[] = [];
+  idPage?: string;
+  selectedDate!: any;
 
-
-
-  constructor(private DataService: DataService) {
+  constructor(
+    private DataService: DataService,
+    private datePipe: DatePipe,
+    private uLinkService: ULinkService
+  ) {
     this.dashboardreview = this.DataService.dashboardreview;
   }
 
   ngOnInit(): void {
-
-    this.dashboarddata = [
-      {
-        img: 'assets/img/icons/verified.svg',
-        title: 'Total Click',
-        amount: '500',
-      },
-      {
-        img: 'assets/img/icons/link.png',
-        title: 'Total Link',
-        amount: '15230',
-      },
-      {
-        img: 'assets/img/icons/country-icon.png',
-        title: 'Total Country',
-        amount: '15',
-      },
-      {
-        img: 'assets/img/icons/traffic-source.png',
-        title: 'Total Source Reference',
-        amount: '6',
-      },
-    ];
-
-    this._simplePieChart(
-      '["#405189", "#0ab39c", "#f7b84b", "#f06548", "#299cdb"]'
-    );
-
-    this._columnWithDataChart('["#299cdb"]');
+    this.getAllPage();
+    this.clearFilter();
   }
 
-  private _simplePieChart(colors: any) {
+  filterDashboard(from: string, to: string, idPage: string): void {
+    this.getStatisticOverviewDashboard();
+    this.getStatisticAgentType(from, to, idPage);
+    this.getStatisticDevice(from, to, idPage);
+    this.getStatisticCountry(from, to, idPage);
+    this.getStatisticReference(from, to, idPage);
+    this.getStatisticClick(from, to, idPage);
+  }
+
+  getAllPage(): void {
+    this.uLinkService.getAllPage().subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.allPage = res;
+      },
+    });
+  }
+
+  getStatisticOverviewDashboard(): void {
+    this.uLinkService.getStatisticOverviewDashboard().subscribe({
+      next: (res: any) => {
+        this.dashboarddata = [
+          {
+            img: 'assets/img/icons/verified.svg',
+            title: 'Total Click',
+            amount: res.totalClick,
+          },
+          {
+            img: 'assets/img/icons/link.png',
+            title: 'Total Link',
+            amount: res.totalLink,
+          },
+          {
+            img: 'assets/img/icons/country-icon.png',
+            title: 'Total Country',
+            amount: res.totalCountry,
+          },
+          {
+            img: 'assets/img/icons/traffic-source.png',
+            title: 'Total Privacy Domain',
+            amount: res.totalPrivacyDomain,
+          },
+        ];
+      },
+    });
+  }
+
+  getStatisticAgentType(from: string, to: string, idPage: string): void {
+    this._simplePieChartAgentType(
+      '["#405189", "#0ab39c", "#f7b84b", "#f06548", "#299cdb"]'
+    );
+    this.uLinkService.getStatisticAgentType(from, to, idPage).subscribe({
+      next: (res: any) => {
+        this.pieChartAgentType.series = res.data;
+        this.pieChartAgentType.labels = res.labels;
+      },
+    });
+  }
+
+  getStatisticDevice(from: string, to: string, idPage: string): void {
+    this._pieChartStatisticDevice(
+      '["#405189", "#0ab39c", "#f7b84b", "#f06548", "#299cdb"]'
+    );
+    this.uLinkService.getStatisticDevice(from, to, idPage).subscribe({
+      next: (res: any) => {
+        this.pieChartStatisticDevice.series = res.data;
+        this.pieChartStatisticDevice.labels = res.labels;
+      },
+    });
+  }
+
+  getStatisticCountry(from: string, to: string, idPage: string): void {
+    this.uLinkService.getStatisticCountry(from, to, idPage).subscribe({
+      next: (res: any) => {
+        this._columnWithDataChartCountry(
+          '["#299cdb"]',
+          res.data,
+          res.categories
+        );
+      },
+    });
+  }
+
+  getStatisticReference(from: string, to: string, idPage: string): void {
+    this.uLinkService.getStatisticReference(from, to, idPage).subscribe({
+      next: (res: any) => {
+        this._columnWithDataChartReference('["#299cdb"]', res.data, res.labels);
+      },
+    });
+  }
+
+  getStatisticClick(from: string, to: string, idPage: string): void {
+    this.uLinkService.getStatisticClick(from, to, idPage).subscribe({
+      next: (res: any) => {
+        this._columnWithDataChartClick(
+          '["#299cdb"]',
+          res.totalClicks,
+          res.date
+        );
+        console.log(res);
+      },
+    });
+  }
+
+  dashboardFilter(): void {
+    const from = this.datePipe.transform(
+      new Date(this.selectedDate.from),
+      'dd/MM/yyyy'
+    );
+    const to = this.datePipe.transform(
+      new Date(this.selectedDate.to),
+      'dd/MM/yyyy'
+    );
+
+    if (!this.idPage || !this.selectedDate) {
+      return;
+    }
+
+    const formattedDateFrom = moment(from, 'DD/MM/YYYY').format('YYYYMMDD');
+    const formattedDateTo = moment(to, 'DD/MM/YYYY').format('YYYYMMDD');
+
+    this.filterDashboard(formattedDateFrom!, formattedDateTo!, this.idPage!);
+  }
+
+  clearFilter(): void {
+    const currentDate = new Date();
+    const pastDate = new Date(currentDate.getTime() - 8 * 24 * 60 * 60 * 1000);
+    const formattedCurrentDate = this.datePipe.transform(
+      currentDate,
+      'yyyyMMdd'
+    );
+    const formattedPastDate = this.datePipe.transform(pastDate, 'yyyyMMdd');
+
+    this.filterDashboard(formattedPastDate!, formattedCurrentDate!, undefined!);
+    this.idPage=undefined;
+  }
+
+  private _simplePieChartAgentType(colors: any) {
     colors = this.getChartColorsArray(colors);
-    this.simplePieChart = {
+    this.pieChartAgentType = {
+      series: [44, 55, 13, 43, 22],
+      chart: {
+        height: 300,
+        type: 'pie',
+      },
+      labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+      legend: {
+        position: 'bottom',
+      },
+      dataLabels: {
+        dropShadow: {
+          enabled: false,
+        },
+      },
+      colors: colors,
+    };
+  }
+
+  private _pieChartStatisticDevice(colors: any) {
+    colors = this.getChartColorsArray(colors);
+    this.pieChartStatisticDevice = {
       series: [44, 55, 13, 43, 22],
       chart: {
         height: 300,
@@ -121,118 +247,317 @@ export class DashboardComponent {
     });
   }
 
-  private _columnWithDataChart(colors:any) {
+  private _columnWithDataChartCountry(colors: any, seri: any, category: any) {
     colors = this.getChartColorsArray(colors);
-    this.columnWithDataChart = {
-      series: [{
-        name: "Inflation",
-        data: [2.5, 3.2, 5.0, 10.1, 4.2, 3.8, 3, 2.4, 4.0, 1.2, 3.5, 0.8],
-      }, ],
+    this.columnWithDataChartCountry = {
+      series: [
+        {
+          name: 'Quantity',
+          data: seri,
+        },
+      ],
       chart: {
         height: 350,
-        type: "bar",
+        type: 'bar',
         toolbar: {
-            show: false,
+          show: false,
         },
       },
       plotOptions: {
-          bar: {
-              dataLabels: {
-                  position: "top", // top, center, bottom
-              },
+        bar: {
+          dataLabels: {
+            position: 'top', // top, center, bottom
           },
+        },
       },
       dataLabels: {
-          enabled: true,
-          formatter: function (val:any) {
-              return val + "%";
-          },
-          offsetY: -20,
-          style: {
-              fontSize: "12px",
-              colors: ["#adb5bd"],
-          },
+        enabled: true,
+        formatter: function (val: any) {
+          return val + '';
+        },
+        offsetY: -20,
+        style: {
+          fontSize: '12px',
+          colors: ['#adb5bd'],
+        },
       },
       colors: colors,
       grid: {
-          borderColor: "#f1f1f1",
+        borderColor: '#f1f1f1',
       },
       xaxis: {
-          categories: [
-              "Jan",
-              "Feb",
-              "Mar",
-              "Apr",
-              "May",
-              "Jun",
-              "Jul",
-              "Aug",
-              "Sep",
-              "Oct",
-              "Nov",
-              "Dec",
-          ],
-          position: "top",
-          labels: {
-              offsetY: -18,
+        categories: category,
+        position: 'bottom',
+        labels: {
+          offsetY: -2,
+        },
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        crosshairs: {
+          fill: {
+            type: 'gradient',
+            gradient: {
+              colorFrom: '#D8E3F0',
+              colorTo: '#BED1E6',
+              stops: [0, 100],
+              opacityFrom: 0.4,
+              opacityTo: 0.5,
+            },
           },
-          axisBorder: {
-              show: false,
-          },
-          axisTicks: {
-              show: false,
-          },
-          crosshairs: {
-              fill: {
-                  type: "gradient",
-                  gradient: {
-                      colorFrom: "#D8E3F0",
-                      colorTo: "#BED1E6",
-                      stops: [0, 100],
-                      opacityFrom: 0.4,
-                      opacityTo: 0.5,
-                  },
-              },
-          },
-          tooltip: {
-              enabled: true,
-              offsetY: -35,
-          },
+        },
+        tooltip: {
+          enabled: true,
+          offsetY: -35,
+        },
       },
       fill: {
-          gradient: {
-              shade: "light",
-              type: "horizontal",
-              shadeIntensity: 0.25,
-              gradientToColors: undefined,
-              inverseColors: true,
-              opacityFrom: 1,
-              opacityTo: 1,
-              stops: [50, 0, 100, 100],
-          },
+        gradient: {
+          shade: 'light',
+          type: 'horizontal',
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 0, 100, 100],
+        },
       },
       yaxis: {
-          axisBorder: {
-              show: false,
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: false,
+          formatter: function (val: any) {
+            return val + '%';
           },
-          axisTicks: {
-              show: false,
-          },
-          labels: {
-              show: false,
-              formatter: function (val:any) {
-                  return val + "%";
-              },
-          },
+        },
       },
       title: {
-          floating: true,
-          offsetY: 320,
-          align: "center",
-          style: {
-              color: "#444",
-              fontWeight: 500,
+        floating: true,
+        offsetY: 320,
+        align: 'center',
+        style: {
+          color: '#444',
+          fontWeight: 500,
+        },
+      },
+    };
+  }
+
+  private _columnWithDataChartReference(colors: any, seri: any, category: any) {
+    colors = this.getChartColorsArray(colors);
+    this.columnWithDataChartReference = {
+      series: [
+        {
+          name: 'Quantity',
+          data: seri,
+        },
+      ],
+      chart: {
+        height: 350,
+        type: 'bar',
+        toolbar: {
+          show: false,
+        },
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            position: 'top', // top, center, bottom
           },
+        },
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val: any) {
+          return val + '';
+        },
+        offsetY: -20,
+        style: {
+          fontSize: '12px',
+          colors: ['#adb5bd'],
+        },
+      },
+      colors: colors,
+      grid: {
+        borderColor: '#f1f1f1',
+      },
+      xaxis: {
+        categories: category,
+        position: 'bottom',
+        labels: {
+          offsetY: -2,
+        },
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        crosshairs: {
+          fill: {
+            type: 'gradient',
+            gradient: {
+              colorFrom: '#D8E3F0',
+              colorTo: '#BED1E6',
+              stops: [0, 100],
+              opacityFrom: 0.4,
+              opacityTo: 0.5,
+            },
+          },
+        },
+        tooltip: {
+          enabled: true,
+          offsetY: -35,
+        },
+      },
+      fill: {
+        gradient: {
+          shade: 'light',
+          type: 'horizontal',
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 0, 100, 100],
+        },
+      },
+      yaxis: {
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: false,
+          formatter: function (val: any) {
+            return val + '%';
+          },
+        },
+      },
+      title: {
+        floating: true,
+        offsetY: 320,
+        align: 'center',
+        style: {
+          color: '#444',
+          fontWeight: 500,
+        },
+      },
+    };
+  }
+
+  private _columnWithDataChartClick(colors: any, seri: any, category: any) {
+    colors = this.getChartColorsArray(colors);
+    this.columnWithDataChartClick = {
+      series: [
+        {
+          name: 'Quantity',
+          data: seri,
+        },
+      ],
+      chart: {
+        height: 350,
+        type: 'bar',
+        toolbar: {
+          show: false,
+        },
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            position: 'top', // top, center, bottom
+          },
+        },
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val: any) {
+          return val + '';
+        },
+        offsetY: -20,
+        style: {
+          fontSize: '12px',
+          colors: ['#adb5bd'],
+        },
+      },
+      colors: colors,
+      grid: {
+        borderColor: '#f1f1f1',
+      },
+      xaxis: {
+        categories: category,
+        position: 'bottom',
+        labels: {
+          offsetY: -2,
+        },
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        crosshairs: {
+          fill: {
+            type: 'gradient',
+            gradient: {
+              colorFrom: '#D8E3F0',
+              colorTo: '#BED1E6',
+              stops: [0, 100],
+              opacityFrom: 0.4,
+              opacityTo: 0.5,
+            },
+          },
+        },
+        tooltip: {
+          enabled: true,
+          offsetY: -35,
+        },
+      },
+      fill: {
+        gradient: {
+          shade: 'light',
+          type: 'horizontal',
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 0, 100, 100],
+        },
+      },
+      yaxis: {
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: false,
+          formatter: function (val: any) {
+            return val + '%';
+          },
+        },
+      },
+      title: {
+        floating: true,
+        offsetY: 320,
+        align: 'center',
+        style: {
+          color: '#444',
+          fontWeight: 500,
+        },
       },
     };
   }

@@ -6053,7 +6053,7 @@ ul.tags {
     border-radius: 0 10px 0 0;
 }
 .listing-table th, .listing-table td {
-    padding: 20px 15px;
+    padding: 2015px 15px;
 }
 body table.listing-table.datatable {
     border-collapse: collapse !important;
@@ -6112,7 +6112,7 @@ body table.listing-table.datatable {
     color: #C10037;
     font-weight: 700;
     font-size: 16px;
-    margin: 0 10px;
+    /* margin: 0 10px; */
 }
 .listing-table .status-text, .listing-table .views-count {
     color: #00A656;
