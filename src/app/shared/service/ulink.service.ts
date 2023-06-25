@@ -122,7 +122,7 @@ export class ULinkService {
   }
 
   getAllMyDomain() {
-    return this.http.get(GlobalComponent.API_URL_LOCAL + '/domain/all');
+    return this.http.get(GlobalComponent.API_URL_LOCAL + 'domain/all');
   }
 
   createMyDomain(data: any) {

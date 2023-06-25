@@ -1,6 +1,6 @@
 export const GlobalComponent = {
   // API_URL_LOCAL: "http://localhost:3000/api/",
-  API_URL_LOCAL: "https://portal.u-link.asia/api",
+  API_URL_LOCAL: "https://portal.u-link.asia/api/",
   // API_URL_LOCAL: "https://salonspa.mom/api/",
   // API_URL_LOCAL: "https://salonspa.onrender.com/api/",
   // API_URL_LOCAL: "http://54.252.69.198:3000/api/",

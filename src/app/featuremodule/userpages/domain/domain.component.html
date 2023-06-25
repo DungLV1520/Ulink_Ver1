@@ -38,16 +38,35 @@
                 <form [formGroup]="myDomainForm" (ngSubmit)="registerDomain()">
                   <div class="row">
                     <h5>Make your URL Amazing</h5>
-                    <span style="font-style: italic; font-size: 13px"
-                      >Bước 1: Thêm các bản ghi DNS với type và value bên dưới
+                    <span style="font-style: italic; font-size: 13px">Bước 1: Thêm các bản ghi DNS với type và value bên dưới
                       <br />
                       <div style="margin: 5px 0 10px 25px">
-                        1. Host: * || Loại: A || Giá trị: 123.30.234.128
-                        <br />
-                        2. Host: @ || Loại: CNAME || Giá trị: 123.30.234.128
-                        <br />
-                        3. Host: www || Loại CNAME || Giá trị: domain của
-                        bạn(không chứa wwww, ví dụ: ulink.asia)
+                        <table id="customWithTable">
+                          <tr>
+                            <th>#</th>
+                            <th>Host</th>
+                            <th>Loại</th>
+                            <th>Giá trị</th>
+                          </tr>
+                          <tr>
+                            <td>1</td>
+                            <td>*</td>
+                            <td>A</td>
+                            <td>123.30.234.128</td>
+                          </tr>
+                          <tr>
+                            <td>2</td>
+                            <td>@</td>
+                            <td>CNAME</td>
+                            <td>123.30.234.128</td>
+                          </tr>
+                          <tr>
+                            <td>3</td>
+                            <td>www</td>
+                            <td>CNAME</td>
+                            <td>your-domain.com</td>
+                          </tr>
+                        </table>
                       </div>
                     </span>
                     <br />
@@ -61,44 +80,40 @@
                       5 phút hoàn thành.</span
                     >
 
-                    <div class="col-lg-6 col-md-6 mt-4">
-                      <div class="form-group">
-                        <label class="col-form-label">Domain</label>
-                        <div class="pass-group group-img">
-                          <span class="lock-icon"
-                            ><i class="feather-link"></i
-                          ></span>
-                          <input
-                            type="tel"
-                            class="form-control"
-                            formControlName="domain"
-                            placeholder="Enter my domain"
-                          />
+                    <div class="container text-center">
+                      <div class="row align-items-center">
+                        <div class="col-lg-5 col-md-6 mt-4">
+                          <div class="form-group">
+                            <div class="pass-group group-img">
+                          <span class="lock-icon"><i class="feather-link"></i></span>
+                              <input
+                                type="tel"
+                                class="form-control"
+                                formControlName="domain"
+                                placeholder="Enter my domain"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-5 col-md-6 mt-4">
+                          <div class="form-group">
+                            <div class="group-img">
+                              <i class="feather-mail"></i>
+                              <input
+                                type="email"
+                                class="form-control"
+                                formControlName="email"
+                                placeholder="Enter email"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-2">
+                          <button class="btn btn-primary" type="submit" [disabled]="myDomainForm.invalid" id="customWithButton">
+                            Add Domain
+                          </button>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 mt-4">
-                      <div class="form-group">
-                        <label class="col-form-label">Email Address</label>
-                        <div class="group-img">
-                          <i class="feather-mail"></i>
-                          <input
-                            type="email"
-                            class="form-control"
-                            formControlName="email"
-                            placeholder="Enter email"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <button
-                        class="btn btn-primary w-25"
-                        type="submit"
-                        [disabled]="myDomainForm.invalid"
-                      >
-                        Add Domain
-                      </button>
                     </div>
                   </div>
                 </form>
@@ -114,6 +129,7 @@
                         <th class="no-sort">ID</th>
                         <th class="no-sort">Domain</th>
                         <th>Status</th>
+                        <th class="no-sort">Last Modified</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -130,24 +146,27 @@
                         </td>
                         <td>
                           <div>
-                            <span class="discount-amt">{{
-                              data.domainName
-                            }}</span>
+                            <span class="discount-amt">{{data.domainName}}</span>
                           </div>
                         </td>
                         <td>
                           <span
                             [ngClass]="{ unpublish: data.isActive === true }"
-                            class="status-text"
+                            class="status-text" style="color: #22C55E"
                           >
                             <i
-                              class="feather-check-circle"
+                              class="feather-check-circle"  style="color: #22C55E"
                               *ngIf="data.isActive; else inactive"
                             ></i>
                             <ng-template #inactive>
                               <i class="feather-x"></i
                             ></ng-template>
                           </span>
+                        </td>
+                        <td style="text-align: center;">
+                          <div>
+                            <span class="discount-amt">{{ data.lastModifiedDate | date : "HH:MM dd/MM/YYYY" }}</span>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
