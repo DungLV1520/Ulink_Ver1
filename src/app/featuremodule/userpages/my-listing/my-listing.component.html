@@ -86,19 +86,14 @@
                   </td>
                   <td>
                     <h6>
-                      <a
-                        [routerLink]="routes.servicedetails"
+                      <a target="_blank"
                         style="color: #2a5bd7"
-                        target="_blank"
+                        href="{{ data.urlResult }}"
                         >{{ data.urlResult }}</a
                       >
                     </h6>
                     <div class="listingtable-rate">
-                      <a
-                        href="javascript:void(0)"
-                        class="cat-icon"
-                        target="_blank"
-                      >
+                      <a href="{{ data.urlOriginal }}" target="_blank" class="cat-icon">
                         {{ data.urlOriginal }}</a
                       >
                     </div>

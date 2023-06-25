@@ -199,18 +199,14 @@ export class CreatLinkComponent {
         tap((res: any) => {
           this.urlULink = res.data.url_ulink;
           console.log(res);
-
-
+          this.clipboard.copy(this.urlULink);
+          this.toast.success('Register url success. </br>Copy ' + this.urlULink + ' into clipboard.');
           setTimeout(() => {
             this.formFake.patchValue({
               urlULink: res.data.url_ulink,
             });
           }, 0);
-          this.clipboard.copy(this.urlULink);
           this.resetForm();
-          this.toast.success(
-            'Copy ' + this.urlULink + ' into clipboard. Register URL success!'
-          );
         }),
         catchError((error) => {
           this.toast.error(error);
@@ -264,7 +260,7 @@ export class CreatLinkComponent {
           this.clipboard.copy(this.urlULink);
           this.resetFormShort();
           this.toast.success(
-            `Copy ${res.data.url_ulink} into clipboard. Register url success!`
+            `Register url success.</br> Copy ${res.data.url_ulink} into clipboard.`
           );
         },
         error: (error) => {
