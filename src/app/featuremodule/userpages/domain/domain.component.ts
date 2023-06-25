@@ -67,12 +67,14 @@ export class DomainComponent {
               this.toastr.success(`Add domain [${domain}] success`);
               this.getAllMyDomain();
             } else {
-              this.toastr.error(`Add domain [${domain}] failed. Please contact to admin`);
+              this.toastr.error(`Add domain [${domain}] failed.
+              Please contact us`);
             }
           }
         },
         error: (err) => {
-          this.toastr.error(`Add domain [${domain}] failed. Please contact to admin`);
+          this.toastr.error(`Add domain [${domain}] failed.
+            Please contact us`);
         },
       });
   }
