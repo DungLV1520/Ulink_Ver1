@@ -19,8 +19,7 @@
           </a>
         </li>
         <li>
-          <a class="disabled-link">
-            <!-- <a [routerLink]="routes.profile"> -->
+             <a [routerLink]="routes.profile">
             <i class="fa-solid fa-user"></i> <span>Profile</span>
           </a>
         </li>
@@ -51,10 +50,11 @@
             >
               <thead>
                 <tr>
+                  <th mat-sort-header="img" class="no-sort">#</th>
                   <th mat-sort-header="img" class="no-sort">PageId</th>
                   <th mat-sort-header="details" class="no-sort">Details</th>
                   <th mat-sort-header="status">Status</th>
-                  <th mat-sort-header="view">TotalClick</th>
+                  <th mat-sort-header="view">Click</th>
                   <th
                     mat-sort-header="Action"
                     class="text-center"
@@ -65,7 +65,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let data of linkData">
+                <tr *ngFor="let data of linkData; let i = index">
+                  <td>
+                    <div>
+                      <span class="discount-amt">{{ i + 1 }}</span>
+                    </div>
+                  </td>
                   <td>
                     <div
                       class="listingtable-img"
@@ -94,17 +99,11 @@
                     </div>
                   </td>
                   <td>
-                    <span
-                      [ngClass]="{ unpublish: data.isActive === true }"
-                      class="status-text"
-                    >
-                      <i
-                        class="feather-check-circle"
-                        *ngIf="data.isActive; else inactive"
-                      ></i>
+                    <span [ngClass]="{ unpublish: data.isActive === true }" class="status-text">
+                      <i class="feather-check-circle" style="color: #22C55E" *ngIf="data.isActive; else inactive"></i>
                       <ng-template #inactive>
-                        <i class="feather-x"></i
-                      ></ng-template>
+                        <i class="feather-x" style="color: #22C55E"></i>
+                      </ng-template>
                     </span>
                   </td>
                   <td style="text-align: left">
