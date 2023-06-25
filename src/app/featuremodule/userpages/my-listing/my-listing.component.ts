@@ -15,7 +15,8 @@ export class MyListingComponent {
   linkData: any[] = [];
   total = 10;
   page = 0;
-  pagesize = 50;
+  pagesize = 5;
+  maxSize = 5;
 
   constructor(
     private DataService: DataService,
