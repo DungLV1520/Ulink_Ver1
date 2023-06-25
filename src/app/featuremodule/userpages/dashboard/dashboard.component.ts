@@ -53,7 +53,6 @@ export class DashboardComponent {
   getAllPage(): void {
     this.uLinkService.getAllPage().subscribe({
       next: (res: any) => {
-        console.log(res);
         this.allPage = res;
       },
     });
@@ -140,7 +139,6 @@ export class DashboardComponent {
           res.totalClicks,
           res.date
         );
-        console.log(res);
       },
     });
   }

@@ -142,7 +142,7 @@ export class ULinkService {
     headers.append('Accept', 'application/json');
 
     return this.http.post<any>(
-      this.baseBackendUrl + '/upload-file-image',
+      GlobalComponent.API_URL_LOCAL + 'facebook/upload-file-image',
       data,
       { headers }
     );

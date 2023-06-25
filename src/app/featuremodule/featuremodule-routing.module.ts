@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FeaturemoduleComponent } from './featuremodule.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
         path: 'userpages',
         loadChildren: () =>
           import('./userpages/userpages.module').then((m) => m.UserpagesModule),
+        canActivate:[AuthGuard]
       },
     ],
   },

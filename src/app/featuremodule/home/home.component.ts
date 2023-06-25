@@ -11,6 +11,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { HotToastService } from '@ngneat/hot-toast';
 import { catchError, finalize, from, of, switchMap, tap } from 'rxjs';
 import { RegisterDomain } from 'src/app/shared/model/register.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +38,8 @@ export class HomeComponent {
     public router: Router,
     private clipboard: Clipboard,
     private ulinkService: ULinkService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private authService: AuthService
   ) {
     (this.jobholder = this.DataService.jobholder),
       (this.universitiesCompanies = this.DataService.universitiesCompanies),
@@ -122,6 +124,12 @@ export class HomeComponent {
     this.formShort.patchValue({
       domain: this.getRandomElementFromArray(),
     });
+
+    const currentUser = this.authService.currentManagerValue;
+
+    if (currentUser && currentUser.token) {
+      this.router.navigate(['/userpages/my-listing']);
+    }
   }
 
   get fFake() {
@@ -149,117 +157,11 @@ export class HomeComponent {
   }
 
   registerLink() {
-    this.submitted = true;
-
-    if (!this.fileToUpload || !this.formFake.valid) {
-      this.toast.error("Check field and data input. Can't register URL");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', this.fileToUpload);
-
-    const toastRef = this.toast.loading('Loading...', {
-      duration: 20000,
-      position: 'top-center',
-    });
-
-    from(this.ulinkService.uploadImage(formData))
-      .pipe(
-        switchMap((res) => {
-          let register = new RegisterDomain();
-          register.type = 'FACEBOOK';
-          register.source_page = this.formFake.get('domain')!.value;
-          register.url_original = this.formFake.get('originalLink')!.value;
-          register.content.alias_register =
-            this.formFake.get('aliasRegister')!.value;
-          register.content.url_normal_user =
-            this.formFake.get('originalLink')!.value;
-          register.content.url_manager_fb_user = 'https://www.youtube.com';
-          register.content.title = this.formFake.get('title')!.value;
-          register.content.type = this.formFake.get('displayType')!.value;
-          register.content.description =
-            this.formFake.get('description')!.value;
-          register.content.thumbnail = res.data;
-
-          return this.ulinkService.registerDomain(register);
-        }),
-        tap((res: any) => {
-          this.urlULink = res.data.url_ulink;
-          console.log(this.urlULink);
-
-          setTimeout(() => {
-            this.formFake.patchValue({
-              urlULink: res.data.url_ulink,
-            });
-          }, 0);
-          this.clipboard.copy(this.urlULink);
-          this.resetForm();
-          this.toast.success(
-            'Copy ' + this.urlULink + ' into clipboard. Register URL success!'
-          );
-        }),
-        catchError((error) => {
-          console.log(error);
-
-          this.toast.error(error);
-          this.submitted = false;
-          return of(null);
-        }),
-        finalize(() => toastRef.close())
-      )
-      .subscribe();
+    this.router.navigate(['/auth/login']);
   }
 
   registerLinkShort() {
-    this.submittedShort = true;
-    if (this.formShort.invalid) {
-      this.toast.error("Check field and data input. Can't register url");
-      return;
-    }
-
-    const toastRef = this.toast.loading('Loading...', {
-      duration: 20000,
-      position: 'top-center',
-    });
-
-    let register = new RegisterDomain();
-    register.type = 'FACEBOOK';
-    register.source_page = this.formShort.get('domain')!.value;
-    register.url_original = this.formShort.get('originalLink')!.value;
-    register.content.alias_register =
-      this.formShort.get('aliasRegister')!.value;
-    register.content.url_normal_user =
-      this.formShort.get('originalLink')!.value;
-    register.content.url_manager_fb_user = '';
-    register.content.title = '';
-    register.content.type = '';
-    register.content.description = '';
-    register.content.thumbnail = '';
-
-    this.ulinkService
-      .registerDomain(register)
-      .pipe(finalize(() => toastRef.close()))
-      .subscribe({
-        next: (res: any) => {
-          this.urlULink = res.data.url_ulink;
-          setTimeout(() => {
-            this.formShort.patchValue({
-              urlULink: res.data.url_ulink,
-            });
-          }, 0);
-
-          this.clipboard.copy(this.urlULink);
-          this.resetFormShort();
-          this.toast.success(
-            `Copy ${res.data.url_ulink} into clipboard. Register url success!`
-          );
-        },
-        error: (error) => {
-          this.toast.error(error);
-          this.submittedShort = false;
-        },
-      });
+    this.router.navigate(['/auth/login']);
   }
 
   resetForm(): void {

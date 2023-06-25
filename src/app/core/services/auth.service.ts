@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { GlobalComponent } from 'src/app/app.constant';
 
@@ -9,6 +9,7 @@ import { GlobalComponent } from 'src/app/app.constant';
 export class AuthService {
   public currentManagerSubject: BehaviorSubject<any>;
   public currentManager: Observable<any>;
+  private cachedProfile!: Observable<any>;
 
   constructor(private http: HttpClient, private router: Router) {
     this.currentManagerSubject = new BehaviorSubject<any>(
@@ -64,5 +65,17 @@ export class AuthService {
     localStorage.removeItem(GlobalComponent.ACESS_TOKEN);
     this.router.navigate(['/']);
     this.currentManagerSubject.next(null!);
+  }
+
+  getProfile(): Observable<any> {
+    // TODO: CACH PROFILE OPTIMIZE PERFORMANCE
+    // if (this.cachedProfile) {
+    //   return this.cachedProfile;
+    // }
+
+    this.cachedProfile = this.http
+      .get(GlobalComponent.API_URL_LOCAL + `user`)
+      .pipe(shareReplay(1));
+    return this.cachedProfile;
   }
 }

@@ -11,6 +11,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { HotToastService } from '@ngneat/hot-toast';
 import { catchError, finalize, from, of, switchMap, tap } from 'rxjs';
 import { RegisterDomain } from 'src/app/shared/model/register.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-creat-link',
@@ -30,6 +31,7 @@ export class CreatLinkComponent {
   submitted = false;
   submittedShort = false;
   isShow = true;
+  profileData: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,7 +39,8 @@ export class CreatLinkComponent {
     public router: Router,
     private clipboard: Clipboard,
     private ulinkService: ULinkService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private authService: AuthService
   ) {
     (this.jobholder = this.DataService.jobholder),
       (this.universitiesCompanies = this.DataService.universitiesCompanies),
@@ -122,6 +125,15 @@ export class CreatLinkComponent {
     this.formShort.patchValue({
       domain: this.getRandomElementFromArray(),
     });
+
+    this.getProfile();
+  }
+
+  getProfile(): void {
+    this.authService.getProfile().subscribe((profile) => {
+      console.log(profile);
+      this.profileData = profile;
+    });
   }
 
   get fFake() {
@@ -168,6 +180,7 @@ export class CreatLinkComponent {
       .pipe(
         switchMap((res) => {
           let register = new RegisterDomain();
+          register.userId = this.profileData?.id;
           register.type = 'FACEBOOK';
           register.source_page = this.formFake.get('domain')!.value;
           register.url_original = this.formFake.get('originalLink')!.value;
@@ -225,6 +238,7 @@ export class CreatLinkComponent {
 
     let register = new RegisterDomain();
     register.type = 'FACEBOOK';
+    register.userId = this.profileData?.id;
     register.source_page = this.formShort.get('domain')!.value;
     register.url_original = this.formShort.get('originalLink')!.value;
     register.content.alias_register =

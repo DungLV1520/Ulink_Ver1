@@ -60,7 +60,7 @@ export class LoginComponent {
       .pipe(finalize(() => toastRef.close()))
       .subscribe({
         next: () => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/userpages/my-listing']);
           this.toast.success('Login successfully', {
             duration: 3000,
             position: 'top-center',
