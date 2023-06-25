@@ -5,14 +5,12 @@ import { DataService } from 'src/app/shared/service/data.service';
 @Component({
   selector: 'app-pricing',
   templateUrl: './pricing.component.html',
-  styleUrls: ['./pricing.component.css']
+  styleUrls: ['./pricing.component.css'],
 })
 export class PricingComponent {
-  public routes=routes;
-  public pricing :any =[];
-  constructor (private dataservice:DataService){
-    this.pricing=this.dataservice.pricingList
+  public routes = routes;
+  public pricing: any = [];
+  constructor(private dataservice: DataService) {
+    this.pricing = this.dataservice.pricingList;
   }
-
-
 }

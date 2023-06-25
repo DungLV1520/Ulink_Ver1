@@ -34,13 +34,14 @@ export class HeaderComponent implements OnInit {
       }
     });
     this.getroutes(this.router);
-    this.authService.currentManagerSubject.subscribe((data)=>{
-      if (data) {
-        this.nav = false;
-      } else {
-        this.nav = true;
-      }
-    })
+
+    const currentUser = this.authService.currentManagerValue;
+
+    if (currentUser && currentUser.token) {
+      this.nav = false;
+    } else {
+      this.nav = true;
+    }
   }
 
   ngOnInit(): void {}
@@ -51,7 +52,9 @@ export class HeaderComponent implements OnInit {
     this.page = splitVal[2];
     this.last = splitVal[3];
 
-    if (this.base == 'userpages') {
+    const currentUser = this.authService.currentManagerValue;
+
+    if (currentUser && currentUser.token) {
       this.nav = false;
     } else {
       this.nav = true;
@@ -65,7 +68,7 @@ export class HeaderComponent implements OnInit {
     this.sidebarService.closeSidebar();
   }
 
-  logout():void{
+  logout(): void {
     this.authService.logout();
   }
 }

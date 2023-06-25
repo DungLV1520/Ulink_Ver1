@@ -131,7 +131,6 @@ export class CreatLinkComponent {
 
   getProfile(): void {
     this.authService.getProfile().subscribe((profile) => {
-      console.log(profile);
       this.profileData = profile;
     });
   }
@@ -199,7 +198,8 @@ export class CreatLinkComponent {
         }),
         tap((res: any) => {
           this.urlULink = res.data.url_ulink;
-          console.log(this.urlULink);
+          console.log(res);
+
 
           setTimeout(() => {
             this.formFake.patchValue({
@@ -213,8 +213,6 @@ export class CreatLinkComponent {
           );
         }),
         catchError((error) => {
-          console.log(error);
-
           this.toast.error(error);
           this.submitted = false;
           return of(null);

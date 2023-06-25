@@ -25,6 +25,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           err.error.statusCode === 401 ||
           err.error.message === 'jwt expired'
         ) {
+          this.router.navigate(['/auth/login']);
         }
 
         const error = err.error.message || err.statusText;
