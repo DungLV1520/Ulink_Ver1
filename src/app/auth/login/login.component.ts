@@ -28,6 +28,7 @@ export class LoginComponent {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
+      rememberMe: [true],
     });
   }
 
@@ -55,7 +56,7 @@ export class LoginComponent {
     });
 
     this.authService
-      .login(this.f['username'].value, this.f['password'].value)
+      .login(this.f['username'].value, this.f['password'].value, this.f['rememberMe'].value)
       .pipe(finalize(() => toastRef.close()))
       .subscribe({
         next: () => {

@@ -21,11 +21,12 @@ export class AuthService {
     return this.currentManagerSubject.value;
   }
 
-  login(username: string, password: string) {
+  login(username: string, password: string, rememberMe: boolean = false) {
     return this.http
       .post<any>(GlobalComponent.API_URL_LOCAL + `auth/signin`, {
         username,
         password,
+        rememberMe
       })
       .pipe(
         map((user) => {
