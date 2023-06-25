@@ -46,4 +46,8 @@ export class MyListingComponent {
       this.linkData = res.links;
     });
   }
+
+  viewStreamingClick() : void {
+
+  }
 }
