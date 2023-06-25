@@ -39,10 +39,10 @@ export class ULinkService {
     );
   }
 
-  getLink() {
+  getLink(pageNo:number,pageSize:number) {
     return this.http.get(
       GlobalComponent.API_URL_LOCAL +
-        '/links?pageNo=0&pageSize=100&sortBy=id&sortDir=desc'
+        `/links?pageNo=${pageNo}&pageSize=${pageSize}&sortBy=id&sortDir=desc`
     );
   }
 

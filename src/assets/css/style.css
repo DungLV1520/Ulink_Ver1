@@ -4199,7 +4199,7 @@ a:hover, a:focus {
     color: #fff;
 }
 .page-item:first-child .page-link, .page-item:last-child .page-link {
-    border-radius: 10px;
+    border-radius: 0px !important;
 }
 .previtem a i,.nextlink a i {
     color: #C10037;

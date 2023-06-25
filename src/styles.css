@@ -387,3 +387,9 @@ mdc-option-active,
   color: inherit;
   text-decoration: none;
 }
+.page-link.active, .active > .page-link{
+  z-index: 3;
+  color: white!important;
+  background-color: #c10037!important;
+  border-color: #c10037!important;
+}
