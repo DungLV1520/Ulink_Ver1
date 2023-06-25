@@ -15,10 +15,10 @@ import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-creat-link',
-  templateUrl: './creat-link.component.html',
-  styleUrls: ['./creat-link.component.css'],
+  templateUrl: './create-link.component.html',
+  styleUrls: ['./create-link.component.css'],
 })
-export class CreatLinkComponent {
+export class CreateLinkComponent {
   formFake!: FormGroup;
   formShort!: FormGroup;
   routes = routes;
@@ -103,6 +103,7 @@ export class CreatLinkComponent {
   };
 
   ngOnInit(): void {
+    this.getProfile();
     AOS.init({ disable: 'mobile' });
     this.formFake = this.formBuilder.group({
       originalLink: ['', [Validators.required, Validators.maxLength(1000)]],
@@ -125,8 +126,6 @@ export class CreatLinkComponent {
     this.formShort.patchValue({
       domain: this.getRandomElementFromArray(),
     });
-
-    this.getProfile();
   }
 
   getProfile(): void {
@@ -179,7 +178,7 @@ export class CreatLinkComponent {
       .pipe(
         switchMap((res) => {
           let register = new RegisterDomain();
-          register.userId = this.profileData?.id;
+          register.user_id = this.profileData?.id;
           register.type = 'FACEBOOK';
           register.source_page = this.formFake.get('domain')!.value;
           register.url_original = this.formFake.get('originalLink')!.value;
@@ -232,13 +231,11 @@ export class CreatLinkComponent {
 
     let register = new RegisterDomain();
     register.type = 'FACEBOOK';
-    register.userId = this.profileData?.id;
+    register.user_id = this.profileData?.id;
     register.source_page = this.formShort.get('domain')!.value;
     register.url_original = this.formShort.get('originalLink')!.value;
-    register.content.alias_register =
-      this.formShort.get('aliasRegister')!.value;
-    register.content.url_normal_user =
-      this.formShort.get('originalLink')!.value;
+    register.content.alias_register = this.formShort.get('aliasRegister')!.value;
+    register.content.url_normal_user = this.formShort.get('originalLink')!.value;
     register.content.url_manager_fb_user = '';
     register.content.title = '';
     register.content.type = '';

@@ -13,7 +13,7 @@ export class RegisterDomain {
     type: string = 'FACEBOOK';
     source_page: string = 'https://ulink.asia';
     url_original?: string;
-    userId?: number;
+    user_id?: number;
     setting_advanced: boolean = false;
     content: ContentRegister = new ContentRegister();
     constructor() {}

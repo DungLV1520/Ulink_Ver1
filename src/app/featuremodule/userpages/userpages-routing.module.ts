@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserpagesComponent } from './userpages.component';
-import { CreatLinkComponent } from './creat-link/creat-link.component';
+import {CreateLinkComponent} from "./create-link/create-link.component";
 
 const routes: Routes = [
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
       },
       {
         path: 'create-link',
-        component: CreatLinkComponent,
+        component: CreateLinkComponent,
       },
       {
         path: 'domain',
