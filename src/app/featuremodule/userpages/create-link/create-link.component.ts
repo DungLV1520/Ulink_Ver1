@@ -33,6 +33,8 @@ export class CreateLinkComponent {
   isShow = true;
   profileData: any;
 
+  domainSelecteds: any = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private DataService: DataService,
@@ -103,6 +105,7 @@ export class CreateLinkComponent {
   };
 
   ngOnInit(): void {
+    this.getAllDomainRegister();
     this.getProfile();
     AOS.init({ disable: 'mobile' });
     this.formFake = this.formBuilder.group({
@@ -121,10 +124,6 @@ export class CreateLinkComponent {
       aliasRegister: ['', [Validators.minLength(2), Validators.maxLength(50)]],
       domain: ['', [Validators.required]],
       urlULink: [''],
-    });
-
-    this.formShort.patchValue({
-      domain: this.getRandomElementFromArray(),
     });
   }
 
@@ -182,22 +181,18 @@ export class CreateLinkComponent {
           register.type = 'FACEBOOK';
           register.source_page = this.formFake.get('domain')!.value;
           register.url_original = this.formFake.get('originalLink')!.value;
-          register.content.alias_register =
-            this.formFake.get('aliasRegister')!.value;
-          register.content.url_normal_user =
-            this.formFake.get('originalLink')!.value;
+          register.content.alias_register = this.formFake.get('aliasRegister')!.value;
+          register.content.url_normal_user = this.formFake.get('originalLink')!.value;
           register.content.url_manager_fb_user = 'https://www.youtube.com';
           register.content.title = this.formFake.get('title')!.value;
           register.content.type = this.formFake.get('displayType')!.value;
-          register.content.description =
-            this.formFake.get('description')!.value;
+          register.content.description = this.formFake.get('description')!.value;
           register.content.thumbnail = res.data;
 
           return this.ulinkService.registerDomain(register);
         }),
         tap((res: any) => {
           this.urlULink = res.data.url_ulink;
-          console.log(res);
           this.clipboard.copy(this.urlULink);
           this.toast.success('Register url success. </br>Copy ' + this.urlULink + ' into clipboard.');
           setTimeout(() => {
@@ -271,7 +266,6 @@ export class CreateLinkComponent {
     this.submitted = false;
     this.formFake.reset();
     this.formFake.patchValue({
-      domain: this.getRandomElementFromArray(),
       displayType: 'video.other',
     });
   }
@@ -279,9 +273,6 @@ export class CreateLinkComponent {
   resetFormShort(): void {
     this.submittedShort = false;
     this.formShort.reset();
-    this.formShort.patchValue({
-      domain: this.getRandomElementFromArray(),
-    });
   }
 
   onFileSelected(event: any) {
@@ -300,12 +291,13 @@ export class CreateLinkComponent {
   checkShow(check: boolean): void {
     this.isShow = check;
     this.formFake.patchValue({
-      domain: this.getRandomElementFromArray(),
       displayType: 'video.other',
     });
+  }
 
-    this.formShort.patchValue({
-      domain: this.getRandomElementFromArray(),
+  getAllDomainRegister(): void {
+    this.ulinkService.getAllDomainRegister().subscribe((res) => {
+      this.domainSelecteds = res;
     });
   }
 }

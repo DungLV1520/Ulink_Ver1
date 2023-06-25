@@ -129,35 +129,27 @@
                               <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                   <div class="form-group">
-                                    <label class="col-form-label">Domain</label>
+                                    <label class="col-form-label">Domain<span style="color: rgb(210, 82, 82)">
+                                      *</span></label>
                                     <div class="pass-group group-img">
                                       <div class="filter-content form-group">
                                         <mat-form-field
                                           class="mat-custom-select w-100"
                                         >
-                                          <mat-select formControlName="domain">
-                                            <mat-option
-                                              value="https://ulink.asia"
-                                            >
-                                              https://ulink.asia
-                                            </mat-option>
-                                            <mat-option
-                                              value="https://ulink.store"
-                                            >
-                                              https://ulink.store
-                                            </mat-option>
-                                            <mat-option
-                                              value="https://ulink.wiki"
-                                            >
-                                              https://ulink.wiki
-                                            </mat-option>
-                                            <mat-option
-                                              value="https://uhide.click"
-                                            >
-                                              https://uhide.click
+                                          <mat-select formControlName="domain" placeholder="Select Domain">
+                                            <mat-option [value]="s.domainName" *ngFor="let s of domainSelecteds;">
+                                              https://{{s.domainName}}
                                             </mat-option>
                                           </mat-select>
                                         </mat-form-field>
+                                      </div>
+                                      <div *ngIf="submittedShort &&  fShort['domain'].invalid">
+                                        <div
+                                          *ngIf=" fShort['domain'].errors![ 'required' ] "
+                                          class="error"
+                                        >
+                                          Select Domain is required
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -405,8 +397,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                   <div class="form-group">
-                                    <label class="col-form-label"
-                                      >Custom Alias</label
+                                    <label class="col-form-label">Enter a back-half (optional)</label
                                     >
                                     <div class="group-img">
                                       <i class="feather-compass"></i>
@@ -482,6 +473,58 @@
                                     </div>
                                   </div>
                                 </div>
+
+                                <div class="col-lg-6">
+                                  <div class="form-group">
+                                    <label class="col-form-label">Domain<span style="color: rgb(210, 82, 82)">
+                                      *</span></label>
+                                    <div class="pass-group group-img">
+                                      <div class="filter-content form-group">
+                                        <mat-form-field
+                                          class="mat-custom-select w-100"
+                                        >
+                                          <mat-select formControlName="domain" placeholder="Select Domain">
+                                            <mat-option [value]="s.domainName" *ngFor="let s of domainSelecteds;">
+                                              https://{{s.domainName}}
+                                            </mat-option>
+                                          </mat-select>
+                                        </mat-form-field>
+                                      </div>
+                                      <div *ngIf="submitted &&  fShort['domain'].invalid">
+                                        <div
+                                          *ngIf=" fShort['domain'].errors![ 'required' ] "
+                                          class="error"
+                                        >
+                                          Select Domain is required
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="form-group">
+                                    <label class="col-form-label">Display Type (optional)</label>
+                                    <div class="pass-group group-img">
+                                      <div class="filter-content form-group">
+                                        <mat-form-field
+                                          class="mat-custom-select w-100"
+                                        >
+                                          <mat-select formControlName="displayType" placeholder="Select Display Type">
+                                            <mat-option value="video.other">
+                                              Video
+                                            </mat-option>
+                                            <mat-option value="website">
+                                              Website
+                                            </mat-option>
+                                            <mat-option value="article">
+                                              Article
+                                            </mat-option>
+                                          </mat-select>
+                                        </mat-form-field>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
 
                               <div class="row socialmedia-info mt-3">
@@ -495,7 +538,7 @@
                                           type="submit"
                                           style="padding: 12px"
                                         >
-                                          Create your link
+                                          Create Link
                                         </button>
                                         <button
                                           class="category-btn"
@@ -503,7 +546,7 @@
                                           style="padding: 12px; margin-left: 42px;"
                                           (click)="copyToClipboard()"
                                         >
-                                          Copy your link
+                                          Copy Link
                                         </button>
                                       </div>
 

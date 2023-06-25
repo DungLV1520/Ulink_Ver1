@@ -151,4 +151,8 @@ export class ULinkService {
   getAllPage() {
     return this.http.get(GlobalComponent.API_URL_LOCAL + '/page/all');
   }
+
+  getAllDomainRegister() {
+    return this.http.get(GlobalComponent.API_URL_LOCAL + 'domain/all-create-page-id');
+  }
 }

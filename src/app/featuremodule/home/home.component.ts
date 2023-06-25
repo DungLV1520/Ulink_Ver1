@@ -9,8 +9,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ULinkService } from 'src/app/shared/service/ulink.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HotToastService } from '@ngneat/hot-toast';
-import { catchError, finalize, from, of, switchMap, tap } from 'rxjs';
-import { RegisterDomain } from 'src/app/shared/model/register.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -31,6 +29,7 @@ export class HomeComponent {
   submitted = false;
   submittedShort = false;
   isShow = true;
+  domainSelecteds: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -102,6 +101,7 @@ export class HomeComponent {
   };
 
   ngOnInit(): void {
+    this.getAllDomainRegister();
     AOS.init({ disable: 'mobile' });
     this.formFake = this.formBuilder.group({
       originalLink: ['', [Validators.required, Validators.maxLength(1000)]],
@@ -203,6 +203,12 @@ export class HomeComponent {
 
     this.formShort.patchValue({
       domain: this.getRandomElementFromArray(),
+    });
+  }
+
+  getAllDomainRegister(): void {
+    this.ulinkService.getAllDomainRegister().subscribe((res) => {
+      this.domainSelecteds = res;
     });
   }
 }

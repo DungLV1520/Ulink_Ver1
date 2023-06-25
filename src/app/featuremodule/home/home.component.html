@@ -212,17 +212,8 @@
                           <div class="filter-content form-group">
                             <mat-form-field class="mat-custom-select w-100">
                               <mat-select formControlName="domain">
-                                <mat-option value="https://ulink.asia">
-                                  https://ulink.asia
-                                </mat-option>
-                                <mat-option value="https://ulink.store">
-                                  https://ulink.store
-                                </mat-option>
-                                <mat-option value="https://ulink.wiki">
-                                  https://ulink.wiki
-                                </mat-option>
-                                <mat-option value="https://uhide.click">
-                                  https://uhide.click
+                                <mat-option [value]="s.domainName" *ngFor="let s of domainSelecteds;">
+                                  https://{{s.domainName}}
                                 </mat-option>
                               </mat-select>
                             </mat-form-field>
