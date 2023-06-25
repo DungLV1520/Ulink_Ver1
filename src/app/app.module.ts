@@ -12,6 +12,7 @@ import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import {ToastrModule} from "ngx-toastr";
+import {NgbAlertModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,8 @@ import {ToastrModule} from "ngx-toastr";
       timeOut: 2000,
       progressBar: true
     }),
+    NgbPaginationModule,
+    NgbAlertModule,
     BsDatepickerModule.forRoot(),
     HotToastModule.forRoot(),
     FlatpickrModule.forRoot()
