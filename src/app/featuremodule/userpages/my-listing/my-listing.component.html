@@ -60,8 +60,8 @@
                   <th mat-sort-header="details" class="no-sort">Details</th>
                   <th mat-sort-header="status">Status</th>
                   <th mat-sort-header="view">Click</th>
-                  <th
-                    mat-sort-header="Action"
+                  <th mat-sort-header="lastModifiedDate" class="no-sort">Last Modified</th>
+                  <th mat-sort-header="Action"
                     class="text-center"
                     style="display: flex; justify-content: center !important"
                   >
@@ -120,6 +120,9 @@
                   </td>
                   <td style="text-align: center">
                     <span class="views-count">{{ data.totalClick }}</span>
+                  </td>
+                  <td style="text-align: center">
+                    <span >{{ data.lastModifiedDate | date: "HH:MM dd/MM/YYYY" }}</span>
                   </td>
                   <td>
                     <div class="action">

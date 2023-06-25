@@ -6,3 +6,12 @@ td {
   text-align: center !important;
   vertical-align: middle !important;
 }
+
+.listing-table th, .listing-table td {
+  padding: 15px 0px;
+}
+
+.mat-column-myColumn{
+  display: flex !important;
+  justify-content: center !important; /* Left aligned*/
+}
