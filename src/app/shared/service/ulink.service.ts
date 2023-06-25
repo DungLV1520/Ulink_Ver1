@@ -126,7 +126,7 @@ export class ULinkService {
   }
 
   createMyDomain(data: any) {
-    return this.http.post(GlobalComponent.API_URL_LOCAL + '/domain', data);
+    return this.http.post(GlobalComponent.API_URL_LOCAL + '/domain', data, {responseType: 'text'});
   }
 
   checkDNSDomain(domain: string) {

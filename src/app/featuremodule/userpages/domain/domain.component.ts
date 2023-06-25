@@ -42,23 +42,15 @@ export class DomainComponent {
   }
 
   registerDomain(): void {
-    const toastRef = this.toast.loading('Loading...', {
-      duration: 5000,
-      position: 'top-center',
-    });
-
     const domain = this.myDomainForm.get('domain')!.value;
-    this.uLinkService
-      .checkDNSDomain(domain)
+    this.uLinkService.checkDNSDomain(domain)
       .pipe(
         catchError(() => {
           return of(null);
         }),
         switchMap((res: any) => {
-          console.log(res);
-
           if (!res.isPointing) {
-            this.toastr.error(`Domain [${domain}] của bạn chưa trỏ tới IP: ${res.serverIp}`);
+            this.toastr.error(`Domain [${domain}] does not point to IP: ${res.serverIp}`);
             return of(null);
           }
 
@@ -66,17 +58,21 @@ export class DomainComponent {
             ...this.myDomainForm.value,
             isSubDomain: false,
           };
-
           return this.uLinkService.createMyDomain(objMyDomain);
-        }),
-        finalize(() => toastRef.close())
-      )
-      .subscribe({
+        })
+      ).subscribe({
         next: (res) => {
-          console.log(res);
+          if (res !== null) {
+            if ("OK" === res) {
+              this.toastr.success(`Add domain [${domain}] success`);
+              this.getAllMyDomain();
+            } else {
+              this.toastr.error(`Add domain [${domain}] failed. Please contact to admin`);
+            }
+          }
         },
         error: (err) => {
-          // Xử lý lỗi khi tạo domain
+          this.toastr.error(`Add domain [${domain}] failed. Please contact to admin`);
         },
       });
   }
@@ -84,7 +80,6 @@ export class DomainComponent {
   getAllMyDomain(): void {
     this.uLinkService.getAllMyDomain().subscribe({
       next: (res: any) => {
-        console.log(res);
         this.domainAll = res;
       },
     });
