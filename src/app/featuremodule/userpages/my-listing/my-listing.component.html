@@ -8,6 +8,11 @@
             <i class="feather-grid"></i> <span>Dashboard</span>
           </a>
         </li>
+        <li>
+          <a [routerLink]="routes.link">
+            <i class="feather-link"></i> <span>Create Link</span>
+          </a>
+        </li>
         <li class="active">
           <a [routerLink]="routes.mylisting">
             <i class="feather-list"></i> <span>My Link</span>
@@ -19,7 +24,7 @@
           </a>
         </li>
         <li>
-             <a [routerLink]="routes.profile">
+          <a [routerLink]="routes.profile">
             <i class="fa-solid fa-user"></i> <span>Profile</span>
           </a>
         </li>
@@ -99,10 +104,17 @@
                     </div>
                   </td>
                   <td>
-                    <span [ngClass]="{ unpublish: data.isActive === true }" class="status-text">
-                      <i class="feather-check-circle" style="color: #22C55E" *ngIf="data.isActive; else inactive"></i>
+                    <span
+                      [ngClass]="{ unpublish: data.isActive === true }"
+                      class="status-text"
+                    >
+                      <i
+                        class="feather-check-circle"
+                        style="color: #22c55e"
+                        *ngIf="data.isActive; else inactive"
+                      ></i>
                       <ng-template #inactive>
-                        <i class="feather-x" style="color: #22C55E"></i>
+                        <i class="feather-x" style="color: #22c55e"></i>
                       </ng-template>
                     </span>
                   </td>

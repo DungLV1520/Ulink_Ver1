@@ -109,6 +109,9 @@ export class routes {
   public static get profile(): string {
     return this.baseUrl + '/userpages/profile';
   }
+  public static get link(): string {
+    return this.baseUrl + '/userpages/create-link';
+  }
   public static get domain(): string {
     return this.baseUrl + '/userpages/domain';
   }

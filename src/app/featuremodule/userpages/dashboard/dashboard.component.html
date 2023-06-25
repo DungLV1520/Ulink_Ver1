@@ -9,6 +9,11 @@
           </a>
         </li>
         <li>
+          <a [routerLink]="routes.link">
+            <i class="feather-link"></i> <span>Create Link</span>
+          </a>
+        </li>
+        <li>
           <a [routerLink]="routes.mylisting">
             <i class="feather-list"></i> <span>My Links</span>
           </a>
@@ -19,8 +24,8 @@
           </a>
         </li>
         <li>
-<!--          <a class="disabled-link">-->
-             <a [routerLink]="routes.profile">
+          <!--          <a class="disabled-link">-->
+          <a [routerLink]="routes.profile">
             <i class="fa-solid fa-user"></i> <span>Profile</span>
           </a>
         </li>
@@ -109,25 +114,23 @@
 
         <div class="col-lg-6">
           <button
-          class="category-btn"
-          type="button"
-          style="padding: 12px; margin: 0 13px"
-
-          (click)="dashboardFilter()"
-        >
-        <i class="feather-grid"></i>
-          Filter
-        </button>
+            class="category-btn"
+            type="button"
+            style="padding: 12px; margin: 0 13px"
+            (click)="dashboardFilter()"
+          >
+            <i class="feather-grid"></i>
+            Filter
+          </button>
           <button
-          class="category-btn"
-          type="button"
-          style="padding: 12px; margin: 0 13px"
-
-          (click)="clearFilter()"
-        >
-        <i class="feather-grid"></i>
-          Clear Filter
-        </button>
+            class="category-btn"
+            type="button"
+            style="padding: 12px; margin: 0 13px"
+            (click)="clearFilter()"
+          >
+            <i class="feather-grid"></i>
+            Clear Filter
+          </button>
         </div>
       </div>
 
