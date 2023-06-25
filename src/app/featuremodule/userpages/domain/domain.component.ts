@@ -4,6 +4,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { catchError, finalize, of, switchMap } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { ULinkService } from 'src/app/shared/service/ulink.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-domain',
@@ -20,7 +21,8 @@ export class DomainComponent {
   constructor(
     private formBuilder: FormBuilder,
     private uLinkService: ULinkService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -56,13 +58,7 @@ export class DomainComponent {
           console.log(res);
 
           if (!res.isPointing) {
-            this.toast.error(
-              `Domain ${domain} chưa trỏ tới ip: ${res.serverIp}`,
-              {
-                duration: 7000,
-                position: 'top-center',
-              }
-            );
+            this.toastr.error(`Domain [${domain}] của bạn chưa trỏ tới IP: ${res.serverIp}`);
             return of(null);
           }
 

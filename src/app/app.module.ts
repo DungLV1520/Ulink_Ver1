@@ -11,6 +11,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,11 @@ import { FlatpickrModule } from 'angularx-flatpickr';
     AppRoutingModule,
     RouterModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      timeOut: 2000,
+      progressBar: true
+    }),
     BsDatepickerModule.forRoot(),
     HotToastModule.forRoot(),
     FlatpickrModule.forRoot()

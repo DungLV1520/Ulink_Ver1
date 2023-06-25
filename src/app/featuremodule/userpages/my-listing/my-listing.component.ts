@@ -3,6 +3,7 @@ import { Sort } from '@angular/material/sort';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { DataService } from 'src/app/shared/service/data.service';
 import { ULinkService } from 'src/app/shared/service/ulink.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-my-listing',
@@ -16,7 +17,8 @@ export class MyListingComponent {
 
   constructor(
     private DataService: DataService,
-    private uLinkService: ULinkService
+    private uLinkService: ULinkService,
+    private toastr: ToastrService
   ) {
     this.electronics = this.DataService.electronicsList;
   }
