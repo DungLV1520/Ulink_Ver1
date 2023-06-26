@@ -35,14 +35,14 @@ export class ULinkService {
 
   getStatisticOverviewDashboard() {
     return this.http.get(
-      GlobalComponent.API_URL_LOCAL + '/statistic-overview-dashboard'
+      GlobalComponent.API_URL_LOCAL + 'statistic-overview-dashboard'
     );
   }
 
   getLink(pageNo:number,pageSize:number) {
     return this.http.get(
       GlobalComponent.API_URL_LOCAL +
-        `/links?pageNo=${pageNo}&pageSize=${pageSize}&sortBy=id&sortDir=desc`
+        `links?pageNo=${pageNo}&pageSize=${pageSize}&sortBy=id&sortDir=desc`
     );
   }
 
@@ -54,7 +54,7 @@ export class ULinkService {
     };
     const options = createRequestOption(req);
     return this.http.get(
-      GlobalComponent.API_URL_LOCAL + `/links/statistic-click-by-agent-type`,
+      GlobalComponent.API_URL_LOCAL + `links/statistic-click-by-agent-type`,
       {
         params: options,
       }
@@ -69,7 +69,7 @@ export class ULinkService {
     };
     const options = createRequestOption(req);
     return this.http.get(
-      GlobalComponent.API_URL_LOCAL + `/links/statistic-click-by-device-name`,
+      GlobalComponent.API_URL_LOCAL + `links/statistic-click-by-device-name`,
       {
         params: options,
       }
@@ -84,7 +84,7 @@ export class ULinkService {
     };
     const options = createRequestOption(req);
     return this.http.get(
-      GlobalComponent.API_URL_LOCAL + `/links/statistic-click-by-country`,
+      GlobalComponent.API_URL_LOCAL + `links/statistic-click-by-country`,
       {
         params: options,
       }
@@ -99,7 +99,7 @@ export class ULinkService {
     };
     const options = createRequestOption(req);
     return this.http.get(
-      GlobalComponent.API_URL_LOCAL + `/links/statistic-click-by-reference`,
+      GlobalComponent.API_URL_LOCAL + `links/statistic-click-by-reference`,
       {
         params: options,
       }
@@ -114,7 +114,7 @@ export class ULinkService {
     };
     const options = createRequestOption(req);
     return this.http.get(
-      GlobalComponent.API_URL_LOCAL + `/links/statistic-click`,
+      GlobalComponent.API_URL_LOCAL + `links/statistic-click`,
       {
         params: options,
       }
@@ -126,13 +126,13 @@ export class ULinkService {
   }
 
   createMyDomain(data: any) {
-    return this.http.post(GlobalComponent.API_URL_LOCAL + '/domain', data, {responseType: 'text'});
+    return this.http.post(GlobalComponent.API_URL_LOCAL + 'domain', data, {responseType: 'text'});
   }
 
   checkDNSDomain(domain: string) {
     return this.http.get(
       GlobalComponent.API_URL_LOCAL +
-        `/domain/check-pointing-dns?domain=${domain}`
+        `domain/check-pointing-dns?domain=${domain}`
     );
   }
 
@@ -149,7 +149,7 @@ export class ULinkService {
   }
 
   getAllPage() {
-    return this.http.get(GlobalComponent.API_URL_LOCAL + '/page/all');
+    return this.http.get(GlobalComponent.API_URL_LOCAL + 'page/all');
   }
 
   getAllDomainRegister() {

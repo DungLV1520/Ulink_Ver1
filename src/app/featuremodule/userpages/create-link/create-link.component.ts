@@ -192,15 +192,21 @@ export class CreateLinkComponent {
           return this.ulinkService.registerDomain(register);
         }),
         tap((res: any) => {
-          this.urlULink = res.data.url_ulink;
-          this.clipboard.copy(this.urlULink);
-          this.toast.success('Register url success. </br>Copy ' + this.urlULink + ' into clipboard.');
-          setTimeout(() => {
-            this.formFake.patchValue({
-              urlULink: res.data.url_ulink,
-            });
-          }, 0);
-          this.resetForm();
+          if (res.code == 400) {
+            this.toast.error('Alias(back-half) already exists. </br>' +
+              'Please try again.');
+            return;
+          } else {
+            this.urlULink = res.data.url_ulink;
+            this.clipboard.copy(this.urlULink);
+            this.toast.success('Register url success. </br>Copy ' + this.urlULink + ' into clipboard.');
+            setTimeout(() => {
+              this.formFake.patchValue({
+                urlULink: res.data.url_ulink,
+              });
+            }, 0);
+            this.resetForm();
+          }
         }),
         catchError((error) => {
           this.toast.error(error);
