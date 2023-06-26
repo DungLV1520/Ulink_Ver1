@@ -37,8 +37,21 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void {
+    this.getDateInput();
     this.getAllPage();
     this.clearFilter();
+  }
+
+  getDateInput(): void {
+    const currentDate = new Date();
+    const fromDate = new Date();
+    fromDate.setDate(currentDate.getDate() - 8);
+    const toDate = currentDate;
+
+    this.selectedDate = {
+      from: fromDate,
+      to: toDate,
+    };
   }
 
   filterDashboard(from: string, to: string, idPage: string): void {
@@ -144,6 +157,8 @@ export class DashboardComponent {
   }
 
   searchDashboard(): void {
+    console.log(this.selectedDate);
+
     const from = this.datePipe.transform(
       new Date(this.selectedDate.from),
       'dd/MM/yyyy'
@@ -163,6 +178,10 @@ export class DashboardComponent {
     this.filterDashboard(formattedDateFrom!, formattedDateTo!, this.idPage!);
   }
 
+  checkSearch():boolean{
+    return this.selectedDate && this.idPage;
+  }
+
   clearFilter(): void {
     const currentDate = new Date();
     const pastDate = new Date(currentDate.getTime() - 8 * 24 * 60 * 60 * 1000);
@@ -173,7 +192,8 @@ export class DashboardComponent {
     const formattedPastDate = this.datePipe.transform(pastDate, 'yyyyMMdd');
 
     this.filterDashboard(formattedPastDate!, formattedCurrentDate!, undefined!);
-    this.idPage=undefined;
+    this.idPage = undefined;
+    this.getDateInput();
   }
 
   private _simplePieChartAgentType(colors: any) {

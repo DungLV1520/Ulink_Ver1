@@ -39,10 +39,18 @@ export class ULinkService {
     );
   }
 
-  getLink(pageNo:number,pageSize:number) {
+  getLink(pageNo: number, pageSize: number, from?: string, to?: string) {
+    const req = {
+      from,
+      to,
+    };
+    const options = createRequestOption(req);
     return this.http.get(
       GlobalComponent.API_URL_LOCAL +
-        `links?pageNo=${pageNo}&pageSize=${pageSize}&sortBy=id&sortDir=desc`
+        `links?pageNo=${pageNo}&pageSize=${pageSize}&sortBy=id&sortDir=desc`,
+      {
+        params: options,
+      }
     );
   }
 
@@ -126,7 +134,9 @@ export class ULinkService {
   }
 
   createMyDomain(data: any) {
-    return this.http.post(GlobalComponent.API_URL_LOCAL + 'domain', data, {responseType: 'text'});
+    return this.http.post(GlobalComponent.API_URL_LOCAL + 'domain', data, {
+      responseType: 'text',
+    });
   }
 
   checkDNSDomain(domain: string) {
@@ -153,6 +163,8 @@ export class ULinkService {
   }
 
   getAllDomainRegister() {
-    return this.http.get(GlobalComponent.API_URL_LOCAL + 'domain/all-create-page-id');
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + 'domain/all-create-page-id'
+    );
   }
 }

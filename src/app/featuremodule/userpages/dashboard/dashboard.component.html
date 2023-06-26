@@ -1,4 +1,3 @@
-<!-- Dashboard Content -->
 <div class="dashboard-content mt-4">
   <div class="container">
     <div class="">
@@ -114,10 +113,11 @@
 
         <div class="col-lg-6">
           <button
-            class="category-btn"
+            class="btn btn-primary"
+            (click)="searchDashboard()"
+            [disabled]="!checkSearch()"
             type="button"
             style="padding: 12px; margin: 0 13px"
-            (click)="searchDashboard()"
           >
             <i class="feather-search"></i>
             Search

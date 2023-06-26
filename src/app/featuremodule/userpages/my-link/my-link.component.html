@@ -33,16 +33,58 @@
     <div class="dash-listingcontent dashboard-info">
       <div class="dash-cards card">
         <div class="card-body">
-          <div class="listing-search">
+          <div class="listing-search" style="justify-content: start">
             <div class="filter-content form-group">
-              <div class="group-img">
+              <!-- <div class="group-img">
                 <input
                   type="text"
                   class="form-control"
                   placeholder="Search..."
                 />
                 <i class="feather-search"></i>
+              </div> -->
+
+              <div class="form-group">
+                <div class="pass-group group-img">
+                  <input
+                    style="padding: 14px 15px 17px 35px"
+                    class="form-control flatpickr-input"
+                    type="text"
+                    placeholder="Choose datepicker"
+                    mwlFlatpickr
+                    [allowInput]="true"
+                    [convertModelValue]="true"
+                    dateFormat="d/m/Y"
+                    locale="de"
+                    mode="range"
+                    [(ngModel)]="selectedDate"
+                  />
+                  <span class="lock-icon"
+                    ><i class="feather-calendar"></i
+                  ></span>
+                </div>
               </div>
+            </div>
+            <div>
+              <button
+                class="btn btn-primary"
+                type="button"
+                style="padding: 12px; margin: 0 13px"
+                (click)="getTime()"
+                [disabled]="!selectedDate"
+              >
+                <i class="feather-search"></i>
+                Search
+              </button>
+              <button
+                class="category-btn"
+                type="button"
+                style="padding: 12px; margin: 0 13px"
+                (click)="clearFilter()"
+              >
+                <i class="feather-trash"></i>
+                Clear Filter
+              </button>
             </div>
             <div class="sorting-div"></div>
           </div>
@@ -60,8 +102,11 @@
                   <th mat-sort-header="details" class="no-sort">Details</th>
                   <th mat-sort-header="status">Status</th>
                   <th mat-sort-header="view">Click</th>
-                  <th mat-sort-header="lastModifiedDate" class="no-sort">Last Modified</th>
-                  <th mat-sort-header="Action"
+                  <th mat-sort-header="lastModifiedDate" class="no-sort">
+                    Last Modified
+                  </th>
+                  <th
+                    mat-sort-header="Action"
                     class="text-center"
                     style="display: flex; justify-content: center !important"
                   >
@@ -122,7 +167,9 @@
                     <span class="views-count">{{ data.totalClick }}</span>
                   </td>
                   <td style="text-align: center">
-                    <span >{{ data.lastModifiedDate | date: "HH:MM dd/MM/YYYY" }}</span>
+                    <span>{{
+                      data.lastModifiedDate | date : "HH:MM dd/MM/YYYY"
+                    }}</span>
                   </td>
                   <td>
                     <div class="action">
@@ -147,7 +194,7 @@
             <ngb-pagination
               [collectionSize]="total"
               [(page)]="page"
-              [pageSize]="pageSize"
+              [pageSize]="pagesize"
               (pageChange)="loadPage($event)"
               [maxSize]="maxSize"
             >

@@ -5,6 +5,7 @@ import { MyLinkRoutingModule } from './my-link-routing.module';
 import { MyLinkComponent } from './my-link.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     MyLinkRoutingModule,
     NgbPaginationModule,
-    SharedModule
+    SharedModule,
+    FlatpickrModule.forRoot()
   ]
 })
 export class MyLinkModule { }
