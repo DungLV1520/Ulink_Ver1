@@ -26,7 +26,6 @@ export class MyListingComponent {
   }
 
   ngOnInit(): void {
-    //this.getLink(0,this.pageSize);
   }
 
   sortData(sort: Sort) {
