@@ -97,8 +97,7 @@
             >
               <thead>
                 <tr>
-                  <th mat-sort-header="img" class="no-sort">#</th>
-                  <th mat-sort-header="img" class="no-sort">PageId</th>
+                  <th mat-sort-header="img" class="no-sort" style="display: flex; justify-content: center !important">PageId</th>
                   <th mat-sort-header="details" class="no-sort">Details</th>
                   <th mat-sort-header="status">Status</th>
                   <th mat-sort-header="view">Click</th>
@@ -117,16 +116,11 @@
               <tbody>
                 <tr *ngFor="let data of linkData; let i = index">
                   <td>
-                    <div>
-                      <span class="discount-amt"> {{ getRowNumber(i) }}</span>
-                    </div>
-                  </td>
-                  <td>
                     <div
                       class="listingtable-img"
                       style="display: flex; align-items: center"
                     >
-                      <span class="discount-amt">{{ data.pageId }}</span>
+                      <span style="font-weight: bold; word-wrap: break-word;">{{ data.pageId }}</span>
                     </div>
                   </td>
                   <td>
@@ -173,17 +167,18 @@
                   </td>
                   <td>
                     <div class="action">
-                      <a
-                        class="action-btn btn-view"
-                        (click)="viewStreamingClick()"
-                        ><i class="feather-eye"></i
-                      ></a>
-                      <a href="javascript:void(0)" class="action-btn btn-edit"
-                        ><i class="feather-edit-3"></i
-                      ></a>
-                      <a href="javascript:void(0)" class="action-btn btn-trash"
-                        ><i class="feather-trash-2"></i
-                      ></a>
+                      <button class="btn btn-light-success" (click)="viewStreamingClick(content, data.pageId)">Stream Click</button>
+<!--                      <button-->
+<!--                        class="action-btn btn-view"-->
+<!--                        (click)="viewStreamingClick(content, data.pageId)"-->
+<!--                        ><i class="feather-eye"></i-->
+<!--                      ></button>-->
+<!--                      <button class="action-btn btn-edit"-->
+<!--                        ><i class="feather-edit-3"></i-->
+<!--                      ></button>-->
+<!--                      <button class="action-btn btn-trash"-->
+<!--                        ><i class="feather-trash-2"></i-->
+<!--                      ></button>-->
                     </div>
                   </td>
                 </tr>
@@ -206,3 +201,62 @@
   </div>
 </div>
 <!-- /Dashboard Content -->
+
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <h5><i id="rotate-icon" class="fas fa-spinner" style="color: #fe3408"></i>
+      Streaming Click: <a style="color: #226db9" href="{{urlResultULink}}">{{pageIdStreamingClick}}</a></h5>
+    <p style="font-size: 15px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <b>Note:</b> Click value to copy</p>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Ip</th>
+      <th scope="col">Time</th>
+      <th scope="col">Location</th>
+      <th scope="col">Bot</th>
+      <th scope="col">Device Name</th>
+      <th scope="col">Referral</th>
+      <th scope="col">User Agent</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="dataStreamingClick.length == 0">
+      <td colspan="7" style="text-align: center"><b>EMPTY CLICK</b></td>
+    </tr>
+    <tr *ngFor="let click of dataStreamingClick; index as i">
+      <td scope="row" (click)="copyToClipboard(click?.ip)">
+        {{ click?.ip }}
+      </td>
+      <td (click)="copyToClipboard(click?.accessTime)">
+        {{ click?.accessTime | date : "HH:MM:ss" : 'UTC' }}
+      </td>
+      <td (click)="copyToClipboard((click?.city == null ? '' : click?.city + '/') + (click?.country == null ? '' : click?.country))">
+        {{ (click?.city == null ? '' : click?.city + '/') + (click?.country == null ? '' : click?.country) }}
+      </td>
+      <td>
+        <i class="fa-solid fa-circle" [style.color]="click?.isBot ? '#cd042f' : '#00A656'"></i>
+      </td>
+      <td (click)="copyToClipboard(click?.deviceName)">
+        {{ click?.deviceName }}
+      </td>
+      <td (click)="copyToClipboard(click?.referer)">
+        {{ click?.referer }}
+      </td>
+      <td (click)="copyToClipboard(click?.userAgent)">
+        {{ click?.userAgent }}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeStreamingClickModal()">Hủy</button>
+  </div>
+</ng-template>

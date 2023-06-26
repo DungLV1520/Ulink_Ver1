@@ -1,10 +1,26 @@
-import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import {DatePipe, registerLocaleData} from '@angular/common';
+import { Component, PipeTransform} from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import * as moment from 'moment';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { DataService } from 'src/app/shared/service/data.service';
 import { ULinkService } from 'src/app/shared/service/ulink.service';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import localeVi from '@angular/common/locales/vi';
+import {Clipboard} from "@angular/cdk/clipboard";
+import {HotToastService} from "@ngneat/hot-toast";
+registerLocaleData(localeVi);
+
+interface RawClick {
+  ip: string;
+  city: string;
+  country: string;
+  isBot: boolean;
+  deviceName: string;
+  referer: string;
+  userAgent: string;
+  accessTime:any
+}
 
 @Component({
   selector: 'app-my-listing',
@@ -22,10 +38,19 @@ export class MyLinkComponent {
   maxSize = 5;
   selectedDate!: any;
 
+  pageIdStreamingClick: any;
+  intervalId: any;
+  closeStreamingClick: boolean = true;
+  urlResultULink: string = '';
+  dataStreamingClick: RawClick[] = [];
+
   constructor(
     private DataService: DataService,
     private datePipe: DatePipe,
-    private uLinkService: ULinkService
+    private uLinkService: ULinkService,
+    private modalService: NgbModal,
+    private clipboard: Clipboard,
+    private toast: HotToastService,
   ) {
     this.electronics = this.DataService.electronicsList;
   }
@@ -90,5 +115,30 @@ export class MyLinkComponent {
     this.getLink(e, this.pagesize);
   }
 
-  viewStreamingClick(): void {}
+  viewStreamingClick(content: any, pageId: any) : void {
+    this.pageIdStreamingClick = pageId;
+    this.fetchDataStreamingClick();
+    this.intervalId = setInterval(() => {
+      this.fetchDataStreamingClick();
+    }, 1500);
+
+    this.modalService.open(content,{ size: 'xl', windowClass: 'modal-xl', scrollable: true, centered: true, backdrop: 'static' });
+  }
+
+  closeStreamingClickModal(): void {
+    this.modalService.dismissAll();
+    clearInterval(this.intervalId);
+  }
+
+  fetchDataStreamingClick() {
+    this.uLinkService.getStreamingClick(this.pageIdStreamingClick, 20).subscribe((res: any) => {
+      this.dataStreamingClick = res?.rawClicks;
+      this.urlResultULink = res?.detailLink?.urlULink;
+    });
+  }
+
+  copyToClipboard(value: any) {
+    this.clipboard.copy(value);
+    this.toast.success('Copy Value Success!');
+  }
 }

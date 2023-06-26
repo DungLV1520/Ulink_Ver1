@@ -167,4 +167,29 @@ export class ULinkService {
       GlobalComponent.API_URL_LOCAL + 'domain/all-create-page-id'
     );
   }
+
+  getStreamingClick(pageId: string, pageSize: number) {
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + 'links/' + pageId + '/raw-click'
+      + '?sortBy=created_date&sortDir=desc&pageNo=0&pageSize=' + pageSize
+      + '&from=' + this.getCurrentDate() + '&to=' + this.getNextDate()
+    );
+  }
+
+  getCurrentDate(): string {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    return `${year}${month}${day}`;
+  }
+
+  getNextDate(): string {
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 1);
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    return `${year}${month}${day}`;
+  }
 }
