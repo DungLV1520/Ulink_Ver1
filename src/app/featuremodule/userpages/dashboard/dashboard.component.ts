@@ -143,7 +143,7 @@ export class DashboardComponent {
     });
   }
 
-  dashboardFilter(): void {
+  searchDashboard(): void {
     const from = this.datePipe.transform(
       new Date(this.selectedDate.from),
       'dd/MM/yyyy'
