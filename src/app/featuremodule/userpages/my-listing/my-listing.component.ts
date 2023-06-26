@@ -15,8 +15,8 @@ export class MyListingComponent {
   linkData: any[] = [];
   total = 10;
   page = 0;
-  pagesize = 5;
-  maxSize = 5;
+  pageSize = 10;
+  maxSize = 10;
 
   constructor(
     private DataService: DataService,
@@ -26,7 +26,7 @@ export class MyListingComponent {
   }
 
   ngOnInit(): void {
-    this.getLink(0,this.pagesize);
+    //this.getLink(0,this.pageSize);
   }
 
   sortData(sort: Sort) {
@@ -44,20 +44,20 @@ export class MyListingComponent {
   }
 
   getLink(pageN:number,pageSize:number): void {
-    this.uLinkService.getLink(pageN-1,pageSize).subscribe((res: any) => {
+    this.uLinkService.getLink(pageN - 1, pageSize).subscribe((res: any) => {
       this.linkData = res.links;
       this.total = res.totalElements;
       this.page = pageN;
-      this.pagesize = res.pageSize;
+      this.pageSize = res.pageSize;
     });
   }
 
   getRowNumber(indexRow: number): number {
-    return indexRow + 1 + (this.page - 1) * this.pagesize;
+    return indexRow + 1 + (this.page - 1) * this.pageSize;
   }
 
   loadPage(e:any):void{
-    this.getLink(e,this.pagesize)
+    this.getLink(e,this.pageSize)
   }
 
   viewStreamingClick() : void {
