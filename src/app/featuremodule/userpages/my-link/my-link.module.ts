@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MyListingRoutingModule } from './my-listing-routing.module';
-import { MyListingComponent } from './my-listing.component';
+import { MyLinkRoutingModule } from './my-link-routing.module';
+import { MyLinkComponent } from './my-link.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
   declarations: [
-    MyListingComponent
+    MyLinkComponent
   ],
   imports: [
     CommonModule,
-    MyListingRoutingModule,
+    MyLinkRoutingModule,
     NgbPaginationModule,
     SharedModule
   ]
 })
-export class MyListingModule { }
+export class MyLinkModule { }

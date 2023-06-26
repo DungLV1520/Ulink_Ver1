@@ -6,10 +6,10 @@ import { ULinkService } from 'src/app/shared/service/ulink.service';
 
 @Component({
   selector: 'app-my-listing',
-  templateUrl: './my-listing.component.html',
-  styleUrls: ['./my-listing.component.css'],
+  templateUrl: './my-link.component.html',
+  styleUrls: ['./my-link.component.css'],
 })
-export class MyListingComponent {
+export class MyLinkComponent {
   public routes = routes;
   public electronics: any = [];
   linkData: any[] = [];
