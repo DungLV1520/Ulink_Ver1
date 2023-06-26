@@ -147,11 +147,7 @@ export class DashboardComponent {
   getStatisticClick(from: string, to: string, idPage: string): void {
     this.uLinkService.getStatisticClick(from, to, idPage).subscribe({
       next: (res: any) => {
-        this._columnWithDataChartClick(
-          '["#299cdb"]',
-          res.totalClicks,
-          res.date
-        );
+        this._columnWithDataChartClick('["#299cdb"]', res.totalClicks, res.date);
       },
     });
   }
@@ -176,10 +172,6 @@ export class DashboardComponent {
     const formattedDateTo = moment(to, 'DD/MM/YYYY').format('YYYYMMDD');
 
     this.filterDashboard(formattedDateFrom!, formattedDateTo!, this.idPage!);
-  }
-
-  checkSearch():boolean{
-    return this.selectedDate && this.idPage;
   }
 
   clearFilter(): void {
@@ -243,9 +235,7 @@ export class DashboardComponent {
     return colors.map(function (value: any) {
       var newValue = value.replace(' ', '');
       if (newValue.indexOf(',') === -1) {
-        var color = getComputedStyle(document.documentElement).getPropertyValue(
-          newValue
-        );
+        var color = getComputedStyle(document.documentElement).getPropertyValue(newValue);
         if (color) {
           color = color.replace(' ', '');
           return color;
