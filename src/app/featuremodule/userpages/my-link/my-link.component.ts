@@ -91,7 +91,7 @@ export class MyLinkComponent {
     this.getLink(1, this.pagesize, formattedDateFrom, formattedDateTo);
   }
 
-  clearFilter(): void {
+  loadingData(): void {
     this.getLink(1, this.pagesize);
     this.selectedDate = undefined;
   }
@@ -100,6 +100,7 @@ export class MyLinkComponent {
     this.uLinkService
       .getLink(pageN - 1, pageSize, from, to)
       .subscribe((res: any) => {
+        this.toast.success('Loading Link Success');
         this.linkData = res.links;
         this.total = res.totalElements;
         this.page = pageN;
@@ -118,6 +119,10 @@ export class MyLinkComponent {
   viewStreamingClick(content: any, pageId: any) : void {
     this.pageIdStreamingClick = pageId;
     this.fetchDataStreamingClick();
+
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
     this.intervalId = setInterval(() => {
       this.fetchDataStreamingClick();
     }, 1500);
@@ -126,8 +131,8 @@ export class MyLinkComponent {
   }
 
   closeStreamingClickModal(): void {
-    this.modalService.dismissAll();
     clearInterval(this.intervalId);
+    this.modalService.dismissAll();
   }
 
   fetchDataStreamingClick() {

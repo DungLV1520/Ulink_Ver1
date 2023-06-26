@@ -45,45 +45,44 @@
               </div> -->
 
               <div class="form-group">
-                <div class="pass-group group-img">
-                  <input
-                    style="padding: 14px 15px 17px 35px"
-                    class="form-control flatpickr-input"
-                    type="text"
-                    placeholder="Choose datepicker"
-                    mwlFlatpickr
-                    [allowInput]="true"
-                    [convertModelValue]="true"
-                    dateFormat="d/m/Y"
-                    locale="de"
-                    mode="range"
-                    [(ngModel)]="selectedDate"
-                  />
-                  <span class="lock-icon"
-                    ><i class="feather-calendar"></i
-                  ></span>
-                </div>
+<!--                <div class="pass-group group-img">-->
+<!--                  <input-->
+<!--                    style="padding: 14px 15px 17px 35px"-->
+<!--                    class="form-control flatpickr-input"-->
+<!--                    type="text"-->
+<!--                    placeholder="Choose datepicker"-->
+<!--                    mwlFlatpickr-->
+<!--                    [allowInput]="true"-->
+<!--                    [convertModelValue]="true"-->
+<!--                    dateFormat="d/m/Y"-->
+<!--                    locale="de"-->
+<!--                    mode="range"-->
+<!--                    [(ngModel)]="selectedDate"-->
+<!--                  />-->
+<!--                  <span class="lock-icon"-->
+<!--                    ><i class="feather-calendar"></i-->
+<!--                  ></span>-->
+<!--                </div>-->
               </div>
             </div>
             <div>
-              <button
-                class="btn btn-primary"
-                type="button"
-                style="padding: 12px; margin: 0 13px"
-                (click)="getTime()"
-                [disabled]="!selectedDate"
-              >
-                <i class="feather-search"></i>
-                Search
-              </button>
+<!--              <button-->
+<!--                class="btn btn-primary"-->
+<!--                type="button"-->
+<!--                style="padding: 12px; margin: 0 13px"-->
+<!--                (click)="getTime()"-->
+<!--                [disabled]="!selectedDate"-->
+<!--              >-->
+<!--                <i class="feather-search"></i>-->
+<!--                Search-->
+<!--              </button>-->
               <button
                 class="category-btn"
                 type="button"
-                style="padding: 12px; margin: 0 13px"
-                (click)="clearFilter()"
-              >
-                <i class="feather-trash"></i>
-                Clear Filter
+                style="padding: 12px; margin: 6px 1px"
+                (click)="loadingData()">
+                <i class="feather-search"></i>
+                Refresh Data
               </button>
             </div>
             <div class="sorting-div"></div>
@@ -204,7 +203,7 @@
 
 <ng-template #content role="document" let-modal>
   <div class="modal-header">
-    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="closeStreamingClickModal()"></button>
   </div>
   <div class="modal-body">
     <h5><i id="rotate-icon" class="fas fa-spinner" style="color: #fe3408"></i>
