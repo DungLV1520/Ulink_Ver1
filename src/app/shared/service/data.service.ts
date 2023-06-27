@@ -8,21 +8,21 @@ export class DataService {
 
   constructor() {}
   public header: any = [
-    {
-      tittle: 'Home',
-      base: '',
-      showAsTab: false,
-      route: '',
-      separateRoute: true,
-    },
-    {
-      tittle: ' Pricing',
-      route: '/pages/pricing',
-      showAsTab: false,
-      separateRoute: true,
-      base: 'pages',
-      page: 'pricing',
-    },
+    // {
+    //   tittle: 'Home',
+    //   base: '',
+    //   showAsTab: false,
+    //   route: '',
+    //   separateRoute: true,
+    // },
+    // {
+    //   tittle: ' Pricing',
+    //   route: '/pages/pricing',
+    //   showAsTab: false,
+    //   separateRoute: true,
+    //   base: 'pages',
+    //   page: 'pricing',
+    // },
   ];
 
   public testimonialList = [
