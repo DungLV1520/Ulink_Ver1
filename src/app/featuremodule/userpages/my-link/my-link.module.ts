@@ -7,6 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { StreamingClickComponent } from "../streaming-click/streaming-click.component";
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { StreamingClickComponent } from "../streaming-click/streaming-click.comp
     MyLinkRoutingModule,
     NgbPaginationModule,
     SharedModule,
-    FlatpickrModule.forRoot()
+    FlatpickrModule.forRoot(),
+    NgxLoadingModule.forRoot({}),
   ]
 })
 export class MyLinkModule { }

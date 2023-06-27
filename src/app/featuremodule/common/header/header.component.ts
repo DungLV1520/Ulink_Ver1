@@ -69,6 +69,12 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
+    const currentUser = this.authService.currentManagerValue;
+    if (currentUser && currentUser.token) {
+      this.nav = false;
+    } else {
+      this.nav = true;
+    }
     this.authService.logout();
   }
 }

@@ -1,5 +1,5 @@
 import { DatePipe, registerLocaleData } from '@angular/common';
-import { Component, PipeTransform } from '@angular/core';
+import { Component, PipeTransform, TemplateRef } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import * as moment from 'moment';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -9,6 +9,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import localeVi from '@angular/common/locales/vi';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HotToastService } from '@ngneat/hot-toast';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { finalize } from 'rxjs';
 registerLocaleData(localeVi);
 
 interface RawClick {
@@ -44,6 +46,12 @@ export class MyLinkComponent {
   urlResultULink: string = '';
   dataStreamingClick: RawClick[] = [];
   checkLoading = 0;
+  loading = false;
+  public loadingTemplate!: TemplateRef<any>;
+  public config = {
+    animationType: ngxLoadingAnimationTypes.none,
+    backdropBorderRadius: '3px',
+  };
 
   constructor(
     private DataService: DataService,
@@ -98,8 +106,14 @@ export class MyLinkComponent {
   }
 
   getLink(pageN: number, pageSize: number, from?: string, to?: string): void {
+    this.loading = true;
     this.uLinkService
       .getLink(pageN - 1, pageSize, from, to)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
       .subscribe((res: any) => {
         if (this.checkLoading === 0) {
           this.toast.success('Loading Link Success');
