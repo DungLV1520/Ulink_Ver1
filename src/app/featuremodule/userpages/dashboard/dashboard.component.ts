@@ -1,10 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { DataService } from 'src/app/shared/service/data.service';
 import { ChartComponent } from 'ng-apexcharts';
 import { ULinkService } from '../../../shared/service/ulink.service';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +29,12 @@ export class DashboardComponent {
   allPage: any[] = [];
   idPage?: string;
   selectedDate!: any;
+  public loadingTemplate!: TemplateRef<any>;
+  public config = {
+    animationType: ngxLoadingAnimationTypes.none,
+    backdropBorderRadius: '3px',
+  };
+  loading = false;
 
   constructor(
     private DataService: DataService,
@@ -72,32 +80,40 @@ export class DashboardComponent {
   }
 
   getStatisticOverviewDashboard(): void {
-    this.uLinkService.getStatisticOverviewDashboard().subscribe({
-      next: (res: any) => {
-        this.dashboarddata = [
-          {
-            img: 'assets/img/icons/verified.svg',
-            title: 'Total Click',
-            amount: res.totalClick,
-          },
-          {
-            img: 'assets/img/icons/link.png',
-            title: 'Total Link',
-            amount: res.totalLink,
-          },
-          {
-            img: 'assets/img/icons/country-icon.png',
-            title: 'Total Country',
-            amount: res.totalCountry,
-          },
-          {
-            img: 'assets/img/icons/traffic-source.png',
-            title: 'Total Privacy Domain',
-            amount: res.totalPrivacyDomain,
-          },
-        ];
-      },
-    });
+    this.loading = true;
+    this.uLinkService
+      .getStatisticOverviewDashboard()
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe({
+        next: (res: any) => {
+          this.dashboarddata = [
+            {
+              img: 'assets/img/icons/verified.svg',
+              title: 'Total Click',
+              amount: res.totalClick,
+            },
+            {
+              img: 'assets/img/icons/link.png',
+              title: 'Total Link',
+              amount: res.totalLink,
+            },
+            {
+              img: 'assets/img/icons/country-icon.png',
+              title: 'Total Country',
+              amount: res.totalCountry,
+            },
+            {
+              img: 'assets/img/icons/traffic-source.png',
+              title: 'Total Privacy Domain',
+              amount: res.totalPrivacyDomain,
+            },
+          ];
+        },
+      });
   }
 
   getStatisticAgentType(from: string, to: string, idPage: string): void {

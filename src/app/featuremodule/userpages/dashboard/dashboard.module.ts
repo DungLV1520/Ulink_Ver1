@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { DateFormatPipe } from './date.pipe';
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { DateFormatPipe } from './date.pipe';
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-    FlatpickrModule.forRoot()
+    FlatpickrModule.forRoot(),
+    NgxLoadingModule.forRoot({}),
   ]
 })
 export class DashboardModule { }
