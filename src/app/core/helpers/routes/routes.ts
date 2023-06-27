@@ -24,8 +24,6 @@ export class routes {
   public static get listings(): string {
     return this.baseUrl + '/listings';
   }
-
-
   public static get pages(): string {
     return this.baseUrl + '/pages';
   }
@@ -47,8 +45,6 @@ export class routes {
   public static get bloglistsidebar(): string {
     return this.baseUrl + '/blog/blog-list-sidebar';
   }
-
-
   public static get listinggrid(): string {
     return this.baseUrl + '/listings/listing-grid';
   }

@@ -1,4 +1,3 @@
-<!-- Profile Content -->
 <div class="dashboard-content mt-4">
   <div class="container">
     <div class="">
@@ -24,7 +23,7 @@
           </a>
         </li>
         <li>
-             <a [routerLink]="routes.profile">
+          <a [routerLink]="routes.profile">
             <i class="fa-solid fa-user"></i> <span>Profile</span>
           </a>
         </li>
@@ -38,12 +37,13 @@
               <h4>My Domain</h4>
             </div>
 
-            <div class="card-body" style="padding-top: 0px;">
+            <div class="card-body" style="padding-top: 0px">
               <div class="profile-form">
                 <form [formGroup]="myDomainForm" (ngSubmit)="registerDomain()">
                   <div class="row">
                     <h5>Configure Personal Domain</h5>
-                    <span style="font-style: italic; font-size: 13px">Step 1: Add DNS records with type and value below
+                    <span style="font-style: italic; font-size: 13px"
+                      >Step 1: Add DNS records with type and value below
                       <br />
                       <div style="margin: 5px 0 10px 25px">
                         <table id="customWithTable">
@@ -81,8 +81,8 @@
                         font-size: 13px;
                         margin-top: 3px;
                       "
-                      >Step 2: Add domain on portal.ulink.asia and wait for maximum
-                      5 minutes completed.</span
+                      >Step 2: Add domain on portal.ulink.asia and wait for
+                      maximum 5 minutes completed.</span
                     >
 
                     <div class="container text-center">
@@ -90,7 +90,9 @@
                         <div class="col-lg-5 col-md-6 mt-4">
                           <div class="form-group">
                             <div class="pass-group group-img">
-                          <span class="lock-icon"><i class="feather-link"></i></span>
+                              <span class="lock-icon"
+                                ><i class="feather-link"></i
+                              ></span>
                               <input
                                 type="tel"
                                 class="form-control"
@@ -114,7 +116,12 @@
                           </div>
                         </div>
                         <div class="col-lg-2">
-                          <button class="btn btn-primary" type="submit" [disabled]="myDomainForm.invalid" id="customWithButton">
+                          <button
+                            class="btn btn-primary"
+                            type="submit"
+                            [disabled]="myDomainForm.invalid"
+                            id="customWithButton"
+                          >
                             Add Domain
                           </button>
                         </div>
@@ -132,8 +139,10 @@
                       <tr>
                         <th class="no-sort">#</th>
                         <th class="no-sort">Domain</th>
-                        <th style="text-align: center;">Status</th>
-                        <th class="no-sort" style="text-align: center;">Last Modified</th>
+                        <th style="text-align: center">Status</th>
+                        <th class="no-sort" style="text-align: center">
+                          Last Modified
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -145,16 +154,20 @@
                         </td>
                         <td>
                           <div>
-                            <span style="font-weight: bold">{{data.domainName}}</span>
+                            <span style="font-weight: bold">{{
+                              data.domainName
+                            }}</span>
                           </div>
                         </td>
-                        <td style="width: 10%; text-align: center;">
+                        <td style="width: 10%; text-align: center">
                           <span
                             [ngClass]="{ unpublish: data.isActive === true }"
-                            class="status-text" style="color: #22C55E"
+                            class="status-text"
+                            style="color: #22c55e"
                           >
                             <i
-                              class="feather-check-circle"  style="color: #22C55E"
+                              class="feather-check-circle"
+                              style="color: #22c55e"
                               *ngIf="data.isActive; else inactive"
                             ></i>
                             <ng-template #inactive>
@@ -162,9 +175,11 @@
                             ></ng-template>
                           </span>
                         </td>
-                        <td style="text-align: center; width: 20%;">
+                        <td style="text-align: center; width: 20%">
                           <div>
-                            <span class="">{{ data.lastModifiedDate | date : "HH:MM dd/MM/YYYY" }}</span>
+                            <span class="">{{
+                              data.lastModifiedDate | date : "HH:MM dd/MM/YYYY"
+                            }}</span>
                           </div>
                         </td>
                       </tr>
@@ -178,5 +193,10 @@
       </div>
     </div>
   </div>
+  <ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+    [template]="loadingTemplate"
+  ></ngx-loading>
 </div>
 <!-- /Profile Content -->

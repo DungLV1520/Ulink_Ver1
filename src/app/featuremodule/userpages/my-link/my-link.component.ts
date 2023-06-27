@@ -1,14 +1,14 @@
-import {DatePipe, registerLocaleData} from '@angular/common';
-import { Component, PipeTransform} from '@angular/core';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import { Component, PipeTransform } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import * as moment from 'moment';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { DataService } from 'src/app/shared/service/data.service';
 import { ULinkService } from 'src/app/shared/service/ulink.service';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import localeVi from '@angular/common/locales/vi';
-import {Clipboard} from "@angular/cdk/clipboard";
-import {HotToastService} from "@ngneat/hot-toast";
+import { Clipboard } from '@angular/cdk/clipboard';
+import { HotToastService } from '@ngneat/hot-toast';
 registerLocaleData(localeVi);
 
 interface RawClick {
@@ -19,7 +19,7 @@ interface RawClick {
   deviceName: string;
   referer: string;
   userAgent: string;
-  accessTime:any
+  accessTime: any;
 }
 
 @Component({
@@ -43,6 +43,7 @@ export class MyLinkComponent {
   closeStreamingClick: boolean = true;
   urlResultULink: string = '';
   dataStreamingClick: RawClick[] = [];
+  checkLoading = 0;
 
   constructor(
     private DataService: DataService,
@@ -50,7 +51,7 @@ export class MyLinkComponent {
     private uLinkService: ULinkService,
     private modalService: NgbModal,
     private clipboard: Clipboard,
-    private toast: HotToastService,
+    private toast: HotToastService
   ) {
     this.electronics = this.DataService.electronicsList;
   }
@@ -100,7 +101,10 @@ export class MyLinkComponent {
     this.uLinkService
       .getLink(pageN - 1, pageSize, from, to)
       .subscribe((res: any) => {
-        this.toast.success('Loading Link Success');
+        if (this.checkLoading === 0) {
+          this.toast.success('Loading Link Success');
+          this.checkLoading = 1;
+        }
         this.linkData = res.links;
         this.total = res.totalElements;
         this.page = pageN;
@@ -113,10 +117,11 @@ export class MyLinkComponent {
   }
 
   loadPage(e: any): void {
+    this.checkLoading = 0;
     this.getLink(e, this.pagesize);
   }
 
-  viewStreamingClick(content: any, pageId: any) : void {
+  viewStreamingClick(content: any, pageId: any): void {
     this.pageIdStreamingClick = pageId;
     this.fetchDataStreamingClick();
 
@@ -127,7 +132,13 @@ export class MyLinkComponent {
       this.fetchDataStreamingClick();
     }, 1500);
 
-    this.modalService.open(content,{ size: 'xl', windowClass: 'modal-xl', scrollable: true, centered: true, backdrop: 'static' });
+    this.modalService.open(content, {
+      size: 'xl',
+      windowClass: 'modal-xl',
+      scrollable: true,
+      centered: true,
+      backdrop: 'static',
+    });
   }
 
   closeStreamingClickModal(): void {
@@ -136,10 +147,12 @@ export class MyLinkComponent {
   }
 
   fetchDataStreamingClick() {
-    this.uLinkService.getStreamingClick(this.pageIdStreamingClick, 20).subscribe((res: any) => {
-      this.dataStreamingClick = res?.rawClicks;
-      this.urlResultULink = res?.detailLink?.urlULink;
-    });
+    this.uLinkService
+      .getStreamingClick(this.pageIdStreamingClick, 20)
+      .subscribe((res: any) => {
+        this.dataStreamingClick = res?.rawClicks;
+        this.urlResultULink = res?.detailLink?.urlULink;
+      });
   }
 
   copyToClipboard(value: any) {

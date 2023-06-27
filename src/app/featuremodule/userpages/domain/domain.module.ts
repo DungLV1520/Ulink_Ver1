@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DomainRoutingModule } from './domain-routing.module';
 import { DomainComponent } from './domain.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    DomainRoutingModule
+    DomainRoutingModule,
+    NgxLoadingModule.forRoot({}),
   ]
 })
 

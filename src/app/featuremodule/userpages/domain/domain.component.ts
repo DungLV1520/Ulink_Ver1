@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { catchError, finalize, of, switchMap } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { ULinkService } from 'src/app/shared/service/ulink.service';
-import {ToastrService} from "ngx-toastr";
+import { ToastrService } from 'ngx-toastr';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @Component({
   selector: 'app-domain',
@@ -17,6 +18,12 @@ export class DomainComponent {
   public Toggledata = false;
   public Toggle = false;
   domainAll: any[] = [];
+  loading = false;
+  public loadingTemplate!: TemplateRef<any>;
+  public config = {
+    animationType: ngxLoadingAnimationTypes.none,
+    backdropBorderRadius: '3px',
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,15 +49,19 @@ export class DomainComponent {
   }
 
   registerDomain(): void {
+    this.loading = true;
     const domain = this.myDomainForm.get('domain')!.value;
-    this.uLinkService.checkDNSDomain(domain)
+    this.uLinkService
+      .checkDNSDomain(domain)
       .pipe(
         catchError(() => {
           return of(null);
         }),
         switchMap((res: any) => {
           if (!res.isPointing) {
-            this.toastr.error(`Domain [${domain}] does not point to IP: ${res.serverIp}`);
+            this.toastr.error(
+              `Domain [${domain}] does not point to IP: ${res.serverIp}`
+            );
             return of(null);
           }
 
@@ -59,11 +70,15 @@ export class DomainComponent {
             isSubDomain: false,
           };
           return this.uLinkService.createMyDomain(objMyDomain);
+        }),
+        finalize(() => {
+          this.loading = false;
         })
-      ).subscribe({
+      )
+      .subscribe({
         next: (res) => {
           if (res !== null) {
-            if ("OK" === res) {
+            if ('OK' === res) {
               this.toastr.success(`Add domain [${domain}] success`);
               this.getAllMyDomain();
             } else {

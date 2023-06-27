@@ -51,7 +51,7 @@ export class SignupComponent {
     }
 
     const toastRef = this.toast.loading('Loading...', {
-      duration: 5000,
+      duration: 100000,
       position: 'top-center',
     });
 

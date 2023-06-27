@@ -45,42 +45,43 @@
               </div> -->
 
               <div class="form-group">
-<!--                <div class="pass-group group-img">-->
-<!--                  <input-->
-<!--                    style="padding: 14px 15px 17px 35px"-->
-<!--                    class="form-control flatpickr-input"-->
-<!--                    type="text"-->
-<!--                    placeholder="Choose datepicker"-->
-<!--                    mwlFlatpickr-->
-<!--                    [allowInput]="true"-->
-<!--                    [convertModelValue]="true"-->
-<!--                    dateFormat="d/m/Y"-->
-<!--                    locale="de"-->
-<!--                    mode="range"-->
-<!--                    [(ngModel)]="selectedDate"-->
-<!--                  />-->
-<!--                  <span class="lock-icon"-->
-<!--                    ><i class="feather-calendar"></i-->
-<!--                  ></span>-->
-<!--                </div>-->
+                <!--                <div class="pass-group group-img">-->
+                <!--                  <input-->
+                <!--                    style="padding: 14px 15px 17px 35px"-->
+                <!--                    class="form-control flatpickr-input"-->
+                <!--                    type="text"-->
+                <!--                    placeholder="Choose datepicker"-->
+                <!--                    mwlFlatpickr-->
+                <!--                    [allowInput]="true"-->
+                <!--                    [convertModelValue]="true"-->
+                <!--                    dateFormat="d/m/Y"-->
+                <!--                    locale="de"-->
+                <!--                    mode="range"-->
+                <!--                    [(ngModel)]="selectedDate"-->
+                <!--                  />-->
+                <!--                  <span class="lock-icon"-->
+                <!--                    ><i class="feather-calendar"></i-->
+                <!--                  ></span>-->
+                <!--                </div>-->
               </div>
             </div>
             <div>
-<!--              <button-->
-<!--                class="btn btn-primary"-->
-<!--                type="button"-->
-<!--                style="padding: 12px; margin: 0 13px"-->
-<!--                (click)="getTime()"-->
-<!--                [disabled]="!selectedDate"-->
-<!--              >-->
-<!--                <i class="feather-search"></i>-->
-<!--                Search-->
-<!--              </button>-->
+              <!--              <button-->
+              <!--                class="btn btn-primary"-->
+              <!--                type="button"-->
+              <!--                style="padding: 12px; margin: 0 13px"-->
+              <!--                (click)="getTime()"-->
+              <!--                [disabled]="!selectedDate"-->
+              <!--              >-->
+              <!--                <i class="feather-search"></i>-->
+              <!--                Search-->
+              <!--              </button>-->
               <button
                 class="category-btn"
                 type="button"
                 style="padding: 12px; margin: 6px 1px"
-                (click)="loadingData()">
+                (click)="loadingData()"
+              >
                 <i class="feather-search"></i>
                 Refresh Data
               </button>
@@ -96,7 +97,13 @@
             >
               <thead>
                 <tr>
-                  <th mat-sort-header="img" class="no-sort" style="display: flex; justify-content: center !important">PageId</th>
+                  <th
+                    mat-sort-header="img"
+                    class="no-sort"
+                    style="display: flex; justify-content: center !important"
+                  >
+                    PageId
+                  </th>
                   <th mat-sort-header="details" class="no-sort">Details</th>
                   <th mat-sort-header="status">Status</th>
                   <th mat-sort-header="view">Click</th>
@@ -119,7 +126,9 @@
                       class="listingtable-img"
                       style="display: flex; align-items: center"
                     >
-                      <span style="font-weight: bold; word-wrap: break-word;">{{ data.pageId }}</span>
+                      <span style="font-weight: bold; word-wrap: break-word">{{
+                        data.pageId
+                      }}</span>
                     </div>
                   </td>
                   <td>
@@ -166,18 +175,23 @@
                   </td>
                   <td>
                     <div class="action">
-                      <button class="btn btn-light-success" (click)="viewStreamingClick(content, data.pageId)">Stream Click</button>
-<!--                      <button-->
-<!--                        class="action-btn btn-view"-->
-<!--                        (click)="viewStreamingClick(content, data.pageId)"-->
-<!--                        ><i class="feather-eye"></i-->
-<!--                      ></button>-->
-<!--                      <button class="action-btn btn-edit"-->
-<!--                        ><i class="feather-edit-3"></i-->
-<!--                      ></button>-->
-<!--                      <button class="action-btn btn-trash"-->
-<!--                        ><i class="feather-trash-2"></i-->
-<!--                      ></button>-->
+                      <button
+                        class="btn btn-light-success"
+                        (click)="viewStreamingClick(content, data.pageId)"
+                      >
+                        Stream Click
+                      </button>
+                      <!--                      <button-->
+                      <!--                        class="action-btn btn-view"-->
+                      <!--                        (click)="viewStreamingClick(content, data.pageId)"-->
+                      <!--                        ><i class="feather-eye"></i-->
+                      <!--                      ></button>-->
+                      <!--                      <button class="action-btn btn-edit"-->
+                      <!--                        ><i class="feather-edit-3"></i-->
+                      <!--                      ></button>-->
+                      <!--                      <button class="action-btn btn-trash"-->
+                      <!--                        ><i class="feather-trash-2"></i-->
+                      <!--                      ></button>-->
                     </div>
                   </td>
                 </tr>
@@ -203,59 +217,88 @@
 
 <ng-template #content role="document" let-modal>
   <div class="modal-header">
-    <button type="button" class="btn-close" aria-hidden="true" (click)="closeStreamingClickModal()"></button>
+    <button
+      type="button"
+      class="btn-close"
+      aria-hidden="true"
+      (click)="closeStreamingClickModal()"
+    ></button>
   </div>
   <div class="modal-body">
-    <h5><i id="rotate-icon" class="fas fa-spinner" style="color: #fe3408"></i>
-      Streaming Click: <a style="color: #226db9" target="_blank" href="{{urlResultULink}}">{{pageIdStreamingClick}}</a></h5>
-    <p style="font-size: 15px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <b>Note:</b> Click value to copy</p>
+    <h5>
+      <i id="rotate-icon" class="fas fa-spinner" style="color: #fe3408"></i>
+      Streaming Click:
+      <a style="color: #226db9" target="_blank" href="{{ urlResultULink }}">{{
+        pageIdStreamingClick
+      }}</a>
+    </h5>
+    <p style="font-size: 15px">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Note:</b> Click value to copy
+    </p>
   </div>
 
   <table class="table table-striped">
     <thead>
-    <tr>
-      <th scope="col">Ip</th>
-      <th scope="col">Time</th>
-      <th scope="col">Location</th>
-      <th scope="col">Bot</th>
-      <th scope="col">Device Name</th>
-      <th scope="col">Referral</th>
-      <th scope="col">User Agent</th>
-    </tr>
+      <tr>
+        <th scope="col">Ip</th>
+        <th scope="col">Time</th>
+        <th scope="col">Location</th>
+        <th scope="col">Bot</th>
+        <th scope="col">Device Name</th>
+        <th scope="col">Referral</th>
+        <th scope="col">User Agent</th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngIf="dataStreamingClick.length == 0">
-      <td colspan="7" style="text-align: center"><b>EMPTY CLICK</b></td>
-    </tr>
-    <tr *ngFor="let click of dataStreamingClick; index as i">
-      <td scope="row" (click)="copyToClipboard(click?.ip)">
-        {{ click?.ip }}
-      </td>
-      <td (click)="copyToClipboard(click?.accessTime)">
-        {{ click?.accessTime | date : "HH:MM:ss" : 'UTC' }}
-      </td>
-      <td (click)="copyToClipboard((click?.city == null ? '' : click?.city + '/') + (click?.country == null ? '' : click?.country))">
-        {{ (click?.city == null ? '' : click?.city + '/') + (click?.country == null ? '' : click?.country) }}
-      </td>
-      <td>
-        <i class="fa-solid fa-circle" [style.color]="click?.isBot ? '#cd042f' : '#00A656'"></i>
-      </td>
-      <td (click)="copyToClipboard(click?.deviceName)">
-        {{ click?.deviceName }}
-      </td>
-      <td (click)="copyToClipboard(click?.referer)">
-        {{ click?.referer }}
-      </td>
-      <td (click)="copyToClipboard(click?.userAgent)">
-        {{ click?.userAgent }}
-      </td>
-    </tr>
+      <tr *ngIf="dataStreamingClick.length == 0">
+        <td colspan="7" style="text-align: center"><b>EMPTY CLICK</b></td>
+      </tr>
+      <tr *ngFor="let click of dataStreamingClick; index as i">
+        <td scope="row" (click)="copyToClipboard(click?.ip)">
+          {{ click?.ip }}
+        </td>
+        <td (click)="copyToClipboard(click?.accessTime)">
+          {{ click?.accessTime | date : "HH:MM:ss" : "UTC" }}
+        </td>
+        <td
+          (click)="
+            copyToClipboard(
+              (click?.city == null ? '' : click?.city + '/') +
+                (click?.country == null ? '' : click?.country)
+            )
+          "
+        >
+          {{
+            (click?.city == null ? "" : click?.city + "/") +
+              (click?.country == null ? "" : click?.country)
+          }}
+        </td>
+        <td>
+          <i
+            class="fa-solid fa-circle"
+            [style.color]="click?.isBot ? '#cd042f' : '#00A656'"
+          ></i>
+        </td>
+        <td (click)="copyToClipboard(click?.deviceName)">
+          {{ click?.deviceName }}
+        </td>
+        <td (click)="copyToClipboard(click?.referer)">
+          {{ click?.referer }}
+        </td>
+        <td (click)="copyToClipboard(click?.userAgent)">
+          {{ click?.userAgent }}
+        </td>
+      </tr>
     </tbody>
   </table>
 
-
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="closeStreamingClickModal()">Hủy</button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="closeStreamingClickModal()"
+    >
+      Close
+    </button>
   </div>
 </ng-template>

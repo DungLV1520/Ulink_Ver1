@@ -169,7 +169,7 @@ export class CreateLinkComponent {
     formData.append('file', this.fileToUpload);
 
     const toastRef = this.toast.loading('Loading...', {
-      duration: 20000,
+      duration: 20000000,
       position: 'top-center',
     });
 

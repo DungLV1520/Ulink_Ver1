@@ -51,20 +51,23 @@ export class LoginComponent {
     }
 
     const toastRef = this.toast.loading('Loading...', {
-      duration: 5000,
+      duration: 50000,
       position: 'top-center',
     });
 
     this.authService
-      .login(this.f['username'].value, this.f['password'].value, this.f['rememberMe'].value)
-      .pipe(finalize(() => toastRef.close()))
+      .login(
+        this.f['username'].value,
+        this.f['password'].value,
+        this.f['rememberMe'].value
+      )
+      .pipe(
+        first(),
+        finalize(() => toastRef.close())
+      )
       .subscribe({
         next: () => {
           this.router.navigate(['/userpages/my-listing']);
-          this.toast.success('Login successfully', {
-            duration: 3000,
-            position: 'top-center',
-          });
         },
         error: (error) => {
           this.toast.error(error, {
