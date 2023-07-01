@@ -1,6 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HotToastService } from '@ngneat/hot-toast';
 import { catchError, finalize, of, switchMap } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { ULinkService } from 'src/app/shared/service/ulink.service';
@@ -28,7 +27,6 @@ export class DomainComponent {
   constructor(
     private formBuilder: FormBuilder,
     private uLinkService: ULinkService,
-    private toast: HotToastService,
     private toastr: ToastrService
   ) {}
 
@@ -87,7 +85,7 @@ export class DomainComponent {
             }
           }
         },
-        error: (err) => {
+        error: () => {
           this.toastr.error(`No permission. Add domain [${domain}] failed.
             Please contact us`);
         },
@@ -99,6 +97,9 @@ export class DomainComponent {
       next: (res: any) => {
         this.domainAll = res;
       },
+      error:()=>{
+
+      }
     });
   }
 }

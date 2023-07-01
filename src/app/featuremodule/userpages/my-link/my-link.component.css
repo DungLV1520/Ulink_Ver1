@@ -8,7 +8,7 @@ td {
 }
 
 .listing-table th, .listing-table td {
-  padding: 15px 0px;
+  padding: 15px 15px;
 }
 
 .mat-column-myColumn{

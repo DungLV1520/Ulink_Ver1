@@ -17,7 +17,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Email username"
+                  placeholder="Enter Username"
                   formControlName="username"
                   [ngClass]="{
                     'is-invalid': submitted && f['username'].errors
@@ -34,7 +34,7 @@
                 <input
                   [type]="Toggledata?'password':'text'"
                   class="form-control pass-input"
-                  placeholder="Password"
+                  placeholder="Enter Password"
                   formControlName="password"
                   [ngClass]="{
                     'is-invalid': submitted && f['password'].errors
@@ -65,13 +65,13 @@
                   <span class="checkmark"></span>Remember Me
                 </label>
               </div>
-              <div class="col-md-6 col-sm-6">
+              <!-- <div class="col-md-6 col-sm-6">
                 <div class="text-md-end">
                   <a class="forgot-link" [routerLink]="routes.forgotpassword"
                     >Forgot password?</a
                   >
                 </div>
-              </div>
+              </div> -->
             </div>
             <button
               class="btn btn-primary w-100 login-btn"

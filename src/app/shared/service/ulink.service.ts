@@ -33,9 +33,18 @@ export class ULinkService {
     );
   }
 
-  getStatisticOverviewDashboard() {
+  getStatisticOverviewDashboard(from: string, to: string, pageId: string) {
+    const req = {
+      from,
+      to,
+      pageId,
+    };
+    const options = createRequestOption(req);
     return this.http.get(
-      GlobalComponent.API_URL_LOCAL + 'statistic-overview-dashboard'
+      GlobalComponent.API_URL_LOCAL + 'statistic-overview-dashboard',
+      {
+        params: options,
+      }
     );
   }
 
@@ -170,9 +179,16 @@ export class ULinkService {
 
   getStreamingClick(pageId: string, pageSize: number) {
     return this.http.get(
-      GlobalComponent.API_URL_LOCAL + 'links/' + pageId + '/raw-click'
-      + '?sortBy=created_date&sortDir=desc&pageNo=0&pageSize=' + pageSize
-      + '&from=' + this.getCurrentDate() + '&to=' + this.getNextDate()
+      GlobalComponent.API_URL_LOCAL +
+        'links/' +
+        pageId +
+        '/raw-click' +
+        '?sortBy=created_date&sortDir=desc&pageNo=0&pageSize=' +
+        pageSize +
+        '&from=' +
+        this.getCurrentDate() +
+        '&to=' +
+        this.getNextDate()
     );
   }
 

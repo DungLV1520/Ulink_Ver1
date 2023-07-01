@@ -104,7 +104,6 @@
                   <th
                     mat-sort-header="img"
                     class="no-sort"
-                    style="display: flex; justify-content: center !important"
                   >
                     PageId
                   </th>
@@ -116,8 +115,6 @@
                   </th>
                   <th
                     mat-sort-header="Action"
-                    class="text-center"
-                    style="display: flex; justify-content: center !important"
                   >
                     Action
                   </th>
@@ -154,7 +151,7 @@
                       >
                     </div>
                   </td>
-                  <td style="text-align: center">
+                  <td >
                     <span
                       [ngClass]="{ unpublish: data.isActive === true }"
                       class="status-text"
@@ -169,10 +166,10 @@
                       </ng-template>
                     </span>
                   </td>
-                  <td style="text-align: center">
+                  <td >
                     <span class="views-count">{{ data.totalClick }}</span>
                   </td>
-                  <td style="text-align: center">
+                  <td >
                     <span>{{
                       data.lastModifiedDate | date : "HH:MM dd/MM/YYYY"
                     }}</span>

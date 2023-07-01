@@ -39,7 +39,7 @@
             </div>
             <div class="card-body">
               <div class="profile-form">
-                <form>
+                <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
                   <div class="form-group">
                     <label class="col-form-label">Your Full Name</label>
                     <div class="pass-group group-img">
@@ -50,6 +50,7 @@
                         type="text"
                         class="form-control"
                         value="John Doe"
+                        formControlName="fullName"
                       />
                     </div>
                   </div>
@@ -65,6 +66,7 @@
                             type="tel"
                             class="form-control"
                             value="+44 215346 1223"
+                            formControlName="phone"
                           />
                         </div>
                       </div>
@@ -78,15 +80,12 @@
                             type="text"
                             class="form-control"
                             value="johndoe@email.com"
+                            formControlName="email"
                           />
                         </div>
                       </div>
                     </div>
-                    <button
-                      class="btn btn-primary w-25"
-                      type="submit"
-                      [disabled]="true"
-                    >
+                    <button class="btn btn-primary w-25" type="submit">
                       Update Profile
                     </button>
                   </div>
@@ -102,7 +101,7 @@
                 <h4>Change Password</h4>
               </div>
               <div class="card-body">
-                <form>
+                <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
                   <div class="form-group">
                     <label class="col-form-label">Current Password</label>
                     <div class="pass-group group-img">
@@ -112,7 +111,7 @@
                       <input
                         type="password"
                         class="form-control pass-input"
-                        placeholder="Password"
+                        formControlName="password"
                       />
                     </div>
                   </div>
@@ -123,9 +122,9 @@
                         ><i class="feather-lock"></i
                       ></span>
                       <input
-                        type="password"
+                        [type]="!Toggledata ? 'password' : 'text'"
                         class="form-control pass-input"
-                        value=".............."
+                        formControlName="newPassword"
                       />
 
                       <span
@@ -138,31 +137,11 @@
                       ></span>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label class="col-form-label">Confirm New Password</label>
-                    <div class="pass-group group-img">
-                      <span class="lock-icon"
-                        ><i class="feather-lock"></i
-                      ></span>
-                      <input
-                        type="password"
-                        class="form-control pass-input"
-                        value=".............."
-                      />
-                      <span
-                        [ngClass]="
-                          Toggle == true
-                            ? 'toggle-password feather-eye'
-                            : 'toggle-password feather-eye-off'
-                        "
-                        (click)="icon()"
-                      ></span>
-                    </div>
-                  </div>
+
                   <button
                     class="btn btn-primary"
                     type="submit"
-                    [disabled]="true"
+                    [disabled]="passwordForm.invalid"
                   >
                     Change Password
                   </button>

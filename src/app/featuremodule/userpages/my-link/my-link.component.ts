@@ -116,7 +116,6 @@ export class MyLinkComponent {
       )
       .subscribe((res: any) => {
         if (this.checkLoading === 0) {
-          this.toast.success('Loading Link Success');
           this.checkLoading = 1;
         }
         this.linkData = res.links;

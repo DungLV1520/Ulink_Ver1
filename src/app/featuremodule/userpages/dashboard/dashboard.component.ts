@@ -63,7 +63,7 @@ export class DashboardComponent {
   }
 
   filterDashboard(from: string, to: string, idPage: string): void {
-    this.getStatisticOverviewDashboard();
+    this.getStatisticOverviewDashboard(from, to, idPage);
     this.getStatisticAgentType(from, to, idPage);
     this.getStatisticDevice(from, to, idPage);
     this.getStatisticCountry(from, to, idPage);
@@ -79,10 +79,10 @@ export class DashboardComponent {
     });
   }
 
-  getStatisticOverviewDashboard(): void {
+  getStatisticOverviewDashboard(from: string, to: string, idPage: string): void {
     this.loading = true;
     this.uLinkService
-      .getStatisticOverviewDashboard()
+      .getStatisticOverviewDashboard(from, to, idPage)
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -280,7 +280,7 @@ export class DashboardComponent {
     this.columnWithDataChartCountry = {
       series: [
         {
-          name: 'Quantity',
+          name: 'Total Click',
           data: seri,
         },
       ],
@@ -364,7 +364,7 @@ export class DashboardComponent {
         labels: {
           show: false,
           formatter: function (val: any) {
-            return val + '%';
+            return val + '';
           },
         },
       },
@@ -385,7 +385,7 @@ export class DashboardComponent {
     this.columnWithDataChartReference = {
       series: [
         {
-          name: 'Quantity',
+          name: 'Total Click',
           data: seri,
         },
       ],
@@ -469,7 +469,7 @@ export class DashboardComponent {
         labels: {
           show: false,
           formatter: function (val: any) {
-            return val + '%';
+            return val + '';
           },
         },
       },
@@ -490,7 +490,7 @@ export class DashboardComponent {
     this.columnWithDataChartClick = {
       series: [
         {
-          name: 'Quantity',
+          name: 'Total Click',
           data: seri,
         },
       ],
@@ -574,7 +574,7 @@ export class DashboardComponent {
         labels: {
           show: false,
           formatter: function (val: any) {
-            return val + '%';
+            return val + '';
           },
         },
       },

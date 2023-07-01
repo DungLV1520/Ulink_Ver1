@@ -27,7 +27,7 @@ export class AuthService {
       .post<any>(GlobalComponent.API_URL_LOCAL + `auth/signin`, {
         username,
         password,
-        rememberMe
+        rememberMe,
       })
       .pipe(
         map((user) => {
@@ -37,10 +37,7 @@ export class AuthService {
               JSON.stringify(user)
             );
 
-            localStorage.setItem(
-              GlobalComponent.ACESS_TOKEN,
-              user?.token!
-            );
+            localStorage.setItem(GlobalComponent.ACESS_TOKEN, user?.token!);
 
             this.currentManagerSubject.next(user);
           }
@@ -77,5 +74,9 @@ export class AuthService {
       .get(GlobalComponent.API_URL_LOCAL + `user`)
       .pipe(shareReplay(1));
     return this.cachedProfile;
+  }
+
+  updateProfile(req: any): Observable<any> {
+    return this.http.post(GlobalComponent.API_URL_LOCAL + `user`, req);
   }
 }
