@@ -109,10 +109,18 @@
                         ><i class="feather-lock"></i
                       ></span>
                       <input
-                        type="password"
+                        [type]="!ToggledataPassword ? 'password' : 'text'"
                         class="form-control pass-input"
                         formControlName="password"
                       />
+                      <span
+                        [ngClass]="
+                          ToggledataPassword == true
+                            ? 'toggle-password feather-eye'
+                            : 'toggle-password feather-eye-off'
+                        "
+                        (click)="iconLoglePassword()"
+                      ></span>
                     </div>
                   </div>
                   <div class="form-group">

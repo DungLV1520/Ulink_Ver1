@@ -14,6 +14,7 @@ export class ProfileComponent {
   passwordForm!: FormGroup;
   public routes = routes;
   public Toggledata = false;
+  public ToggledataPassword = false;
   public Toggle = false;
   submitted = false;
   isPassword = true;
@@ -46,6 +47,10 @@ export class ProfileComponent {
 
   iconLogle() {
     this.Toggledata = !this.Toggledata;
+  }
+
+  iconLoglePassword() {
+    this.ToggledataPassword = !this.ToggledataPassword;
   }
 
   icon() {
