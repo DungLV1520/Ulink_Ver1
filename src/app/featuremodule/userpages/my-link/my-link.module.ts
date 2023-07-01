@@ -6,13 +6,12 @@ import { MyLinkComponent } from './my-link.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
-import { StreamingClickComponent } from "../streaming-click/streaming-click.component";
 import { NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
   declarations: [
-    MyLinkComponent, StreamingClickComponent
+    MyLinkComponent
   ],
   imports: [
     CommonModule,

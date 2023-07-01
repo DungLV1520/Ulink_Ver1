@@ -42,7 +42,6 @@ export class MyLinkComponent {
 
   pageIdStreamingClick: any;
   intervalId: any;
-  closeStreamingClick: boolean = true;
   urlResultULink: string = '';
   dataStreamingClick: RawClick[] = [];
   checkLoading = 0;
