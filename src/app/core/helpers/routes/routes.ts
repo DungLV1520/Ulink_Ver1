@@ -27,9 +27,6 @@ export class routes {
   public static get pages(): string {
     return this.baseUrl + '/pages';
   }
-  public static get userpages(): string {
-    return this.baseUrl + '/userpages';
-  }
   public static get blogdetails(): string {
     return this.baseUrl + '/blog/blog-details';
   }
@@ -88,31 +85,31 @@ export class routes {
     return this.baseUrl + '/pages/terms-condition';
   }
   public static get addlisting(): string {
-    return this.baseUrl + '/userpages/add-listing';
+    return this.baseUrl + '/user-page/add-listing';
   }
   public static get bookmarks(): string {
-    return this.baseUrl + '/userpages/bookmarks';
+    return this.baseUrl + '/user-page/bookmarks';
   }
   public static get dashboard(): string {
-    return this.baseUrl + '/userpages/dashboard';
+    return this.baseUrl + '/user-page/dashboard';
   }
   public static get messages(): string {
-    return this.baseUrl + '/userpages/messages';
+    return this.baseUrl + '/user-page/messages';
   }
   public static get mylisting(): string {
-    return this.baseUrl + '/userpages/my-listing';
+    return this.baseUrl + '/user-page/my-listing';
   }
   public static get profile(): string {
-    return this.baseUrl + '/userpages/profile';
+    return this.baseUrl + '/user-page/profile';
   }
   public static get link(): string {
-    return this.baseUrl + '/userpages/create-link';
+    return this.baseUrl + '/user-page/create-link';
   }
   public static get domain(): string {
-    return this.baseUrl + '/userpages/domain';
+    return this.baseUrl + '/user-page/domain';
   }
   public static get reviews(): string {
-    return this.baseUrl + '/userpages/reviews';
+    return this.baseUrl + '/user-page/reviews';
   }
   public static get error(): string {
     return this.baseUrl + '/error';

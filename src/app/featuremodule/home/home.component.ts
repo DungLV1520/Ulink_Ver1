@@ -128,7 +128,7 @@ export class HomeComponent {
     const currentUser = this.authService.currentManagerValue;
 
     if (currentUser && currentUser.token) {
-      this.router.navigate(['/userpages/my-listing']);
+      this.router.navigate(['/user-page/my-listing']);
     }
   }
 
