@@ -22,7 +22,14 @@
                     'is-invalid': submitted && f['username'].errors
                   }"
                 />
-                <div class="invalid-feedback">Please enter username</div>
+                <div class="invalid-feedback" *ngIf="f['username'].errors">
+                  <div *ngIf="f['username'].errors['required']">
+                    Please enter username
+                  </div>
+                  <div *ngIf="f['username'].errors['pattern']">
+                    Username must be lowercase letters only and should not contain spaces
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group group-img">
@@ -72,12 +79,12 @@
                 <a class="forgot-link" [routerLink]="routes.login">Sign In</a>
               </p>
             </div>
-<!--            <div class="social-login">-->
-<!--              <a href="#" class="btn btn-google w-100"-->
-<!--                ><img src="assets/img/google.svg" class="me-1" alt="img" />Sign-->
-<!--                in with Google</a-->
-<!--              >-->
-<!--            </div>-->
+            <!--            <div class="social-login">-->
+            <!--              <a href="#" class="btn btn-google w-100"-->
+            <!--                ><img src="assets/img/google.svg" class="me-1" alt="img" />Sign-->
+            <!--                in with Google</a-->
+            <!--              >-->
+            <!--            </div>-->
           </form>
           <!-- /Login Form -->
         </div>

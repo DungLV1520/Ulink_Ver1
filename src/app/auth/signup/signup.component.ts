@@ -27,7 +27,7 @@ export class SignupComponent {
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      username: ['', [Validators.required]],
+      username: ['', [Validators.required, Validators.pattern(/^[a-z0-9]+$/), Validators.pattern(/^\S*$/)]], // Chỉ chữ thường, số và không có khoảng trắng
       password: ['', Validators.required],
     });
   }
