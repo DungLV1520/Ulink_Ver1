@@ -53,7 +53,7 @@ export class DashboardComponent {
   getDateInput(): void {
     const currentDate = new Date();
     const fromDate = new Date();
-    fromDate.setDate(currentDate.getDate() - 8);
+    fromDate.setDate(currentDate.getDate() - 5);
     const toDate = currentDate;
 
     this.selectedDate = {
@@ -194,7 +194,7 @@ export class DashboardComponent {
 
   clearFilter(): void {
     const currentDate = new Date();
-    const pastDate = new Date(currentDate.getTime() - 8 * 24 * 60 * 60 * 1000);
+    const pastDate = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000);
     const formattedCurrentDate = this.datePipe.transform(
       currentDate,
       'yyyyMMdd'
