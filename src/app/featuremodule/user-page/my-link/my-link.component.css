@@ -28,3 +28,7 @@ td {
 td:hover {
   cursor: pointer;
 }
+
+.margin-btn {
+  margin-right: 5px;
+}

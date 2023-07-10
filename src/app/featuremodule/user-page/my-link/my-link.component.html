@@ -110,7 +110,7 @@
                   <th mat-sort-header="details" class="no-sort">Details</th>
                   <th mat-sort-header="status">Status</th>
                   <th mat-sort-header="view">Click</th>
-                  <th mat-sort-header="lastModifiedDate" class="no-sort">
+                  <th mat-sort-header="lastModifiedDate" class="no-sort" style="padding: 0px">
                     Last Modified
                   </th>
                   <th
@@ -176,23 +176,17 @@
                   </td>
                   <td>
                     <div class="action">
-                      <button
-                        class="btn btn-light-success"
-                        (click)="viewStreamingClick(content, data.pageId)"
-                      >
-                        Stream Click
-                      </button>
-                      <!--                      <button-->
-                      <!--                        class="action-btn btn-view"-->
-                      <!--                        (click)="viewStreamingClick(content, data.pageId)"-->
-                      <!--                        ><i class="feather-eye"></i-->
-                      <!--                      ></button>-->
-                      <!--                      <button class="action-btn btn-edit"-->
-                      <!--                        ><i class="feather-edit-3"></i-->
-                      <!--                      ></button>-->
-                      <!--                      <button class="action-btn btn-trash"-->
-                      <!--                        ><i class="feather-trash-2"></i-->
-                      <!--                      ></button>-->
+                          <button
+                            class="btn btn-light-success margin-btn"
+                            (click)="viewStreamingClick(content, data.pageId)"
+                            ><i class="feather-eye"></i
+                          ></button>
+                          <button class="btn btn-light-warning margin-btn"
+                            ><i class="feather-edit-3"></i
+                          ></button>
+                          <button class="btn btn-danger-light"
+                            ><i class="feather-trash-2"></i
+                          ></button>
                     </div>
                   </td>
                 </tr>
