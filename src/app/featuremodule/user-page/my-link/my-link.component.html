@@ -186,6 +186,7 @@
                             ><i class="feather-edit-3"></i
                           ></button>
                           <button class="btn btn-danger-light"
+                                  (click)="deleteLink(popupDelete, data.pageId)"
                             ><i class="feather-trash-2"></i
                           ></button>
                     </div>
@@ -343,6 +344,38 @@
       class="btn btn-success"
       (click)="closeModal()">
       Save
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="closeModal()"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #popupDelete role="document" let-modal>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="btn-close"
+      aria-hidden="true"
+      (click)="closeModal()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <h5>
+      <i class="fa fa-exclamation-triangle" style="color: #fe3408"></i> Are you sure you want to perform a delete link?
+    </h5>
+  </div>
+
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="closeModal()">
+      Delete
     </button>
     <button
       type="button"

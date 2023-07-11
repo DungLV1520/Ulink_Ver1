@@ -166,6 +166,17 @@ export class MyLinkComponent {
     });
   }
 
+  deleteLink(content: any, pageId: any): void {
+    this.pageIdStreamingClick = pageId;
+    this.modalService.open(content, {
+      size: 'sm',
+      windowClass: 'modal-sm',
+      scrollable: true,
+      centered: true,
+      backdrop: 'static',
+    });
+  }
+
   closeModal(): void {
     clearInterval(this.intervalId);
     this.modalService.dismissAll();
