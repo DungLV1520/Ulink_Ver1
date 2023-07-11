@@ -32,3 +32,12 @@ td:hover {
 .margin-btn {
   margin-right: 5px;
 }
+
+.btn-success {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #06bf69;
+}
+
+.labelBold {
+  font-weight: bold;
+}

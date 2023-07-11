@@ -153,7 +153,20 @@ export class MyLinkComponent {
     });
   }
 
-  closeStreamingClickModal(): void {
+  editLink(content: any, pageId: any): void {
+    this.pageIdStreamingClick = pageId;
+    this.fetchDataStreamingClick();
+
+    this.modalService.open(content, {
+      size: 'lg',
+      windowClass: 'modal-lg',
+      scrollable: true,
+      centered: true,
+      backdrop: 'static',
+    });
+  }
+
+  closeModal(): void {
     clearInterval(this.intervalId);
     this.modalService.dismissAll();
   }
