@@ -46,6 +46,9 @@ export class MyLinkComponent {
   dataStreamingClick: RawClick[] = [];
   checkLoading = 0;
   loading = false;
+
+  pageIdHide: any;
+
   public loadingTemplate!: TemplateRef<any>;
   public config = {
     animationType: ngxLoadingAnimationTypes.none,
@@ -124,10 +127,6 @@ export class MyLinkComponent {
       });
   }
 
-  getRowNumber(indexRow: number): number {
-    return indexRow + 1 + (this.page - 1) * this.pagesize;
-  }
-
   loadPage(e: any): void {
     this.checkLoading = 0;
     this.getLink(e, this.pagesize);
@@ -166,8 +165,9 @@ export class MyLinkComponent {
     });
   }
 
-  deleteLink(content: any, pageId: any): void {
+  hidePageId(content: any, pageId: any): void {
     this.pageIdStreamingClick = pageId;
+    this.pageIdHide = pageId;
     this.modalService.open(content, {
       size: 'sm',
       windowClass: 'modal-sm',
@@ -180,6 +180,21 @@ export class MyLinkComponent {
   closeModal(): void {
     clearInterval(this.intervalId);
     this.modalService.dismissAll();
+  }
+
+  hideLink(): void {
+    if (this.pageIdHide) {
+      this.uLinkService.hideLink(this.pageIdHide).subscribe((res: any) => {
+        this.toast.success('Hide Link Success');
+        this.pageIdHide = null;
+        this.modalService.dismissAll();
+        this.loadingData();
+      }, error => {
+        this.toast.error('Hide Link Failed');
+      });
+    } else {
+      this.toast.warning('Error hide link failed');
+    }
   }
 
   fetchDataStreamingClick() {

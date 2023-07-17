@@ -192,6 +192,13 @@ export class ULinkService {
     );
   }
 
+  hideLink(pageId: string) {
+    return this.http.put(GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/hide-link',
+      {},
+      {responseType: 'text'}
+    );
+  }
+
   getCurrentDate(): string {
     const currentDate = new Date();
     const year = currentDate.getFullYear();

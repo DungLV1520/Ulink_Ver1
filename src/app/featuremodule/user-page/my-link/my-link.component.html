@@ -188,10 +188,9 @@
                                   (click)="editLink(popupUpdate, data.pageId)"
                             ><i class="feather-edit-3"></i
                           ></button>
-                          <button class="btn btn-danger-light"
-                                  (click)="deleteLink(popupDelete, data.pageId)"
-                            ><i class="feather-eye-off"></i
-                          ></button>
+                          <button class="btn btn-danger-light" (click)="hidePageId(popupDelete, data.pageId)">
+                            <i class="feather-eye-off"></i>
+                          </button>
                     </div>
                   </td>
                 </tr>
@@ -377,7 +376,7 @@
     <button
       type="button"
       class="btn btn-success"
-      (click)="closeModal()">
+      (click)="hideLink()">
       Hide Link
     </button>
     <button
