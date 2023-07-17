@@ -39,6 +39,7 @@ export class MyLinkComponent {
   pagesize = 5;
   maxSize = 5;
   selectedDate!: any;
+  searchValue: string = '';
 
   pageIdStreamingClick: any;
   intervalId: any;
@@ -75,7 +76,7 @@ export class MyLinkComponent {
   }
 
   ngOnInit(): void {
-    this.getLink(1, this.pagesize);
+    this.getLink(1, this.pagesize, this.searchValue);
   }
 
   sortData(sort: Sort) {
@@ -107,18 +108,18 @@ export class MyLinkComponent {
     const formattedDateFrom = moment(from, 'DD/MM/YYYY').format('YYYYMMDD');
     const formattedDateTo = moment(to, 'DD/MM/YYYY').format('YYYYMMDD');
 
-    this.getLink(1, this.pagesize, formattedDateFrom, formattedDateTo);
+    this.getLink(1, this.pagesize, this.searchValue, formattedDateFrom, formattedDateTo);
   }
 
   loadingData(): void {
-    this.getLink(1, this.pagesize);
+    this.getLink(1, this.pagesize, this.searchValue);
     this.selectedDate = undefined;
   }
 
-  getLink(pageN: number, pageSize: number, from?: string, to?: string): void {
+  getLink(pageN: number, pageSize: number, searchValue: string, from?: string, to?: string): void {
     this.loading = true;
     this.uLinkService
-      .getLink(pageN - 1, pageSize, from, to)
+      .getLink(pageN - 1, pageSize, searchValue, from, to)
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -137,7 +138,7 @@ export class MyLinkComponent {
 
   loadPage(e: any): void {
     this.checkLoading = 0;
-    this.getLink(e, this.pagesize);
+    this.getLink(e, this.pagesize, this.searchValue);
   }
 
   viewStreamingClick(content: any, pageId: any): void {

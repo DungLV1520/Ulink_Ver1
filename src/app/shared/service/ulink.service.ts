@@ -48,15 +48,20 @@ export class ULinkService {
     );
   }
 
-  getLink(pageNo: number, pageSize: number, from?: string, to?: string) {
+  getLink(pageNo: number, pageSize: number, searchValue: string, from?: string, to?: string) {
     const req = {
       from,
       to,
     };
+
+    if (!searchValue) {
+      searchValue = '';
+    }
+
     const options = createRequestOption(req);
     return this.http.get(
       GlobalComponent.API_URL_LOCAL +
-        `links?pageNo=${pageNo}&pageSize=${pageSize}&sortBy=id&sortDir=desc`,
+        `links?searchValue=${searchValue}&pageNo=${pageNo}&pageSize=${pageSize}&sortBy=id&sortDir=desc`,
       {
         params: options,
       }

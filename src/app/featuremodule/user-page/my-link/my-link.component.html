@@ -38,18 +38,19 @@
       <div class="dash-cards card">
         <div class="card-body">
           <div class="listing-search" style="justify-content: start">
-            <div class="filter-content form-group">
-              <!-- <div class="group-img">
+            <div class="filter-content form-group" style="margin-bottom: 8px !important;">
+              <div class="group-img">
                 <input
+                  style="padding: 12px; margin: 0px 1px"
                   type="text"
                   class="form-control"
-                  placeholder="Search..."
+                  placeholder="Search alias, original link, note.."
+                  [(ngModel)]="searchValue"
                 />
-                <i class="feather-search"></i>
-              </div> -->
+              </div>
 
-              <div class="form-group">
-                <!--                <div class="pass-group group-img">-->
+              <!--<div class="form-group">
+                                <div class="pass-group group-img">-->
                 <!--                  <input-->
                 <!--                    style="padding: 14px 15px 17px 35px"-->
                 <!--                    class="form-control flatpickr-input"-->
@@ -66,28 +67,24 @@
                 <!--                  <span class="lock-icon"-->
                 <!--                    ><i class="feather-calendar"></i-->
                 <!--                  ></span>-->
-                <!--                </div>-->
-              </div>
+                <!--                </div>
+              </div>-->
             </div>
             <div>
-              <!--              <button-->
-              <!--                class="btn btn-primary"-->
-              <!--                type="button"-->
-              <!--                style="padding: 12px; margin: 0 13px"-->
-              <!--                (click)="getTime()"-->
-              <!--                [disabled]="!selectedDate"-->
-              <!--              >-->
-              <!--                <i class="feather-search"></i>-->
-              <!--                Search-->
-              <!--              </button>-->
+<!--              <button class="category-btn btn-primary"-->
+<!--                    type="button"-->
+<!--                    style="padding: 12px; margin: 0px 1px"-->
+<!--                    (click)="getTime()"-->
+<!--                    [disabled]="!selectedDate"-->
+<!--                  > Search-->
+<!--                  </button>-->
               <button
-                class="category-btn"
+                class="category-btn btn-primary"
                 type="button"
-                style="padding: 12px; margin: 6px 1px"
+                style="padding: 12px; margin: 0px 1px"
                 (click)="loadingData()"
               >
-                <i class="feather-search"></i>
-                Refresh Data
+                Search
               </button>
             </div>
             <div class="sorting-div"></div>
