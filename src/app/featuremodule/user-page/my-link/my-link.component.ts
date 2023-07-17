@@ -47,7 +47,15 @@ export class MyLinkComponent {
   checkLoading = 0;
   loading = false;
 
+  // Hide page
   pageIdHide: any;
+
+  // Update page
+  pageIdUpdate: any;
+  originUrlUpdateSource: string = '';
+  statusUpdate: boolean = true;
+  originalLinkUpdate: string = '';
+  noteUpdate: string = '';
 
   public loadingTemplate!: TemplateRef<any>;
   public config = {
@@ -153,8 +161,8 @@ export class MyLinkComponent {
   }
 
   editLink(content: any, pageId: any): void {
-    this.pageIdStreamingClick = pageId;
-    this.fetchDataStreamingClick();
+    this.pageIdUpdate = pageId;
+    this.getDetailLink();
 
     this.modalService.open(content, {
       size: 'lg',
@@ -198,12 +206,20 @@ export class MyLinkComponent {
   }
 
   fetchDataStreamingClick() {
-    this.uLinkService
-      .getStreamingClick(this.pageIdStreamingClick, 20)
+    this.uLinkService.getStreamingClick(this.pageIdStreamingClick, 20)
       .subscribe((res: any) => {
         this.dataStreamingClick = res?.rawClicks;
         this.urlResultULink = res?.detailLink?.urlULink;
       });
+  }
+
+  getDetailLink() {
+    this.uLinkService.getDetailPageId(this.pageIdUpdate).subscribe((res: any) => {
+        this.urlResultULink = res?.originalUrl;
+        this.statusUpdate = res?.isActive;
+        this.originalLinkUpdate = res?.originalUrl;
+        this.noteUpdate = res?.note;
+    });
   }
 
   copyToClipboard(value: any) {

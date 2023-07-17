@@ -192,6 +192,10 @@ export class ULinkService {
     );
   }
 
+  getDetailPageId(pageId: string) {
+    return this.http.get(GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/detail');
+  }
+
   hideLink(pageId: string) {
     return this.http.put(GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/hide-link',
       {},

@@ -150,7 +150,7 @@
                         {{ data.urlOriginal }}</a
                       >
                     </div>
-                    <div *ngIf="data?.note" class="listingtable-rate" style="font-size: 12px;">
+                    <div *ngIf="data?.note" class="listingtable-rate" style="font-size: 12px; word-wrap: break-word">
                         <span style="text-decoration:underline; font-weight: bold">Note:</span> {{ data?.note }}
                     </div>
                   </td>
@@ -314,28 +314,29 @@
   <div class="modal-body">
     <h5>
       Back-half:
-      <a style="color: #226db9" target="_blank" href="{{ urlResultULink }}">{{
-        pageIdStreamingClick
+      <a style="color: #226db9" target="_blank" href="{{ originUrlUpdateSource }}">{{
+        pageIdUpdate
         }}</a>
     </h5>
     <div class="form-group row labelBold">
       <label for="status" class="col-sm-2 col-form-label">Status</label>
       <div class="col-sm-10" style="color: white">
-        <button class="form-control btn btn-success" id="status" style="font-weight: bold">Active</button>
+        <button class="form-control btn"  [ngClass]="statusUpdate ? 'btn-success' : 'btn-danger'"
+                id="status" style="font-weight: bold" (click)="statusUpdate = !statusUpdate">{{ statusUpdate ? 'Active' : 'Disable' }}</button>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="originalLink" class="col-sm-2 col-form-label labelBold">Original Link</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="originalLink" placeholder="Original Link">
+        <input type="text" class="form-control" id="originalLink" placeholder="Original Link" [(ngModel)]="originalLinkUpdate">
       </div>
     </div>
 
     <div class="form-group row">
       <label for="note" class="col-sm-2 col-form-label labelBold">Note</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="note" placeholder="Note">
+        <input type="text" class="form-control" id="note" placeholder="Note" maxlength="150" [(ngModel)]="noteUpdate">
       </div>
     </div>
   </div>
