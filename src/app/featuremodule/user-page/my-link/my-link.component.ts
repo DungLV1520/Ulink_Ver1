@@ -190,6 +190,28 @@ export class MyLinkComponent {
     this.modalService.dismissAll();
   }
 
+  updateLink() {
+    if (!this.pageIdUpdate) {
+        return;
+    }
+
+    const pageUpdate = {
+        'pageId': this.pageIdUpdate,
+        'urlOriginal': this.originalLinkUpdate,
+        'isActive': this.statusUpdate,
+        'tagIds': [],
+        'note': this.noteUpdate
+    };
+    this.uLinkService.updateLink(this.pageIdUpdate, pageUpdate).subscribe((res: any) => {
+      this.toast.success('Update Link Success');
+      this.pageIdUpdate = null;
+      this.modalService.dismissAll();
+      this.loadingData();
+    }, error => {
+      this.toast.error('Update Link Failed');
+    });
+  }
+
   hideLink(): void {
     if (this.pageIdHide) {
       this.uLinkService.hideLink(this.pageIdHide).subscribe((res: any) => {

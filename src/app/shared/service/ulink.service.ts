@@ -203,6 +203,10 @@ export class ULinkService {
     );
   }
 
+  updateLink(pageId: string, obj: any) {
+    return this.http.post(GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/update', obj);
+  }
+
   getCurrentDate(): string {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
