@@ -61,7 +61,7 @@ export class DashboardComponent {
   getDateInput(): void {
     const currentDate = new Date();
     const fromDate = new Date();
-    fromDate.setDate(currentDate.getDate() - 5);
+    fromDate.setDate(currentDate.getDate() - 2);
     const toDate = currentDate;
 
     this.selectedDate = {
