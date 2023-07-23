@@ -36,7 +36,7 @@ export class MyLinkComponent {
   linkData: any[] = [];
   total = 10;
   page = 0;
-  pagesize = 5;
+  pagesize = 10;
   maxSize = 5;
   selectedDate!: any;
   searchValue: string = '';
