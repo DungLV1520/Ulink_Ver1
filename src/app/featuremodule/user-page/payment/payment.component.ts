@@ -51,6 +51,10 @@ export class PaymentComponent {
     }, 3000);
   }
 
+  ngOnDestroy() {
+    clearInterval(this.intervalId);
+  }
+
   calTotalClick(): void {
     const money = this.myPaymentForm.get('money')!.value as number;
     if (money) {
