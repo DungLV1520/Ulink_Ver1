@@ -16,7 +16,7 @@ export class PaymentComponent {
   public routes = routes;
   public Toggledata = false;
   public Toggle = false;
-  domainAll: any[] = [];
+  paymentAll: any[] = [];
   loading = false;
   public loadingTemplate!: TemplateRef<any>;
   totalClick = 0;
@@ -28,21 +28,20 @@ export class PaymentComponent {
   constructor(
     private formBuilder: FormBuilder,
     private uLinkService: ULinkService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
     this.myPaymentForm = this.formBuilder.group({
       phone: ['', [Validators.required]],
-      money: ['', [Validators.required, Validators.email]],
-      totalClick: ['', [Validators.required, Validators.email]],
+      money: ['', [Validators.required]],
+      totalClick: [''],
     });
 
-    this.getAllMyDomain();
+    this.getAllMyPayment();
   }
 
   calTotalClick(): void {
-    console.log(this.myPaymentForm.value);
     const money = this.myPaymentForm.get('money')!.value as number;
     if (money) {
       this.myPaymentForm.patchValue({
@@ -55,64 +54,44 @@ export class PaymentComponent {
     }
   }
 
-  iconLogle() {
-    this.Toggledata = !this.Toggledata;
-  }
-
-  icon() {
-    this.Toggle = !this.Toggle;
-  }
-
-  registerDomain(): void {
+  payment(): void {
     this.loading = true;
-    const domain = this.myPaymentForm.get('domain')!.value;
+    const objPayment = {
+      phonePartner: this.myPaymentForm.get('phone')!.value
+    }
     this.uLinkService
-      .checkDNSDomain(domain)
+      .createPayment(objPayment)
       .pipe(
         catchError(() => {
           return of(null);
-        }),
-        switchMap((res: any) => {
-          if (!res.isPointing) {
-            this.toastr.error(
-              `Domain [${domain}] does not point to IP: ${res.serverIp}`
-            );
-            return of(null);
-          }
-
-          const objMyDomain = {
-            ...this.myPaymentForm.value,
-            isSubDomain: false,
-          };
-          return this.uLinkService.createMyDomain(objMyDomain);
         }),
         finalize(() => {
           this.loading = false;
         })
       )
       .subscribe({
-        next: (res) => {
-          if (res !== null) {
-            if ('OK' === res) {
-              this.toastr.success(`Add domain [${domain}] success`);
-              this.getAllMyDomain();
-            } else {
-              this.toastr.error(`No permission. Add domain [${domain}] failed.
-              Please contact us`);
-            }
-          }
+        next: (res:any) => {
+          // if (res !== null) {
+          //   if ('OK' === res) {
+          //     this.toastr.success(`Add domain [${domain}] success`);
+          //     this.getAllMyPayment();
+          //   } else {
+          //     this.toastr.error(`No permission. Add domain [${domain}] failed.
+          //     Please contact us`);
+          //   }
+          // }
         },
         error: () => {
-          this.toastr.error(`No permission. Add domain [${domain}] failed.
-            Please contact us`);
+          // this.toastr.error(`No permission. Add domain [${domain}] failed.
+          //   Please contact us`);
         },
       });
   }
 
-  getAllMyDomain(): void {
-    this.uLinkService.getAllMyDomain().subscribe({
+  getAllMyPayment(): void {
+    this.uLinkService.getAllMyPayment().subscribe({
       next: (res: any) => {
-        this.domainAll = res;
+        this.paymentAll = res;
       },
       error: () => {},
     });

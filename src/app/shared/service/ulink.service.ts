@@ -147,6 +147,10 @@ export class ULinkService {
     return this.http.get(GlobalComponent.API_URL_LOCAL + 'domain/all');
   }
 
+  getAllMyPayment() {
+    return this.http.get(GlobalComponent.API_URL_LOCAL + 'payment/all');
+  }
+
   createMyDomain(data: any) {
     return this.http.post(GlobalComponent.API_URL_LOCAL + 'domain', data, {
       responseType: 'text',
@@ -201,6 +205,10 @@ export class ULinkService {
     return this.http.get(GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/detail');
   }
 
+  getQuota() {
+    return this.http.get(GlobalComponent.API_URL_LOCAL + 'statistic-quota-click');
+  }
+
   hideLink(pageId: string) {
     return this.http.put(GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/hide-link',
       {},
@@ -210,6 +218,10 @@ export class ULinkService {
 
   updateLink(pageId: string, obj: any) {
     return this.http.post(GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/update', obj);
+  }
+
+  createPayment(obj: any) {
+    return this.http.post(GlobalComponent.API_URL_LOCAL + 'payment/create', obj);
   }
 
   getCurrentDate(): string {

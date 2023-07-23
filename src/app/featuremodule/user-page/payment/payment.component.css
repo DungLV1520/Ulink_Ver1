@@ -17,3 +17,19 @@
 .customHeight {
   padding: 15px 18px 15px 18px;
 }
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#rotate-icon {
+  animation: rotate 2s linear infinite;
+}
+
+.custom-btn {
+  border: none;
+  padding: 4px 14px;
+  border-radius: 16px;
+  color: white;
+}

@@ -44,40 +44,11 @@
 
             <div class="card-body" style="padding-top: 0px">
               <div class="profile-form">
-                <form [formGroup]="myPaymentForm" (ngSubmit)="registerDomain()">
+                <form [formGroup]="myPaymentForm" (ngSubmit)="payment()">
                   <div class="row">
-                    <h5>Configure Personal Domain</h5>
+                    <h5>The steps to make a click purchase are as follows</h5>
                     <span style="font-style: italic; font-size: 13px"
                       >Step 1: Add DNS records with type and value below
-                      <br />
-                      <div style="margin: 5px 0 10px 25px">
-                        <table id="customWithTable">
-                          <tr>
-                            <th>#</th>
-                            <th>Host</th>
-                            <th>Type</th>
-                            <th>Value</th>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>*</td>
-                            <td>A</td>
-                            <td>123.30.234.128</td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>@</td>
-                            <td>A</td>
-                            <td>123.30.234.128</td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>www</td>
-                            <td>CNAME</td>
-                            <td>your-domain.com</td>
-                          </tr>
-                        </table>
-                      </div>
                     </span>
                     <br />
                     <span
@@ -115,7 +86,6 @@
                                 type="number"
                                 class="form-control"
                                 formControlName="money"
-                                appCurrencyInput
                                 placeholder="Enter money"
                                 (keyup)="calTotalClick()"
                               />
@@ -128,9 +98,8 @@
                               <i class="fa-solid fa-flask"></i>
                               <input
                                 type="number"
-                                [disabled]="true"
+                                readonly="true"
                                 class="form-control"
-                                appCurrencyInput
                                 placeholder="Total click"
                                 formControlName="totalClick"
                               />
@@ -160,20 +129,17 @@
                     <thead>
                       <tr>
                         <th class="no-sort customHeight">#</th>
-                        <th class="no-sort customHeight">Domain</th>
-                        <th style="text-align: center" class="customHeight">
-                          Status
-                        </th>
-                        <th
-                          class="no-sort customHeight"
-                          style="text-align: center"
-                        >
-                          Last Modified
-                        </th>
+                        <th class="no-sort customHeight">Phone Partner</th>
+                        <th class="no-sort customHeight">Username</th>
+                        <th class="no-sort customHeight">TranId</th>
+                        <th class="no-sort customHeight">PartnerName</th>
+                        <th class="no-sort customHeight">Amount</th>
+                        <th class="no-sort customHeight">Status</th>
+                        <th class="no-sort customHeight">Last Modified</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let data of domainAll; let i = index">
+                      <tr *ngFor="let data of paymentAll; let i = index">
                         <td>
                           <div>
                             <span class="">{{ i + 1 }}</span>
@@ -181,30 +147,71 @@
                         </td>
                         <td>
                           <div>
-                            <span style="font-weight: bold">{{
-                              data.domainName
-                            }}</span>
+                            <span>{{ data.phonePartner }}</span>
                           </div>
                         </td>
-                        <td style="width: 10%; text-align: center">
-                          <span
-                            [ngClass]="{ unpublish: data.isActive === true }"
-                            class="status-text"
-                            style="color: #22c55e"
-                          >
-                            <i
-                              class="feather-check-circle"
-                              style="color: #22c55e"
-                              *ngIf="data.isActive; else inactive"
-                            ></i>
-                            <ng-template #inactive>
-                              <i class="feather-x"></i
-                            ></ng-template>
-                          </span>
-                        </td>
-                        <td style="text-align: center; width: 20%">
+                        <td>
                           <div>
-                            <span class="">{{
+                            <span>{{ data.username }}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <span>{{ data.tranId }}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <span>{{ data.partnerName }}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <span>{{ data.amount }}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <ng-container *ngIf="data.status===null; else elseBlock1">
+                            <button
+                              type="button"
+                              class="custom-btn"
+                              style="
+                                background-color: #50a5f1;"
+                            >
+                            <i id="rotate-icon" class="fas fa-spinner" ></i>
+                              Waiting
+                            </button>
+                          </ng-container>
+
+                          <ng-template #elseBlock1>
+                            <ng-container *ngIf="data.status===2; else elseBlock2">
+                              <button
+                              type="button"
+                              class="custom-btn"
+                              style="
+                                background-color: #34c38f;"
+                            >
+                            <i class="feather-check-circle"></i>
+                              Success
+                            </button>
+                            </ng-container>
+
+                            <ng-template #elseBlock2>
+                              <button
+                              type="button"
+                              class="custom-btn"
+                              style="
+                                background-color: #ed1c24;"
+                            >
+                              <i class="feather-x"></i>
+                              Failed
+                            </button>
+                            </ng-template>
+                          </ng-template>
+                        </td>
+                        <td>
+                          <div class="text-center">
+                            <span>{{
                               data.lastModifiedDate | date : "HH:MM dd/MM/YYYY"
                             }}</span>
                           </div>
@@ -227,3 +234,14 @@
   ></ngx-loading>
 </div>
 <!-- /Profile Content -->
+
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-hidden="true"></button>
+  </div>
+  <div class="modal-body"></div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger">Close</button>
+  </div>
+</ng-template>

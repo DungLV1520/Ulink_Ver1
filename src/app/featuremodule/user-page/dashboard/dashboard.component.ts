@@ -35,6 +35,7 @@ export class DashboardComponent {
     backdropBorderRadius: '3px',
   };
   loading = false;
+  quotaData: any;
 
   constructor(
     private DataService: DataService,
@@ -45,9 +46,16 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void {
+    this.getQuota();
     this.getDateInput();
     this.getAllPage();
     this.clearFilter();
+  }
+
+  getQuota(): void {
+    this.uLinkService.getQuota().subscribe((quota) => {
+      this.quotaData = quota;
+    });
   }
 
   getDateInput(): void {
@@ -98,7 +106,9 @@ export class DashboardComponent {
             {
               img: 'assets/img/icons/verified.svg',
               title: 'Total Click',
-              amount: `${res.totalQuota ?? 0}/${res.totalClick}`,
+              amount: `${res.totalClick}/${
+                this.quotaData?.totalQuotaClick ?? 0
+              }`,
             },
             {
               img: 'assets/img/icons/link.png',
