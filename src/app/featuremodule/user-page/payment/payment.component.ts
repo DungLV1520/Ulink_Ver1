@@ -48,7 +48,7 @@ export class PaymentComponent {
 
     this.intervalId = setInterval(() => {
       this.getAllMyPayment();
-    }, 2000);
+    }, 3000);
   }
 
   calTotalClick(): void {
