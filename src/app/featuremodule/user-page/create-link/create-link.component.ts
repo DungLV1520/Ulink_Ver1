@@ -169,8 +169,7 @@ export class CreateLinkComponent {
 
   registerLink(content:any) {
     this.submitted = true;
-    if(this.quotaData.totalQuotaClick >= this.quotaData.totalClick)
-    {
+    if(this.quotaData.totalClick > this.quotaData.totalQuotaClick) {
         this.modalService.open(content, {
           size: 'lg',
           windowClass: 'modal-xl',
