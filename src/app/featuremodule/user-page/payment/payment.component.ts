@@ -20,10 +20,13 @@ export class PaymentComponent {
   loading = false;
   public loadingTemplate!: TemplateRef<any>;
   totalClick = 0;
+
   public config = {
     animationType: ngxLoadingAnimationTypes.none,
     backdropBorderRadius: '3px',
   };
+
+  intervalId: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,7 +41,14 @@ export class PaymentComponent {
       totalClick: [''],
     });
 
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
     this.getAllMyPayment();
+
+    this.intervalId = setInterval(() => {
+      this.getAllMyPayment();
+    }, 2000);
   }
 
   calTotalClick(): void {
