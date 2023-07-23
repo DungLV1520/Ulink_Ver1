@@ -23,6 +23,11 @@
             <i class="fa-solid fa-plus"></i> <span>My Domain</span>
           </a>
         </li>
+        <li>
+          <a [routerLink]="routes.payment">
+            <i class="fa-solid fa-cart-shopping"></i> <span>My Payment</span>
+          </a>
+        </li>
         <li class="disabled-link">
           <a [routerLink]="routes.profile">
             <i class="fa-solid fa-user"></i> <span>Profile</span>
@@ -129,23 +134,41 @@
                               <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                   <div class="form-group">
-                                    <label class="col-form-label">Domain<span style="color: rgb(210, 82, 82)">
-                                      *</span></label>
+                                    <label class="col-form-label"
+                                      >Domain<span
+                                        style="color: rgb(210, 82, 82)"
+                                      >
+                                        *</span
+                                      ></label
+                                    >
                                     <div class="pass-group group-img">
                                       <div class="filter-content form-group">
                                         <mat-form-field
                                           class="mat-custom-select w-100"
                                         >
-                                          <mat-select formControlName="domain" placeholder="Select Domain">
-                                            <mat-option [value]="s.domainName" *ngFor="let s of domainSelecteds;">
-                                              https://{{s.domainName}}
+                                          <mat-select
+                                            formControlName="domain"
+                                            placeholder="Select Domain"
+                                          >
+                                            <mat-option
+                                              [value]="s.domainName"
+                                              *ngFor="let s of domainSelecteds"
+                                            >
+                                              https://{{ s.domainName }}
                                             </mat-option>
                                           </mat-select>
                                         </mat-form-field>
                                       </div>
-                                      <div *ngIf="submittedShort &&  fShort['domain'].invalid">
+                                      <div
+                                        *ngIf="
+                                          submittedShort &&
+                                          fShort['domain'].invalid
+                                        "
+                                      >
                                         <div
-                                          *ngIf=" fShort['domain'].errors![ 'required' ] "
+                                          *ngIf="
+                                            fShort['domain'].errors!['required']
+                                          "
                                           class="error"
                                         >
                                           Select Domain is required
@@ -202,7 +225,6 @@
                               <div class="row socialmedia-info mt-3">
                                 <div class="col-lg-4">
                                   <div class="form-group">
-
                                     <div class="pass-group group-img d-flex">
                                       <div>
                                         <button
@@ -215,13 +237,15 @@
                                         <button
                                           class="category-btn"
                                           type="button"
-                                          style="padding: 12px; margin-left: 42px;"
+                                          style="
+                                            padding: 12px;
+                                            margin-left: 42px;
+                                          "
                                           (click)="copyToClipboard()"
                                         >
                                           Copy Link
                                         </button>
                                       </div>
-
                                     </div>
                                   </div>
                                 </div>
@@ -229,17 +253,15 @@
                                   <div class="form-group">
                                     <div class="pass-group group-img d-flex">
                                       <input
-                                      type="text"
-                                      class="w-100"
-                                      placeholder="Result link"
-                                      [readonly]="true"
-                                      formControlName="urlULink"
-                                      [(ngModel)]="urlULink"
-                                    />
-
+                                        type="text"
+                                        class="w-100"
+                                        placeholder="Result link"
+                                        [readonly]="true"
+                                        formControlName="urlULink"
+                                        [(ngModel)]="urlULink"
+                                      />
                                     </div>
                                   </div>
-
                                 </div>
                               </div>
                             </form>
@@ -254,6 +276,12 @@
                     <div class="profile-content">
                       <div class="row dashboard-info">
                         <div class="col-lg-12" style="padding: 0 67px">
+                          <span
+                            ><i style="color: red"
+                              >The number of clicks you are currently using is 100 out of 1000.</i
+                            ></span
+                          >
+
                           <div class="profile-form">
                             <form
                               [formGroup]="formFake"
@@ -397,7 +425,8 @@
                                 </div>
                                 <div class="col-lg-6">
                                   <div class="form-group">
-                                    <label class="col-form-label">Enter a back-half (optional)</label
+                                    <label class="col-form-label"
+                                      >Enter a back-half (optional)</label
                                     >
                                     <div class="group-img">
                                       <i class="feather-compass"></i>
@@ -476,23 +505,40 @@
 
                                 <div class="col-lg-6">
                                   <div class="form-group">
-                                    <label class="col-form-label">Domain<span style="color: rgb(210, 82, 82)">
-                                      *</span></label>
+                                    <label class="col-form-label"
+                                      >Domain<span
+                                        style="color: rgb(210, 82, 82)"
+                                      >
+                                        *</span
+                                      ></label
+                                    >
                                     <div class="pass-group group-img">
                                       <div class="filter-content form-group">
                                         <mat-form-field
                                           class="mat-custom-select w-100"
                                         >
-                                          <mat-select formControlName="domain" placeholder="Select Domain">
-                                            <mat-option [value]="s.domainName" *ngFor="let s of domainSelecteds;">
-                                              https://{{s.domainName}}
+                                          <mat-select
+                                            formControlName="domain"
+                                            placeholder="Select Domain"
+                                          >
+                                            <mat-option
+                                              [value]="s.domainName"
+                                              *ngFor="let s of domainSelecteds"
+                                            >
+                                              https://{{ s.domainName }}
                                             </mat-option>
                                           </mat-select>
                                         </mat-form-field>
                                       </div>
-                                      <div *ngIf="submitted &&  fFake['domain'].invalid">
+                                      <div
+                                        *ngIf="
+                                          submitted && fFake['domain'].invalid
+                                        "
+                                      >
                                         <div
-                                          *ngIf=" fFake['domain'].errors![ 'required' ] "
+                                          *ngIf="
+                                            fFake['domain'].errors!['required']
+                                          "
                                           class="error"
                                         >
                                           Select Domain is required
@@ -503,13 +549,18 @@
                                 </div>
                                 <div class="col-lg-6">
                                   <div class="form-group">
-                                    <label class="col-form-label">Display Type (optional)</label>
+                                    <label class="col-form-label"
+                                      >Display Type (optional)</label
+                                    >
                                     <div class="pass-group group-img">
                                       <div class="filter-content form-group">
                                         <mat-form-field
                                           class="mat-custom-select w-100"
                                         >
-                                          <mat-select formControlName="displayType" placeholder="Select Display Type">
+                                          <mat-select
+                                            formControlName="displayType"
+                                            placeholder="Select Display Type"
+                                          >
                                             <mat-option value="video.other">
                                               Video
                                             </mat-option>
@@ -530,7 +581,6 @@
                               <div class="row socialmedia-info mt-3">
                                 <div class="col-lg-4">
                                   <div class="form-group">
-
                                     <div class="pass-group group-img d-flex">
                                       <div>
                                         <button
@@ -543,13 +593,15 @@
                                         <button
                                           class="category-btn"
                                           type="button"
-                                          style="padding: 12px; margin-left: 42px;"
+                                          style="
+                                            padding: 12px;
+                                            margin-left: 42px;
+                                          "
                                           (click)="copyToClipboard()"
                                         >
                                           Copy Link
                                         </button>
                                       </div>
-
                                     </div>
                                   </div>
                                 </div>
@@ -557,17 +609,15 @@
                                   <div class="form-group">
                                     <div class="pass-group group-img d-flex">
                                       <input
-                                      type="text"
-                                      class="w-100"
-                                      placeholder="Result link"
-                                      [readonly]="true"
-                                      formControlName="urlULink"
-                                      [(ngModel)]="urlULink"
-                                    />
-
+                                        type="text"
+                                        class="w-100"
+                                        placeholder="Result link"
+                                        [readonly]="true"
+                                        formControlName="urlULink"
+                                        [(ngModel)]="urlULink"
+                                      />
                                     </div>
                                   </div>
-
                                 </div>
                               </div>
                             </form>

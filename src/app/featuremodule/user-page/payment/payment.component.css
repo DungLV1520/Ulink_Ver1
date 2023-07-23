@@ -1,0 +1,19 @@
+@media (max-width: 700px) {
+  #customWithTable {
+    width: 100%
+  }
+
+  #customWithButton {
+    width: 100%
+  }
+}
+
+@media (min-width: 701px) {
+  #customWithTable {
+    width: 35%
+  }
+}
+
+.customHeight {
+  padding: 15px 18px 15px 18px;
+}

@@ -39,12 +39,12 @@
         <div class="col-lg-12">
           <div class="card dash-cards">
             <div class="card-header">
-              <h4>My Domain</h4>
+              <h4>My Payment</h4>
             </div>
 
             <div class="card-body" style="padding-top: 0px">
               <div class="profile-form">
-                <form [formGroup]="myDomainForm" (ngSubmit)="registerDomain()">
+                <form [formGroup]="myPaymentForm" (ngSubmit)="registerDomain()">
                   <div class="row">
                     <h5>Configure Personal Domain</h5>
                     <span style="font-style: italic; font-size: 13px"
@@ -86,36 +86,53 @@
                         font-size: 13px;
                         margin-top: 3px;
                       "
-                      >Step 2: Add domain on u-link.asia and wait for
-                      maximum 5 minutes completed.</span
+                      >Step 2: Add domain on u-link.asia and wait for maximum 5
+                      minutes completed.</span
                     >
 
                     <div class="container text-center">
                       <div class="row align-items-center">
-                        <div class="col-lg-5 col-md-6 mt-4">
+                        <div class="col-lg-4 col-md-5 mt-4">
                           <div class="form-group">
                             <div class="pass-group group-img">
                               <span class="lock-icon"
-                                ><i class="feather-link"></i
+                                ><i class="feather-phone"></i
                               ></span>
                               <input
-                                type="tel"
+                                type="number"
                                 class="form-control"
-                                formControlName="domain"
-                                placeholder="Enter your domain"
+                                formControlName="phone"
+                                placeholder="Enter your phone"
                               />
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-5 col-md-6 mt-4">
+                        <div class="col-lg-4 col-md-5 mt-4">
                           <div class="form-group">
                             <div class="group-img">
-                              <i class="feather-mail"></i>
+                              <i class="fa-solid fa-money-bill"></i>
                               <input
-                                type="email"
+                                type="number"
                                 class="form-control"
-                                formControlName="email"
-                                placeholder="Enter your email"
+                                formControlName="money"
+                                appCurrencyInput
+                                placeholder="Enter money"
+                                (keyup)="calTotalClick()"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-2 mt-4">
+                          <div class="form-group">
+                            <div class="group-img">
+                              <i class="fa-solid fa-flask"></i>
+                              <input
+                                type="number"
+                                [disabled]="true"
+                                class="form-control"
+                                appCurrencyInput
+                                placeholder="Total click"
+                                formControlName="totalClick"
                               />
                             </div>
                           </div>
@@ -124,10 +141,10 @@
                           <button
                             class="btn btn-primary"
                             type="submit"
-                            [disabled]="myDomainForm.invalid"
+                            [disabled]="myPaymentForm.invalid"
                             id="customWithButton"
                           >
-                            Add Domain
+                            Payment
                           </button>
                         </div>
                       </div>
@@ -142,10 +159,15 @@
                   >
                     <thead>
                       <tr>
-                        <th class="no-sort customHeight" >#</th>
+                        <th class="no-sort customHeight">#</th>
                         <th class="no-sort customHeight">Domain</th>
-                        <th style="text-align: center" class="customHeight">Status</th>
-                        <th class="no-sort customHeight" style="text-align: center">
+                        <th style="text-align: center" class="customHeight">
+                          Status
+                        </th>
+                        <th
+                          class="no-sort customHeight"
+                          style="text-align: center"
+                        >
                           Last Modified
                         </th>
                       </tr>

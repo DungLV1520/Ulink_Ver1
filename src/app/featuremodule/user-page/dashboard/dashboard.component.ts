@@ -79,7 +79,11 @@ export class DashboardComponent {
     });
   }
 
-  getStatisticOverviewDashboard(from: string, to: string, idPage: string): void {
+  getStatisticOverviewDashboard(
+    from: string,
+    to: string,
+    idPage: string
+  ): void {
     this.loading = true;
     this.uLinkService
       .getStatisticOverviewDashboard(from, to, idPage)
@@ -94,7 +98,7 @@ export class DashboardComponent {
             {
               img: 'assets/img/icons/verified.svg',
               title: 'Total Click',
-              amount: res.totalClick,
+              amount: `${res.totalQuota ?? 0}/${res.totalClick}`,
             },
             {
               img: 'assets/img/icons/link.png',

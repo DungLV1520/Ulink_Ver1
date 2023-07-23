@@ -27,6 +27,11 @@ const routes: Routes = [
           import('./profile/profile.module').then((m) => m.ProfileModule),
       },
       {
+        path: 'payment',
+        loadChildren: () =>
+          import('./payment/payment.module').then((m) => m.PaymentModule),
+      },
+      {
         path: 'create-link',
         component: CreateLinkComponent,
       },
