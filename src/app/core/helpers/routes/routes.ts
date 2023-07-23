@@ -108,6 +108,9 @@ export class routes {
   public static get domain(): string {
     return this.baseUrl + '/user-page/domain';
   }
+  public static get payment(): string {
+    return this.baseUrl + '/user-page/payment';
+  }
   public static get reviews(): string {
     return this.baseUrl + '/user-page/reviews';
   }

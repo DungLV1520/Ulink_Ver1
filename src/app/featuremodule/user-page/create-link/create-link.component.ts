@@ -12,6 +12,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { catchError, finalize, from, of, switchMap, tap } from 'rxjs';
 import { RegisterDomain } from 'src/app/shared/model/register.model';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-creat-link',
@@ -32,6 +33,7 @@ export class CreateLinkComponent {
   submittedShort = false;
   isShow = true;
   profileData: any;
+  quotaData: any;
 
   domainSelecteds: any = [];
 
@@ -42,7 +44,8 @@ export class CreateLinkComponent {
     private clipboard: Clipboard,
     private ulinkService: ULinkService,
     private toast: HotToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalService: NgbModal,
   ) {
     (this.jobholder = this.DataService.jobholder),
       (this.universitiesCompanies = this.DataService.universitiesCompanies),
@@ -107,6 +110,7 @@ export class CreateLinkComponent {
   ngOnInit(): void {
     this.getAllDomainRegister();
     this.getProfile();
+    this.getQuota();
     AOS.init({ disable: 'mobile' });
     this.formFake = this.formBuilder.group({
       originalLink: ['', [Validators.required, Validators.maxLength(1000)]],
@@ -130,6 +134,12 @@ export class CreateLinkComponent {
   getProfile(): void {
     this.authService.getProfile().subscribe((profile) => {
       this.profileData = profile;
+    });
+  }
+
+  getQuota(): void {
+    this.ulinkService.getQuota().subscribe((quota) => {
+      this.quotaData = quota;
     });
   }
 
@@ -157,8 +167,19 @@ export class CreateLinkComponent {
     this.countUp.start();
   }
 
-  registerLink() {
+  registerLink(content:any) {
     this.submitted = true;
+    if(this.quotaData.totalQuotaClick >= this.quotaData.totalClick)
+    {
+        this.modalService.open(content, {
+          size: 'lg',
+          windowClass: 'modal-xl',
+          scrollable: true,
+          centered: true,
+          backdrop: 'static',
+        });
+      return;
+    }
 
     if (!this.fileToUpload || !this.formFake.valid) {
       this.toast.error("Check field and data input. Can't register URL");
@@ -181,25 +202,34 @@ export class CreateLinkComponent {
           register.type = 'FACEBOOK';
           register.source_page = this.formFake.get('domain')!.value;
           register.url_original = this.formFake.get('originalLink')!.value;
-          register.content.alias_register = this.formFake.get('aliasRegister')!.value;
-          register.content.url_normal_user = this.formFake.get('originalLink')!.value;
+          register.content.alias_register =
+            this.formFake.get('aliasRegister')!.value;
+          register.content.url_normal_user =
+            this.formFake.get('originalLink')!.value;
           register.content.url_manager_fb_user = 'https://www.youtube.com';
           register.content.title = this.formFake.get('title')!.value;
           register.content.type = this.formFake.get('displayType')!.value;
-          register.content.description = this.formFake.get('description')!.value;
+          register.content.description =
+            this.formFake.get('description')!.value;
           register.content.thumbnail = res.data;
 
           return this.ulinkService.registerDomain(register);
         }),
         tap((res: any) => {
+          this.getQuota();
           if (res.code == 400) {
-            this.toast.error('Alias(back-half) already exists. </br>' +
-              'Please try again.');
+            this.toast.error(
+              'Alias(back-half) already exists. </br>' + 'Please try again.'
+            );
             return;
           } else {
             this.urlULink = res.data.url_ulink;
             this.clipboard.copy(this.urlULink);
-            this.toast.success('Register url success. </br>Copy ' + this.urlULink + ' into clipboard.');
+            this.toast.success(
+              'Register url success. </br>Copy ' +
+                this.urlULink +
+                ' into clipboard.'
+            );
             setTimeout(() => {
               this.formFake.patchValue({
                 urlULink: res.data.url_ulink,
@@ -235,8 +265,10 @@ export class CreateLinkComponent {
     register.user_id = this.profileData?.id;
     register.source_page = this.formShort.get('domain')!.value;
     register.url_original = this.formShort.get('originalLink')!.value;
-    register.content.alias_register = this.formShort.get('aliasRegister')!.value;
-    register.content.url_normal_user = this.formShort.get('originalLink')!.value;
+    register.content.alias_register =
+      this.formShort.get('aliasRegister')!.value;
+    register.content.url_normal_user =
+      this.formShort.get('originalLink')!.value;
     register.content.url_manager_fb_user = '';
     register.content.title = '';
     register.content.type = '';
@@ -305,5 +337,14 @@ export class CreateLinkComponent {
     this.ulinkService.getAllDomainRegister().subscribe((res) => {
       this.domainSelecteds = res;
     });
+  }
+
+  closeModal(): void {
+    this.modalService.dismissAll();
+  }
+
+  goToPayment():void{
+    this.router.navigate(['user-page/payment']);
+    this.modalService.dismissAll();
   }
 }

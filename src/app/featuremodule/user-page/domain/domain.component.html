@@ -23,6 +23,11 @@
           </a>
         </li>
         <li>
+          <a [routerLink]="routes.payment">
+            <i class="fa-solid fa-cart-shopping"></i> <span>My Payment</span>
+          </a>
+        </li>
+        <li>
           <a [routerLink]="routes.profile">
             <i class="fa-solid fa-user"></i> <span>Profile</span>
           </a>
@@ -97,7 +102,7 @@
                                 type="tel"
                                 class="form-control"
                                 formControlName="domain"
-                                placeholder="Enter my domain"
+                                placeholder="Enter your domain"
                               />
                             </div>
                           </div>
@@ -110,7 +115,7 @@
                                 type="email"
                                 class="form-control"
                                 formControlName="email"
-                                placeholder="Enter email"
+                                placeholder="Enter your email"
                               />
                             </div>
                           </div>

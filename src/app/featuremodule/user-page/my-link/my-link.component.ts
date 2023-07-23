@@ -94,8 +94,6 @@ export class MyLinkComponent {
   }
 
   getTime(): void {
-    console.log(this.selectedDate);
-
     const from = this.datePipe.transform(
       new Date(this.selectedDate.from),
       'dd/MM/yyyy'

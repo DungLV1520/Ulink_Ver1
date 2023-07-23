@@ -90,7 +90,6 @@ export class ProfileComponent {
     this.passwordForm.value['id'] = this.profile.id;
     this.authService.updateProfile(this.passwordForm.value).subscribe(
       (data) => {
-        console.log(data);
         this.toast.success('Update password successfully');
       },
       (err) => {
