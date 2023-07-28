@@ -216,6 +216,7 @@ export class CreateLinkComponent {
         }),
         tap((res: any) => {
           this.getQuota();
+
           if (res.code == 400) {
             this.toast.error(
               'Alias(back-half) already exists. </br>' + 'Please try again.'
@@ -279,6 +280,13 @@ export class CreateLinkComponent {
       .pipe(finalize(() => toastRef.close()))
       .subscribe({
         next: (res: any) => {
+          if (res.code == 400) {
+            this.toast.error(
+              'Alias(back-half) already exists. </br>' + 'Please try again.'
+            );
+            return;
+          }
+
           this.urlULink = res?.data?.url_ulink;
           setTimeout(() => {
             this.formShort.patchValue({
