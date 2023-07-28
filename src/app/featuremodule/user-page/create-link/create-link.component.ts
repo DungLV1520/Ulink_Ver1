@@ -45,7 +45,7 @@ export class CreateLinkComponent {
     private ulinkService: ULinkService,
     private toast: HotToastService,
     private authService: AuthService,
-    private modalService: NgbModal,
+    private modalService: NgbModal
   ) {
     (this.jobholder = this.DataService.jobholder),
       (this.universitiesCompanies = this.DataService.universitiesCompanies),
@@ -167,16 +167,16 @@ export class CreateLinkComponent {
     this.countUp.start();
   }
 
-  registerLink(content:any) {
+  registerLink(content: any) {
     this.submitted = true;
-    if(this.quotaData.totalClick > this.quotaData.totalQuotaClick) {
-        this.modalService.open(content, {
-          size: 'lg',
-          windowClass: 'modal-xl',
-          scrollable: true,
-          centered: true,
-          backdrop: 'static',
-        });
+    if (this.quotaData.totalClick > this.quotaData.totalQuotaClick) {
+      this.modalService.open(content, {
+        size: 'lg',
+        windowClass: 'modal-xl',
+        scrollable: true,
+        centered: true,
+        backdrop: 'static',
+      });
       return;
     }
 
@@ -202,7 +202,7 @@ export class CreateLinkComponent {
           register.source_page = this.formFake.get('domain')!.value;
           register.url_original = this.formFake.get('originalLink')!.value;
           register.content.alias_register =
-            this.formFake.get('aliasRegister')!.value;
+            this.formFake.get('aliasRegister')!.value || '';
           register.content.url_normal_user =
             this.formFake.get('originalLink')!.value;
           register.content.url_manager_fb_user = 'https://www.youtube.com';
@@ -222,7 +222,7 @@ export class CreateLinkComponent {
             );
             return;
           } else {
-            this.urlULink = res.data.url_ulink;
+            this.urlULink = res?.data?.url_ulink;
             this.clipboard.copy(this.urlULink);
             this.toast.success(
               'Register url success. </br>Copy ' +
@@ -231,7 +231,7 @@ export class CreateLinkComponent {
             );
             setTimeout(() => {
               this.formFake.patchValue({
-                urlULink: res.data.url_ulink,
+                urlULink: res?.data?.url_ulink,
               });
             }, 0);
             this.resetForm();
@@ -265,7 +265,7 @@ export class CreateLinkComponent {
     register.source_page = this.formShort.get('domain')!.value;
     register.url_original = this.formShort.get('originalLink')!.value;
     register.content.alias_register =
-      this.formShort.get('aliasRegister')!.value;
+      this.formShort.get('aliasRegister')!.value || '';
     register.content.url_normal_user =
       this.formShort.get('originalLink')!.value;
     register.content.url_manager_fb_user = '';
@@ -279,17 +279,17 @@ export class CreateLinkComponent {
       .pipe(finalize(() => toastRef.close()))
       .subscribe({
         next: (res: any) => {
-          this.urlULink = res.data.url_ulink;
+          this.urlULink = res?.data?.url_ulink;
           setTimeout(() => {
             this.formShort.patchValue({
-              urlULink: res.data.url_ulink,
+              urlULink: res?.data?.url_ulink,
             });
           }, 0);
 
           this.clipboard.copy(this.urlULink);
           this.resetFormShort();
           this.toast.success(
-            `Register url success.</br> Copy ${res.data.url_ulink} into clipboard.`
+            `Register url success.</br> Copy ${res?.data?.url_ulink} into clipboard.`
           );
         },
         error: (error) => {
@@ -342,7 +342,7 @@ export class CreateLinkComponent {
     this.modalService.dismissAll();
   }
 
-  goToPayment():void{
+  goToPayment(): void {
     this.router.navigate(['user-page/payment']);
     this.modalService.dismissAll();
   }
