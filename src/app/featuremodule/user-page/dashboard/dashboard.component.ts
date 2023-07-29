@@ -113,7 +113,9 @@ export class DashboardComponent {
             {
               img: 'assets/img/icons/link.png',
               title: 'Total Link',
-              amount: res.totalLink,
+              amount: `${res.totalLink}/${
+                this.quotaData?.totalQuotaLink ?? 0
+              }`,
             },
             {
               img: 'assets/img/icons/country-icon.png',
