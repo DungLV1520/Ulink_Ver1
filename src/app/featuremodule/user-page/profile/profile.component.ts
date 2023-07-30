@@ -82,8 +82,12 @@ export class ProfileComponent {
     this.submitted = true;
     this.profileForm.value['id'] = this.profile.id;
     this.authService.updateProfile(this.profileForm.value).subscribe(
-      () => {
-        this.toast.success('Update profile successfully');
+      (body) => {
+        if (body.updateSuccess) {
+          this.toast.success('Update profile successfully');
+        } else {
+          this.toast.error(body.message);
+        }
       },
       (err) => {
         this.toast.error(err);
