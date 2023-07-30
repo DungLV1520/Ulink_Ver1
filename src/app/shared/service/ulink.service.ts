@@ -151,6 +151,18 @@ export class ULinkService {
     return this.http.get(GlobalComponent.API_URL_LOCAL + 'payment/all');
   }
 
+  getTotalMoney() {
+    return this.http.get(GlobalComponent.API_URL_LOCAL + 'payment/total');
+  }
+
+  getPackageRegister() {
+    return this.http.get(GlobalComponent.API_URL_LOCAL + 'package-register/all');
+  }
+
+  getPackagePackageData() {
+    return this.http.get(GlobalComponent.API_URL_LOCAL + 'register-package/all');
+  }
+
   createMyDomain(data: any) {
     return this.http.post(GlobalComponent.API_URL_LOCAL + 'domain', data, {
       responseType: 'text',

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -19,11 +20,14 @@ export class ProfileComponent {
   submitted = false;
   isPassword = true;
   profile: any;
+  isCopy=false;
+  isCopyLink=false;
 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private clipboard: Clipboard,
   ) {}
 
   ngOnInit(): void {
@@ -61,10 +65,11 @@ export class ProfileComponent {
     this.authService.getProfile().subscribe(
       (profile) => {
         this.profile = profile;
-        this.profileForm.patchValue({
-          fullName: profile.fullName,
-          phone: profile.phone,
-          email: profile.email,
+        console.log(profile);
+        this.profileForm.setValue({
+          fullName: profile.fullName || '',
+          phone: profile.phone || '',
+          email: profile.email || ''
         });
       },
       (err) => {
@@ -89,12 +94,22 @@ export class ProfileComponent {
   updatePassword(): void {
     this.passwordForm.value['id'] = this.profile.id;
     this.authService.updateProfile(this.passwordForm.value).subscribe(
-      (data) => {
+      () => {
         this.toast.success('Update password successfully');
       },
       (err) => {
         this.toast.error(err);
       }
     );
+  }
+
+  copyReferralCode():void{
+    this.isCopy = true;
+    this.clipboard.copy(this.profile?.myReferral);
+  }
+
+  copyReferralLink():void{
+    this.isCopyLink = true;
+    this.clipboard.copy(`https://u-link.asia/auth/signup?code=${this.profile?.myReferral }`);
   }
 }

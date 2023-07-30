@@ -1,8 +1,8 @@
 <ngx-loading
-    [show]="loading"
-    [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
-    [template]="loadingTemplate"
-  ></ngx-loading>
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+  [template]="loadingTemplate"
+></ngx-loading>
 <div class="dashboard-content mt-4">
   <div class="container">
     <div class="">
@@ -43,7 +43,10 @@
       <div class="dash-cards card">
         <div class="card-body">
           <div class="listing-search" style="justify-content: start">
-            <div class="filter-content form-group" style="margin-bottom: 8px !important;">
+            <div
+              class="filter-content form-group"
+              style="margin-bottom: 8px !important"
+            >
               <div class="group-img">
                 <input
                   style="padding: 12px; margin: 0px 1px"
@@ -56,33 +59,33 @@
 
               <!--<div class="form-group">
                                 <div class="pass-group group-img">-->
-                <!--                  <input-->
-                <!--                    style="padding: 14px 15px 17px 35px"-->
-                <!--                    class="form-control flatpickr-input"-->
-                <!--                    type="text"-->
-                <!--                    placeholder="Choose datepicker"-->
-                <!--                    mwlFlatpickr-->
-                <!--                    [allowInput]="true"-->
-                <!--                    [convertModelValue]="true"-->
-                <!--                    dateFormat="d/m/Y"-->
-                <!--                    locale="de"-->
-                <!--                    mode="range"-->
-                <!--                    [(ngModel)]="selectedDate"-->
-                <!--                  />-->
-                <!--                  <span class="lock-icon"-->
-                <!--                    ><i class="feather-calendar"></i-->
-                <!--                  ></span>-->
-                <!--                </div>
+              <!--                  <input-->
+              <!--                    style="padding: 14px 15px 17px 35px"-->
+              <!--                    class="form-control flatpickr-input"-->
+              <!--                    type="text"-->
+              <!--                    placeholder="Choose datepicker"-->
+              <!--                    mwlFlatpickr-->
+              <!--                    [allowInput]="true"-->
+              <!--                    [convertModelValue]="true"-->
+              <!--                    dateFormat="d/m/Y"-->
+              <!--                    locale="de"-->
+              <!--                    mode="range"-->
+              <!--                    [(ngModel)]="selectedDate"-->
+              <!--                  />-->
+              <!--                  <span class="lock-icon"-->
+              <!--                    ><i class="feather-calendar"></i-->
+              <!--                  ></span>-->
+              <!--                </div>
               </div>-->
             </div>
             <div>
-<!--              <button class="category-btn btn-primary"-->
-<!--                    type="button"-->
-<!--                    style="padding: 12px; margin: 0px 1px"-->
-<!--                    (click)="getTime()"-->
-<!--                    [disabled]="!selectedDate"-->
-<!--                  > Search-->
-<!--                  </button>-->
+              <!--              <button class="category-btn btn-primary"-->
+              <!--                    type="button"-->
+              <!--                    style="padding: 12px; margin: 0px 1px"-->
+              <!--                    (click)="getTime()"-->
+              <!--                    [disabled]="!selectedDate"-->
+              <!--                  > Search-->
+              <!--                  </button>-->
               <button
                 class="category-btn btn-primary"
                 type="button"
@@ -94,7 +97,7 @@
             </div>
             <div class="sorting-div"></div>
           </div>
-          <div class="table-responsive">
+          <div class="table-responsive mt-2">
             <table
               matSort
               (matSortChange)="sortData($event)"
@@ -103,21 +106,18 @@
             >
               <thead>
                 <tr>
-                  <th
-                    mat-sort-header="img"
-                    class="no-sort"
-                  >
-                    PageId
-                  </th>
+                  <th mat-sort-header="img" class="no-sort">PageId</th>
                   <th mat-sort-header="details" class="no-sort">Details</th>
                   <th mat-sort-header="status">Status</th>
                   <th mat-sort-header="view">Click</th>
-                  <th mat-sort-header="lastModifiedDate" class="no-sort" style="padding: 0px">
+                  <th
+                    mat-sort-header="lastModifiedDate"
+                    class="no-sort"
+                    style="padding: 0px"
+                  >
                     Last Modified
                   </th>
-                  <th
-                    mat-sort-header="Action" style="padding-left: 55px;"
-                  >
+                  <th mat-sort-header="Action" style="padding-left: 55px">
                     Action
                   </th>
                 </tr>
@@ -152,11 +152,19 @@
                         {{ data.urlOriginal }}</a
                       >
                     </div>
-                    <div *ngIf="data?.note" class="listingtable-rate" style="font-size: 13px; word-wrap: break-word">
-                        <span style="text-decoration:underline; font-weight: bold">Note:</span> {{ data?.note }}
+                    <div
+                      *ngIf="data?.note"
+                      class="listingtable-rate"
+                      style="font-size: 13px; word-wrap: break-word"
+                    >
+                      <span
+                        style="text-decoration: underline; font-weight: bold"
+                        >Note:</span
+                      >
+                      {{ data?.note }}
                     </div>
                   </td>
-                  <td >
+                  <td>
                     <span
                       [ngClass]="{ unpublish: data.isActive === true }"
                       class="status-text"
@@ -171,28 +179,34 @@
                       </ng-template>
                     </span>
                   </td>
-                  <td >
+                  <td>
                     <span class="views-count">{{ data.totalClick }}</span>
                   </td>
-                  <td >
+                  <td>
                     <span>{{
                       data.lastModifiedDate | date : "HH:MM dd/MM/YYYY"
                     }}</span>
                   </td>
                   <td>
                     <div class="action">
-                          <button
-                            class="btn btn-light-success margin-btn"
-                            (click)="viewStreamingClick(content, data.pageId)"
-                            ><i class="feather-activity"></i
-                          ></button>
-                          <button class="btn btn-light-warning margin-btn"
-                                  (click)="editLink(popupUpdate, data.pageId)"
-                            ><i class="feather-edit-3"></i
-                          ></button>
-                          <button class="btn btn-danger-light" (click)="hidePageId(popupDelete, data.pageId)">
-                            <i class="feather-eye-off"></i>
-                          </button>
+                      <button
+                        class="btn btn-light-success margin-btn"
+                        (click)="viewStreamingClick(content, data.pageId)"
+                      >
+                        <i class="feather-activity"></i>
+                      </button>
+                      <button
+                        class="btn btn-light-warning margin-btn"
+                        (click)="editLink(popupUpdate, data.pageId)"
+                      >
+                        <i class="feather-edit-3"></i>
+                      </button>
+                      <button
+                        class="btn btn-danger-light"
+                        (click)="hidePageId(popupDelete, data.pageId)"
+                      >
+                        <i class="feather-eye-off"></i>
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -294,11 +308,7 @@
   </table>
 
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-danger"
-      (click)="closeModal()"
-    >
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
       Close
     </button>
   </div>
@@ -316,45 +326,63 @@
   <div class="modal-body">
     <h5>
       Back-half:
-      <a style="color: #226db9" target="_blank" href="{{ originUrlUpdateSource }}">{{
-        pageIdUpdate
-        }}</a>
+      <a
+        style="color: #226db9"
+        target="_blank"
+        href="{{ originUrlUpdateSource }}"
+        >{{ pageIdUpdate }}</a
+      >
     </h5>
     <div class="form-group row labelBold">
       <label for="status" class="col-sm-2 col-form-label">Status</label>
       <div class="col-sm-10" style="color: white">
-        <button class="form-control btn"  [ngClass]="statusUpdate ? 'btn-success' : 'btn-danger'"
-                id="status" style="font-weight: bold" (click)="statusUpdate = !statusUpdate">{{ statusUpdate ? 'Active' : 'Disable' }}</button>
+        <button
+          class="form-control btn"
+          [ngClass]="statusUpdate ? 'btn-success' : 'btn-danger'"
+          id="status"
+          style="font-weight: bold"
+          (click)="statusUpdate = !statusUpdate"
+        >
+          {{ statusUpdate ? "Active" : "Disable" }}
+        </button>
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="originalLink" class="col-sm-2 col-form-label labelBold">Original Link</label>
+      <label for="originalLink" class="col-sm-2 col-form-label labelBold"
+        >Original Link</label
+      >
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="originalLink" placeholder="Original Link" [(ngModel)]="originalLinkUpdate">
+        <input
+          type="text"
+          class="form-control"
+          id="originalLink"
+          placeholder="Original Link"
+          [(ngModel)]="originalLinkUpdate"
+        />
       </div>
     </div>
 
     <div class="form-group row">
       <label for="note" class="col-sm-2 col-form-label labelBold">Note</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="note" placeholder="Note max 150 characters" maxlength="150" [(ngModel)]="noteUpdate">
+        <input
+          type="text"
+          class="form-control"
+          id="note"
+          placeholder="Note max 150 characters"
+          maxlength="150"
+          [(ngModel)]="noteUpdate"
+        />
       </div>
     </div>
   </div>
 
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-success"
-      (click)="updateLink()">
+    <button type="button" class="btn btn-success" (click)="updateLink()">
       Update
     </button>
-    <button
-      type="button"
-      class="btn btn-danger"
-      (click)="closeModal()"
-    >
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
       Close
     </button>
   </div>
@@ -371,22 +399,16 @@
   </div>
   <div class="modal-body">
     <h5>
-      <i class="fa fa-exclamation-triangle" style="color: #fe3408"></i> Are you sure want to hide link?
+      <i class="fa fa-exclamation-triangle" style="color: #fe3408"></i> Are you
+      sure want to hide link?
     </h5>
   </div>
 
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-success"
-      (click)="hideLink()">
+    <button type="button" class="btn btn-success" (click)="hideLink()">
       Hide Link
     </button>
-    <button
-      type="button"
-      class="btn btn-danger"
-      (click)="closeModal()"
-    >
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
       Close
     </button>
   </div>

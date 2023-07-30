@@ -1,9 +1,8 @@
 import { Component, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { catchError, finalize, of, switchMap } from 'rxjs';
+import { catchError, finalize, of } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { ULinkService } from 'src/app/shared/service/ulink.service';
-import { ToastrService } from 'ngx-toastr';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @Component({
@@ -13,42 +12,65 @@ import { ngxLoadingAnimationTypes } from 'ngx-loading';
 })
 export class PaymentComponent {
   myPaymentForm!: FormGroup;
-  public routes = routes;
-  public Toggledata = false;
-  public Toggle = false;
-  paymentAll: any[] = [];
+  routes = routes;
+  Toggledata = false;
+  Toggle = false;
+  packagesData: any[] = [];
   loading = false;
-  public loadingTemplate!: TemplateRef<any>;
+  loadingTemplate!: TemplateRef<any>;
   totalClick = 0;
-
-  public config = {
+  config = {
     animationType: ngxLoadingAnimationTypes.none,
     backdropBorderRadius: '3px',
   };
-
   intervalId: any;
+  inforMoneyPayment: any;
+  packages: any;
 
   constructor(
     private formBuilder: FormBuilder,
-    private uLinkService: ULinkService,
-    private toastr: ToastrService,
+    private uLinkService: ULinkService
   ) {}
 
   ngOnInit(): void {
     this.myPaymentForm = this.formBuilder.group({
-      phone: ['', [Validators.required]],
-      money: ['', [Validators.required]],
-      totalClick: [''],
+      payment: ['', [Validators.required]],
     });
 
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
-    this.getAllMyPayment();
 
     this.intervalId = setInterval(() => {
-      this.getAllMyPayment();
+      this.getTotalMoney();
+      this.getPackagePackageData();
     }, 3000);
+
+    this.getTotalMoney();
+    this.getPackageRegister();
+    this.getPackagePackageData();
+  }
+
+  getTotalMoney(): void {
+    this.uLinkService.getTotalMoney().subscribe((money) => {
+      this.inforMoneyPayment = money;
+    });
+  }
+
+  getPackageRegister(): void {
+    this.uLinkService.getPackageRegister().subscribe((packages) => {
+      this.packages = packages;
+    });
+  }
+
+  getPackagePackageData(): void {
+    this.uLinkService.getPackagePackageData().subscribe((data: any) => {
+      this.packagesData = data;
+    });
+  }
+
+  getValuePackage(item: any): void {
+    console.log(item);
   }
 
   ngOnDestroy() {
@@ -71,8 +93,8 @@ export class PaymentComponent {
   payment(): void {
     this.loading = true;
     const objPayment = {
-      phonePartner: this.myPaymentForm.get('phone')!.value
-    }
+      phonePartner: this.myPaymentForm.get('phone')!.value,
+    };
     this.uLinkService
       .createPayment(objPayment)
       .pipe(
@@ -84,7 +106,7 @@ export class PaymentComponent {
         })
       )
       .subscribe({
-        next: (res:any) => {
+        next: (res: any) => {
           // if (res !== null) {
           //   if ('OK' === res) {
           //     this.toastr.success(`Add domain [${domain}] success`);
@@ -100,14 +122,5 @@ export class PaymentComponent {
           //   Please contact us`);
         },
       });
-  }
-
-  getAllMyPayment(): void {
-    this.uLinkService.getAllMyPayment().subscribe({
-      next: (res: any) => {
-        this.paymentAll = res;
-      },
-      error: () => {},
-    });
   }
 }

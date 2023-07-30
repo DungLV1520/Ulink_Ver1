@@ -8,7 +8,12 @@ import { SharedModule } from '../shared/shared.module';
 import { FlatpickrModule } from 'angularx-flatpickr';
 
 @NgModule({
-  declarations: [FeaturemoduleComponent,HomeComponent],
-  imports: [CommonModule, FeaturemoduleRoutingModule, SharedModule,FlatpickrModule.forRoot()],
+  declarations: [FeaturemoduleComponent, HomeComponent],
+  imports: [
+    CommonModule,
+    FeaturemoduleRoutingModule,
+    SharedModule,
+    FlatpickrModule.forRoot(),
+  ],
 })
 export class FeaturemoduleModule {}

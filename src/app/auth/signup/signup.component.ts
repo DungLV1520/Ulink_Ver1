@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { finalize } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -21,14 +21,34 @@ export class SignupComponent {
     private formBuilder: FormBuilder,
     public router: Router,
     private authService: AuthService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      username: ['', [Validators.required, Validators.pattern(/^[a-z0-9]+$/), Validators.pattern(/^\S*$/)]], // Chỉ chữ thường, số và không có khoảng trắng
+      username: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[a-z0-9]+$/),
+          Validators.pattern(/^\S*$/),
+        ],
+      ], // Chỉ chữ thường, số và không có khoảng trắng
       password: ['', Validators.required],
+      referralUser: [''],
+    });
+
+    this.getParamInvitationCode();
+  }
+
+  getParamInvitationCode(): void {
+    this.activatedRoute.queryParams.subscribe((params:any) => {
+      console.log(params);
+      this.signupForm.patchValue({
+        referralUser:params.code
+      });
     });
   }
 

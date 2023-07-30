@@ -41,18 +41,43 @@
             <div class="card-header">
               <h4>My Payment</h4>
             </div>
-
-            <div class="card-body" style="padding-top: 0px">
+            <div class="card-body" style="padding-top: 10px">
+              <div>
+                <table>
+                  <tr>
+                    <th>Total number of deposits</th>
+                    <th class="px-3">Total amount paid</th>
+                    <th class="px-3">Total</th>
+                    <th>Last payment date</th>
+                  </tr>
+                  <tr>
+                    <td>{{ inforMoneyPayment?.number }}</td>
+                    <td class="px-3">{{ inforMoneyPayment?.totalCharge }}</td>
+                    <td class="px-3">{{ inforMoneyPayment?.total }}</td>
+                    <td>
+                      {{
+                        inforMoneyPayment?.lastModifiedDate
+                          | date : "HH:MM dd/MM/YYYY"
+                      }}
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <hr />
               <div class="profile-form">
                 <form [formGroup]="myPaymentForm" (ngSubmit)="payment()">
                   <div class="row">
-                    <h5>Thanh toán theo các bước sau: Chỉ hỗ trợ với chuyển khoản qua ứng dụng Momo</h5>
+                    <h5>
+                      Thanh toán theo các bước sau: Chỉ hỗ trợ với chuyển khoản
+                      qua ứng dụng Momo
+                    </h5>
                     <span style="font-style: italic; font-size: 13px"
-                      >Bước 1: Nhập số điện thoại Momo chuyển tiền và nhập tổng số tiền muốn nạp.
+                      >Bước 1: Nhập số điện thoại Momo chuyển tiền và nhập tổng
+                      số tiền muốn nạp.
                     </span>
                     <br />
                     <span style="font-style: italic; font-size: 13px"
-                    >Bước 2: Sau đó ấn button tạo thanh toán
+                      >Bước 2: Sau đó ấn button tạo thanh toán
                     </span>
                     <br />
                     <span
@@ -61,15 +86,20 @@
                         font-size: 13px;
                         margin-top: 3px;
                       "
-                    >Bước 3: Dùng tài khoản Momo với số điện thoại ở bước 1, chuyển tiền tới tài khoản <span style="font-weight: bold">Momo SĐT: 0989168454</span> </span
-                    >
+                      >Bước 3: Dùng tài khoản Momo với số điện thoại ở bước 1,
+                      chuyển tiền tới tài khoản
+                      <span style="font-weight: bold"
+                        >Momo SĐT: 0989168454</span
+                      >
+                    </span>
                     <span
                       style="
                         font-style: italic;
                         font-size: 13px;
                         margin-top: 3px;
                       "
-                    >Bước 4: Đợi quá trình xử lý thanh toán tối đa khoảng 3 phút.</span
+                      >Bước 4: Đợi quá trình xử lý thanh toán tối đa khoảng 3
+                      phút.</span
                     >
                     <span
                       style="
@@ -78,53 +108,37 @@
                         color: #d81919;
                         font-weight: bold;
                       "
-                    >Note: Nhấn vào button <a href="https://t.me/ulinkkkk" target="_blank">Contact us</a> để hỗ trợ(Click the <a href="https://t.me/ulinkkkk" target="_blank">Contact us</a> button for support)</span>
+                      >Note: Nhấn vào button
+                      <a href="https://t.me/ulinkkkk" target="_blank"
+                        >Contact us</a
+                      >
+                      để hỗ trợ(Click the
+                      <a href="https://t.me/ulinkkkk" target="_blank"
+                        >Contact us</a
+                      >
+                      button for support)</span
+                    >
                     <div class="container text-center">
                       <div class="row align-items-center">
-                        <div class="col-lg-4 col-md-5 mt-4">
-                          <div class="form-group">
-                            <div class="pass-group group-img">
-                              <span class="lock-icon"
-                                ><i class="feather-phone"></i
-                              ></span>
-                              <input
-                                type="text"
-                                class="form-control"
-                                formControlName="phone"
-                                placeholder="Enter your phone Momo"
-                              />
-                            </div>
+                        <div class="col-md-5 mt-4">
+                          <div class="filter-content form-group">
+                            <mat-form-field class="mat-custom-select w-100">
+                              <mat-select
+                                formControlName="payment"
+                                placeholder="Select package"
+                              >
+                                <mat-option
+                                  *ngFor="let item of packages"
+                                  [value]="item.id"
+                                  (change)="getValuePackage(item)"
+                                >
+                                  {{ item.packageName }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
                           </div>
                         </div>
-                        <div class="col-lg-4 col-md-5 mt-4">
-                          <div class="form-group">
-                            <div class="group-img">
-                              <i class="fa-solid fa-money-bill"></i>
-                              <input
-                                type="number"
-                                class="form-control"
-                                formControlName="money"
-                                placeholder="Enter money"
-                                (keyup)="calTotalClick()"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-2 mt-4">
-                          <div class="form-group">
-                            <div class="group-img">
-                              <i class="fa-solid fa-flask"></i>
-                              <input
-                                type="number"
-                                readonly="true"
-                                class="form-control"
-                                placeholder="Total click"
-                                formControlName="totalClick"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-3">
                           <button
                             class="btn btn-primary"
                             type="submit"
@@ -147,18 +161,16 @@
                     <thead>
                       <tr>
                         <th class="no-sort customHeight">#</th>
-                        <th class="no-sort customHeight">Phone Partner</th>
-                        <th class="no-sort customHeight">Username</th>
-                        <th class="no-sort customHeight">TranId</th>
-                        <th class="no-sort customHeight">PartnerName</th>
-                        <th class="no-sort customHeight">Amount</th>
-                        <th class="no-sort customHeight">Total Click</th>
-                        <th class="no-sort customHeight">Status</th>
-                        <th class="no-sort customHeight">Last Modified</th>
+                        <th class="no-sort customHeight">Package Name</th>
+                        <th class="no-sort customHeight">Type</th>
+                        <th class="no-sort customHeight">Active At</th>
+                        <th class="no-sort customHeight">Expire At</th>
+                        <th class="no-sort customHeight">Created By</th>
+                        <th class="no-sort customHeight">Created Date</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let data of paymentAll; let i = index">
+                      <tr *ngFor="let data of packagesData; let i = index">
                         <td>
                           <div>
                             <span class="">{{ i + 1 }}</span>
@@ -166,77 +178,52 @@
                         </td>
                         <td>
                           <div>
-                            <span>{{ data.phonePartner }}</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div>
-                            <span>{{ data.username }}</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div>
-                            <span>{{ data.tranId }}</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div>
-                            <span>{{ data.partnerName }}</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div>
-                            <span>{{ data.amount }}</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div>
-                            <span>{{ data.totalClick }}</span>
-                          </div>
-                        </td>
-                        <td>
-                          <ng-container *ngIf="data.status===null; else elseBlock1">
-                            <button
-                              type="button"
-                              class="custom-btn"
-                              style="
-                                background-color: #50a5f1;"
-                            >
-                            <i id="rotate-icon" class="fas fa-spinner" ></i>
-                              Chờ Thanh Toán
-                            </button>
-                          </ng-container>
-
-                          <ng-template #elseBlock1>
-                            <ng-container *ngIf="data.status===2; else elseBlock2">
-                              <button
-                              type="button"
-                              class="custom-btn"
-                              style="
-                                background-color: #34c38f;"
-                            >
-                            <i class="feather-check-circle"></i>
-                              Thành Công
-                            </button>
-                            </ng-container>
-
-                            <ng-template #elseBlock2>
-                              <button
-                              type="button"
-                              class="custom-btn"
-                              style="
-                                background-color: #ed1c24;"
-                            >
-                              <i class="feather-x"></i>
-                              Thất Bại
-                            </button>
-                            </ng-template>
-                          </ng-template>
-                        </td>
-                        <td>
-                          <div class="text-center">
                             <span>{{
-                              data.lastModifiedDate | date : "HH:MM dd/MM/YYYY"
+                              data.registerPackageName ?? "Package Free"
+                            }}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <button
+                            *ngIf="data.isFree"
+                            type="button"
+                            class="custom-btn"
+                            style="background-color: #50a5f1"
+                          >
+                            Free
+                          </button>
+                          <button
+                            *ngIf="!data.isFree"
+                            type="button"
+                            class="custom-btn"
+                            style="background-color: #34c38f"
+                          >
+                            Paid
+                          </button>
+                        </td>
+                        <td>
+                          <div>
+                            <span>{{
+                              data.activeAt | date : "HH:MM dd/MM/YYYY"
+                            }}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <span>{{
+                              data.expireAt | date : "HH:MM dd/MM/YYYY"
+                            }}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <span>{{ data.createdBy }}</span>
+                          </div>
+                        </td>
+                        <td style="text-align: center">
+                          <div>
+                            <span>{{
+                              data.createdDate | date : "HH:MM dd/MM/YYYY"
                             }}</span>
                           </div>
                         </td>

@@ -53,7 +53,7 @@
                 <input
                   [type]="Toggledata ? 'password' : 'text'"
                   class="form-control pass-input"
-                  placeholder="Password"
+                  placeholder="Enter Password"
                   formControlName="password"
                   [ngClass]="{
                     'is-invalid': submitted && f['password'].errors
@@ -68,6 +68,17 @@
                   (click)="iconLogle()"
                 ></span>
                 <div class="invalid-feedback">Please enter password</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="pass-group group-img">
+                <i class="feather-award"></i>
+                <input
+                 type="text"
+                  class="form-control pass-input"
+                  placeholder="Enter invitation code"
+                  formControlName="referralUser"
+                />
               </div>
             </div>
             <button class="btn btn-primary w-100 login-btn" type="submit">

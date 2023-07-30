@@ -5,6 +5,7 @@ import { PaymentRoutingModule } from './payment-routing.module';
 import { PaymentComponent } from './payment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxLoadingModule } from 'ngx-loading';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     CommonModule,
     PaymentRoutingModule,
     NgxLoadingModule.forRoot({}),
+    SharedModule
   ]
 })
 

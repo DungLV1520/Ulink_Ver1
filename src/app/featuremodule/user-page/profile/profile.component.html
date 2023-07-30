@@ -54,7 +54,7 @@
                       <input
                         type="text"
                         class="form-control"
-                        value="John Doe"
+                        placeholder="Enter fullName"
                         formControlName="fullName"
                       />
                     </div>
@@ -70,7 +70,7 @@
                           <input
                             type="tel"
                             class="form-control"
-                            value="+44 215346 1223"
+                            placeholder="Enter phone"
                             formControlName="phone"
                           />
                         </div>
@@ -84,12 +84,43 @@
                           <input
                             type="text"
                             class="form-control"
-                            value="johndoe@email.com"
+                            placeholder="Enter email"
                             formControlName="email"
                           />
                         </div>
                       </div>
                     </div>
+                    <span class="mb-1">
+                      Number of referrals: <i class="ref">{{profile?.totalUserRefer}}</i>
+                    </span>
+                    <span class="mb-1">
+                      Referral code: <i class="ref">{{ profile?.myReferral }}</i>
+                      <i
+                        class="feather-clipboard pointer mx-2"
+                        (click)="copyReferralCode()"
+                        *ngIf="!isCopy"
+                      >
+                      </i>
+                      <i class="feather-check mx-2" *ngIf="isCopy"></i>
+                    </span>
+                    <span class="mb-3">
+                      Referral link register:
+                      <a
+                      class="ref"
+                        ><i
+                          >https://u-link.asia/auth/signup?code={{
+                            profile?.myReferral
+                          }}</i
+                        ></a
+                      >
+                      <i
+                        class="feather-clipboard pointer mx-2"
+                        (click)="copyReferralLink()"
+                        *ngIf="!isCopyLink"
+                      >
+                      </i>
+                      <i class="feather-check mx-2" *ngIf="isCopyLink"></i
+                    ></span>
                     <button class="btn btn-primary w-25" type="submit">
                       Update Profile
                     </button>
@@ -116,6 +147,7 @@
                       <input
                         [type]="!ToggledataPassword ? 'password' : 'text'"
                         class="form-control pass-input"
+                        placeholder="Enter current password"
                         formControlName="password"
                       />
                       <span
@@ -137,6 +169,7 @@
                       <input
                         [type]="!Toggledata ? 'password' : 'text'"
                         class="form-control pass-input"
+                        placeholder="Enter new password"
                         formControlName="newPassword"
                       />
 

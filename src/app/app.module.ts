@@ -35,7 +35,6 @@ import {
     BsDatepickerModule.forRoot(),
     HotToastModule.forRoot(),
     FlatpickrModule.forRoot(),
-
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
