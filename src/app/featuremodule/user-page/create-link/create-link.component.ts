@@ -201,15 +201,12 @@ export class CreateLinkComponent {
           register.type = 'FACEBOOK';
           register.source_page = this.formFake.get('domain')!.value;
           register.url_original = this.formFake.get('originalLink')!.value;
-          register.content.alias_register =
-            this.formFake.get('aliasRegister')!.value || '';
-          register.content.url_normal_user =
-            this.formFake.get('originalLink')!.value;
+          register.content.alias_register = this.formFake.get('aliasRegister')!.value || '';
+          register.content.url_normal_user = this.formFake.get('originalLink')!.value;
           register.content.url_manager_fb_user = 'https://www.youtube.com';
           register.content.title = this.formFake.get('title')!.value;
           register.content.type = this.formFake.get('displayType')!.value;
-          register.content.description =
-            this.formFake.get('description')!.value;
+          register.content.description = this.formFake.get('description')!.value;
           register.content.thumbnail = res.data;
 
           return this.ulinkService.registerDomain(register);
