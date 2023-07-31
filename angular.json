@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Listee-Angular": {
+    "ulink": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/listee-angular",
+            "outputPath": "dist/ulink",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -84,10 +84,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Listee-Angular:build:production"
+              "browserTarget": "ulink:build:production"
             },
             "development": {
-              "browserTarget": "Listee-Angular:build:development"
+              "browserTarget": "ulink:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -95,7 +95,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Listee-Angular:build"
+            "browserTarget": "ulink:build"
           }
         },
         "test": {

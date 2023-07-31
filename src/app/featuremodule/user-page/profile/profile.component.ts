@@ -20,14 +20,14 @@ export class ProfileComponent {
   submitted = false;
   isPassword = true;
   profile: any;
-  isCopy=false;
-  isCopyLink=false;
+  isCopy = false;
+  isCopyLink = false;
 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private toast: HotToastService,
-    private clipboard: Clipboard,
+    private clipboard: Clipboard
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +68,7 @@ export class ProfileComponent {
         this.profileForm.setValue({
           fullName: profile.fullName || '',
           phone: profile.phone || '',
-          email: profile.email || ''
+          email: profile.email || '',
         });
       },
       (err) => {
@@ -85,7 +85,7 @@ export class ProfileComponent {
         if (body.updateSuccess) {
           this.toast.success('Update profile successfully');
         } else {
-          this.toast.error("Update profile failed");
+          this.toast.error('Update profile failed');
         }
       },
       (err) => {
@@ -106,13 +106,15 @@ export class ProfileComponent {
     );
   }
 
-  copyReferralCode():void{
+  copyReferralCode(): void {
     this.isCopy = true;
     this.clipboard.copy(this.profile?.myReferral);
   }
 
-  copyReferralLink():void{
+  copyReferralLink(): void {
     this.isCopyLink = true;
-    this.clipboard.copy(`https://u-link.asia/auth/signup?code=${this.profile?.myReferral }`);
+    this.clipboard.copy(
+      `https://u-link.asia/auth/signup?code=${this.profile?.myReferral}`
+    );
   }
 }
