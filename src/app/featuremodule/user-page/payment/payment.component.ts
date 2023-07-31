@@ -4,6 +4,7 @@ import { catchError, finalize, of } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { ULinkService } from 'src/app/shared/service/ulink.service';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-payment',
@@ -26,10 +27,12 @@ export class PaymentComponent {
   intervalId: any;
   inforMoneyPayment: any;
   packages: any;
+  packageValue: any;
 
   constructor(
     private formBuilder: FormBuilder,
-    private uLinkService: ULinkService
+    private uLinkService: ULinkService,
+    private toast: HotToastService
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +52,10 @@ export class PaymentComponent {
     this.getTotalMoney();
     this.getPackageRegister();
     this.getPackagePackageData();
+
+    this.myPaymentForm.get('payment')!.valueChanges.subscribe((value) => {
+      this.packageValue = value;
+    });
   }
 
   getTotalMoney(): void {
@@ -69,8 +76,30 @@ export class PaymentComponent {
     });
   }
 
-  getValuePackage(item: any): void {
-    console.log(item);
+  registerPackage(): void {
+    const objPackage = {
+      id: this.packageValue.id,
+      date: this.packageValue.date,
+    };
+    this.uLinkService
+      .registerPackage(objPackage)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.status === 400) {
+            this.toast.error(res.message);
+            return;
+          }
+          this.toast.success('Mua gói thành công');
+        },
+        (err) => {
+          this.toast.error(err);
+        }
+      );
   }
 
   ngOnDestroy() {

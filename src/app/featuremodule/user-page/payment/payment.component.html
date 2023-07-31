@@ -52,7 +52,9 @@
                   </tr>
                   <tr>
                     <td>{{ inforMoneyPayment?.number }}</td>
-                    <td class="px-3">{{ inforMoneyPayment?.totalCharge }} VNĐ</td>
+                    <td class="px-3">
+                      {{ inforMoneyPayment?.totalCharge }} VNĐ
+                    </td>
                     <td class="px-3">{{ inforMoneyPayment?.total }} VNĐ</td>
                     <td>
                       {{
@@ -72,21 +74,36 @@
                       qua ứng dụng Momo
                     </h5>
                     <span style="font-style: italic; font-size: 13px"
-                      >Bước 1: Cập nhật số điện thoại cá nhân cho tài khoản tại tab Profile
+                      >Bước 1: Cập nhật số điện thoại cá nhân cho tài khoản tại
+                      tab Profile
                     </span>
                     <br />
                     <span style="font-style: italic; font-size: 13px"
-                      >Bước 2: Dùng tài khoản Momo với số điện thoại ở bước 1 chuyển tiền tới tài khoản <span style="font-weight: bold">Momo SĐT: 0989168454</span
-                    >
+                      >Bước 2: Dùng tài khoản Momo với số điện thoại ở bước 1
+                      chuyển tiền tới tài khoản
+                      <span style="font-weight: bold"
+                        >Momo SĐT: 0989168454</span
+                      >
                     </span>
                     <br />
-                    <span style="
+                    <span
+                      style="
                         font-style: italic;
                         font-size: 13px;
                         margin-top: 3px;
-                      ">Bước 3: Đợi quá trình xử lý thanh toán tối đa khoảng 3 phút.</span>
+                      "
+                      >Bước 3: Đợi quá trình xử lý thanh toán tối đa khoảng 3
+                      phút.</span
+                    >
                     <br />
-                    <span style="font-style: italic; font-size: 13px; margin-top: 3px;">Bước 4: Chọn package muốn mua rồi ấn button: <span style="font-weight: bold">Register Package</span>
+                    <span
+                      style="
+                        font-style: italic;
+                        font-size: 13px;
+                        margin-top: 3px;
+                      "
+                      >Bước 4: Chọn package muốn mua rồi ấn button:
+                      <span style="font-weight: bold">Register Package</span>
                     </span>
                     <br />
                     <span
@@ -117,8 +134,7 @@
                               >
                                 <mat-option
                                   *ngFor="let item of packages"
-                                  [value]="item.id"
-                                  (change)="getValuePackage(item)"
+                                  [value]="item"
                                 >
                                   {{ item.packageName }}
                                 </mat-option>
@@ -131,7 +147,7 @@
                             class="btn btn-primary"
                             type="submit"
                             [disabled]="myPaymentForm.invalid"
-                            id="customWithButton"
+                            (click)="registerPackage()"
                           >
                             Register Package
                           </button>

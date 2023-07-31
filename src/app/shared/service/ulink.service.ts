@@ -48,7 +48,13 @@ export class ULinkService {
     );
   }
 
-  getLink(pageNo: number, pageSize: number, searchValue: string, from?: string, to?: string) {
+  getLink(
+    pageNo: number,
+    pageSize: number,
+    searchValue: string,
+    from?: string,
+    to?: string
+  ) {
     const req = {
       from,
       to,
@@ -156,11 +162,22 @@ export class ULinkService {
   }
 
   getPackageRegister() {
-    return this.http.get(GlobalComponent.API_URL_LOCAL + 'package-register/all');
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + 'package-register/all'
+    );
   }
 
   getPackagePackageData() {
-    return this.http.get(GlobalComponent.API_URL_LOCAL + 'register-package/all');
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + 'register-package/all'
+    );
+  }
+
+  registerPackage(objPackage: any) {
+    return this.http.post(
+      GlobalComponent.API_URL_LOCAL + 'register-package/create',
+      objPackage
+    );
   }
 
   createMyDomain(data: any) {
@@ -214,26 +231,37 @@ export class ULinkService {
   }
 
   getDetailPageId(pageId: string) {
-    return this.http.get(GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/detail');
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/detail'
+    );
   }
 
   getQuota() {
-    return this.http.get(GlobalComponent.API_URL_LOCAL + 'statistic-quota-click');
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + 'statistic-quota-click'
+    );
   }
 
   hideLink(pageId: string) {
-    return this.http.put(GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/hide-link',
+    return this.http.put(
+      GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/hide-link',
       {},
-      {responseType: 'text'}
+      { responseType: 'text' }
     );
   }
 
   updateLink(pageId: string, obj: any) {
-    return this.http.post(GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/update', obj);
+    return this.http.post(
+      GlobalComponent.API_URL_LOCAL + 'page/' + pageId + '/update',
+      obj
+    );
   }
 
   createPayment(obj: any) {
-    return this.http.post(GlobalComponent.API_URL_LOCAL + 'payment/create', obj);
+    return this.http.post(
+      GlobalComponent.API_URL_LOCAL + 'payment/create',
+      obj
+    );
   }
 
   getCurrentDate(): string {

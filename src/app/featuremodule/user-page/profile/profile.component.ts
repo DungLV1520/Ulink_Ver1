@@ -86,7 +86,7 @@ export class ProfileComponent {
         if (body.updateSuccess) {
           this.toast.success('Update profile successfully');
         } else {
-          this.toast.error(body.message);
+          this.toast.error("Update profile failed");
         }
       },
       (err) => {

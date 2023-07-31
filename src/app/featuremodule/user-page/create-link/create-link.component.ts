@@ -33,8 +33,6 @@ export class CreateLinkComponent {
   submittedShort = false;
   isShow = true;
   profileData: any;
-  quotaData: any;
-
   domainSelecteds: any = [];
 
   constructor(
@@ -110,7 +108,6 @@ export class CreateLinkComponent {
   ngOnInit(): void {
     this.getAllDomainRegister();
     this.getProfile();
-    this.getQuota();
     AOS.init({ disable: 'mobile' });
     this.formFake = this.formBuilder.group({
       originalLink: ['', [Validators.required, Validators.maxLength(1000)]],
@@ -134,12 +131,6 @@ export class CreateLinkComponent {
   getProfile(): void {
     this.authService.getProfile().subscribe((profile) => {
       this.profileData = profile;
-    });
-  }
-
-  getQuota(): void {
-    this.ulinkService.getQuota().subscribe((quota) => {
-      this.quotaData = quota;
     });
   }
 
@@ -169,19 +160,7 @@ export class CreateLinkComponent {
 
   registerLink(content: any) {
     this.submitted = true;
-    if (this.quotaData.totalClick > this.quotaData.totalQuotaClick) {
-      this.modalService.open(content, {
-        size: 'lg',
-        windowClass: 'modal-xl',
-        scrollable: true,
-        centered: true,
-        backdrop: 'static',
-      });
-      return;
-    }
-
     if (!this.fileToUpload || !this.formFake.valid) {
-      this.toast.error("Check field and data input. Can't register URL");
       return;
     }
 
@@ -201,20 +180,25 @@ export class CreateLinkComponent {
           register.type = 'FACEBOOK';
           register.source_page = this.formFake.get('domain')!.value;
           register.url_original = this.formFake.get('originalLink')!.value;
-          register.content.alias_register = this.formFake.get('aliasRegister')!.value || '';
-          register.content.url_normal_user = this.formFake.get('originalLink')!.value;
+          register.content.alias_register =
+            this.formFake.get('aliasRegister')!.value || '';
+          register.content.url_normal_user =
+            this.formFake.get('originalLink')!.value;
           register.content.url_manager_fb_user = 'https://www.youtube.com';
           register.content.title = this.formFake.get('title')!.value;
           register.content.type = this.formFake.get('displayType')!.value;
-          register.content.description = this.formFake.get('description')!.value;
+          register.content.description =
+            this.formFake.get('description')!.value;
           register.content.thumbnail = res.data;
 
           return this.ulinkService.registerDomain(register);
         }),
         tap((res: any) => {
-          this.getQuota();
-
           if (res.code == 400) {
+            if (res.message === 'Invalid quota. Upgrade account to continue!') {
+              this.toast.error('Invalid quota. Upgrade account to continue!');
+              return;
+            }
             this.toast.error(
               'Alias(back-half) already exists. </br>' + 'Please try again.'
             );
@@ -248,7 +232,6 @@ export class CreateLinkComponent {
   registerLinkShort() {
     this.submittedShort = true;
     if (this.formShort.invalid) {
-      this.toast.error("Check field and data input. Can't register url");
       return;
     }
 

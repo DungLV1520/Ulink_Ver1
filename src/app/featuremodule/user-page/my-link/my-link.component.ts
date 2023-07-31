@@ -40,7 +40,6 @@ export class MyLinkComponent {
   maxSize = 5;
   selectedDate!: any;
   searchValue: string = '';
-
   pageIdStreamingClick: any;
   intervalId: any;
   urlResultULink: string = '';
@@ -106,7 +105,13 @@ export class MyLinkComponent {
     const formattedDateFrom = moment(from, 'DD/MM/YYYY').format('YYYYMMDD');
     const formattedDateTo = moment(to, 'DD/MM/YYYY').format('YYYYMMDD');
 
-    this.getLink(1, this.pagesize, this.searchValue, formattedDateFrom, formattedDateTo);
+    this.getLink(
+      1,
+      this.pagesize,
+      this.searchValue,
+      formattedDateFrom,
+      formattedDateTo
+    );
   }
 
   loadingData(): void {
@@ -114,7 +119,13 @@ export class MyLinkComponent {
     this.selectedDate = undefined;
   }
 
-  getLink(pageN: number, pageSize: number, searchValue: string, from?: string, to?: string): void {
+  getLink(
+    pageN: number,
+    pageSize: number,
+    searchValue: string,
+    from?: string,
+    to?: string
+  ): void {
     this.loading = true;
     this.uLinkService
       .getLink(pageN - 1, pageSize, searchValue, from, to)
@@ -191,43 +202,50 @@ export class MyLinkComponent {
 
   updateLink() {
     if (!this.pageIdUpdate) {
-        return;
+      return;
     }
 
     const pageUpdate = {
-        'pageId': this.pageIdUpdate,
-        'urlOriginal': this.originalLinkUpdate,
-        'isActive': this.statusUpdate,
-        'tagIds': [],
-        'note': this.noteUpdate
+      pageId: this.pageIdUpdate,
+      urlOriginal: this.originalLinkUpdate,
+      isActive: this.statusUpdate,
+      tagIds: [],
+      note: this.noteUpdate,
     };
-    this.uLinkService.updateLink(this.pageIdUpdate, pageUpdate).subscribe((res: any) => {
-      this.toast.success('Update Link Success');
-      this.pageIdUpdate = null;
-      this.modalService.dismissAll();
-      this.loadingData();
-    }, error => {
-      this.toast.error('Update Link Failed');
-    });
+    this.uLinkService.updateLink(this.pageIdUpdate, pageUpdate).subscribe(
+      (res: any) => {
+        this.toast.success('Update Link Success');
+        this.pageIdUpdate = null;
+        this.modalService.dismissAll();
+        this.loadingData();
+      },
+      (error) => {
+        this.toast.error('Update Link Failed');
+      }
+    );
   }
 
   hideLink(): void {
     if (this.pageIdHide) {
-      this.uLinkService.hideLink(this.pageIdHide).subscribe((res: any) => {
-        this.toast.success('Hide Link Success');
-        this.pageIdHide = null;
-        this.modalService.dismissAll();
-        this.loadingData();
-      }, error => {
-        this.toast.error('Hide Link Failed');
-      });
+      this.uLinkService.hideLink(this.pageIdHide).subscribe(
+        (res: any) => {
+          this.toast.success('Hide Link Success');
+          this.pageIdHide = null;
+          this.modalService.dismissAll();
+          this.loadingData();
+        },
+        (error) => {
+          this.toast.error('Hide Link Failed');
+        }
+      );
     } else {
       this.toast.warning('Error hide link failed');
     }
   }
 
   fetchDataStreamingClick() {
-    this.uLinkService.getStreamingClick(this.pageIdStreamingClick, 20)
+    this.uLinkService
+      .getStreamingClick(this.pageIdStreamingClick, 20)
       .subscribe((res: any) => {
         this.dataStreamingClick = res?.rawClicks;
         this.urlResultULink = res?.detailLink?.urlULink;
@@ -235,12 +253,14 @@ export class MyLinkComponent {
   }
 
   getDetailLink() {
-    this.uLinkService.getDetailPageId(this.pageIdUpdate).subscribe((res: any) => {
+    this.uLinkService
+      .getDetailPageId(this.pageIdUpdate)
+      .subscribe((res: any) => {
         this.urlResultULink = res?.originalUrl;
         this.statusUpdate = res?.isActive;
         this.originalLinkUpdate = res?.originalUrl;
         this.noteUpdate = res?.note;
-    });
+      });
   }
 
   copyToClipboard(value: any) {
