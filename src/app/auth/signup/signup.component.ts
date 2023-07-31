@@ -45,7 +45,6 @@ export class SignupComponent {
 
   getParamInvitationCode(): void {
     this.activatedRoute.queryParams.subscribe((params:any) => {
-      console.log(params);
       this.signupForm.patchValue({
         referralUser:params.code
       });

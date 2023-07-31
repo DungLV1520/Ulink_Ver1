@@ -65,7 +65,6 @@ export class ProfileComponent {
     this.authService.getProfile().subscribe(
       (profile) => {
         this.profile = profile;
-        console.log(profile);
         this.profileForm.setValue({
           fullName: profile.fullName || '',
           phone: profile.phone || '',
