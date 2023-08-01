@@ -193,7 +193,7 @@ export class CreateLinkComponent {
             register.content.type = this.formFake.get('displayType')!.value;
             register.content.description =
               this.formFake.get('description')!.value;
-            register.content.thumbnail = res.data;
+            register.content.thumbnail = res.data.urlImageS3;
             register.content.height = res.data.height;
             register.content.width = res.data.width;
 
