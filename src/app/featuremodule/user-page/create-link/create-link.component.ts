@@ -175,26 +175,37 @@ export class CreateLinkComponent {
     from(this.ulinkService.uploadImage(formData))
       .pipe(
         switchMap((res) => {
-          let register = new RegisterDomain();
-          register.user_id = this.profileData?.id;
-          register.type = 'FACEBOOK';
-          register.source_page = this.formFake.get('domain')!.value;
-          register.url_original = this.formFake.get('originalLink')!.value;
-          register.content.alias_register =
-            this.formFake.get('aliasRegister')!.value || '';
-          register.content.url_normal_user =
-            this.formFake.get('originalLink')!.value;
-          register.content.url_manager_fb_user = 'https://www.youtube.com';
-          register.content.title = this.formFake.get('title')!.value;
-          register.content.type = this.formFake.get('displayType')!.value;
-          register.content.description =
-            this.formFake.get('description')!.value;
-          register.content.thumbnail = res.data;
+          if (res.code !== 200) {
+            this.toast.error(res.message);
+            return of(null);
+          } else {
+            let register = new RegisterDomain();
+            register.user_id = this.profileData?.id;
+            register.type = 'FACEBOOK';
+            register.source_page = this.formFake.get('domain')!.value;
+            register.url_original = this.formFake.get('originalLink')!.value;
+            register.content.alias_register =
+              this.formFake.get('aliasRegister')!.value || '';
+            register.content.url_normal_user =
+              this.formFake.get('originalLink')!.value;
+            register.content.url_manager_fb_user = 'https://www.youtube.com';
+            register.content.title = this.formFake.get('title')!.value;
+            register.content.type = this.formFake.get('displayType')!.value;
+            register.content.description =
+              this.formFake.get('description')!.value;
+            register.content.thumbnail = res.data;
+            register.content.height = res.data.height;
+            register.content.width = res.data.width;
 
-          return this.ulinkService.registerDomain(register);
+            return this.ulinkService.registerDomain(register);
+          }
         }),
         tap((res: any) => {
-          if (res.code == 400) {
+          if (!res) {
+            return;
+          }
+
+          if (res.code === 400) {
             if (res.message === 'Invalid quota. Upgrade account to continue!') {
               this.toast.error('Invalid quota. Upgrade account to continue!');
               return;
