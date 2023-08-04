@@ -207,11 +207,19 @@ export class CreateLinkComponent {
 
           if (res.code === 400) {
             if (res.message === 'Invalid quota. Upgrade account to continue!') {
-              this.toast.error('Invalid quota. Upgrade account to continue!');
+              this.toast.error('Invalid quota. Upgrade account to continue!', {
+                duration: 15000,
+                position: 'top-center',
+              });
               return;
             }
+
             this.toast.error(
-              'Alias(back-half) already exists. </br>' + 'Please try again.'
+              'IAlias(back-half) already exists. </br>' + 'Please try again.',
+              {
+                duration: 6000,
+                position: 'top-center',
+              }
             );
             return;
           } else {
@@ -273,7 +281,11 @@ export class CreateLinkComponent {
         next: (res: any) => {
           if (res.code == 400) {
             this.toast.error(
-              'Alias(back-half) already exists. </br>' + 'Please try again.'
+              'IAlias(back-half) already exists. </br>' + 'Please try again.',
+              {
+                duration: 6000,
+                position: 'top-center',
+              }
             );
             return;
           }
