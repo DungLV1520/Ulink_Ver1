@@ -11,6 +11,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { HotToastService } from '@ngneat/hot-toast';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { finalize } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
 registerLocaleData(localeVi);
 
 interface RawClick {
@@ -46,11 +47,8 @@ export class MyLinkComponent {
   dataStreamingClick: RawClick[] = [];
   checkLoading = 0;
   loading = false;
-
-  // Hide page
+  profileData: any;
   pageIdHide: any;
-
-  // Update page
   pageIdUpdate: any;
   originUrlUpdateSource: string = '';
   statusUpdate: boolean = true;
@@ -69,12 +67,14 @@ export class MyLinkComponent {
     private uLinkService: ULinkService,
     private modalService: NgbModal,
     private clipboard: Clipboard,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private authService: AuthService,
   ) {
     this.electronics = this.DataService.electronicsList;
   }
 
   ngOnInit(): void {
+    this.getProfile();
     this.getLink(1, this.pagesize, this.searchValue);
   }
 
@@ -267,4 +267,11 @@ export class MyLinkComponent {
     this.clipboard.copy(value);
     this.toast.success('Copy Value Success!');
   }
+
+  getProfile(): void {
+    this.authService.getProfile().subscribe((profile) => {
+      this.profileData = profile;
+    });
+  }
+
 }

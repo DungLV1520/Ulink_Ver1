@@ -40,7 +40,7 @@
       <div class="section-heading heading-eight">
         <div class="row align-items-center">
           <div class="container">
-            <div class="">
+            <div>
               <ul
                 class="dashborad-menus"
                 style="
@@ -496,7 +496,6 @@
                                     </div>
                                   </div>
                                 </div>
-
                                 <div class="col-lg-6">
                                   <div class="form-group">
                                     <label class="col-form-label"
@@ -631,33 +630,38 @@
 </div>
 <!-- /Profile Content -->
 
-
 //
 
 <ng-template #content role="document" let-modal>
   <div class="modal-header">
     <button
-    type="button"
-    class="btn-close"
-    aria-hidden="true"
-    (click)="closeModal()"
-  ></button>
+      type="button"
+      class="btn-close"
+      aria-hidden="true"
+      (click)="closeModal()"
+    ></button>
   </div>
   <div class="modal-body">
     <h5>
-      You have run out of click credits. Please proceed with the payment to continue.
+      You have run out of click credits. Please proceed with the payment to
+      continue.
     </h5>
   </div>
   <div class="modal-footer">
     <button
       type="button"
       class="btn"
-      style="background-color: #ececee;color:red"
-      (click)="goToPayment()">
+      style="background-color: #ececee; color: red"
+      (click)="goToPayment()"
+    >
       Go to Payment
     </button>
-    <a class="nav-link header-reg" href="https://t.me/ulinkkkk" target="_blank" class="btn btn-light-success"
-    >Contact us</a
+    <a
+      class="nav-link header-reg"
+      href="https://t.me/ulinkkkk"
+      target="_blank"
+      class="btn btn-light-success"
+      >Contact us</a
     >
   </div>
 </ng-template>

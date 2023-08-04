@@ -1,13 +1,13 @@
 <ngx-loading
-    [show]="loading"
-    [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
-    [template]="loadingTemplate"
-  ></ngx-loading>
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+  [template]="loadingTemplate"
+></ngx-loading>
 <div class="dashboard-content mt-4">
   <div class="container">
     <div class="">
       <ul class="dashborad-menus">
-        <li class="active">
+        <li>
           <a [routerLink]="routes.dashboard">
             <i class="feather-grid"></i> <span>Dashboard</span>
           </a>
@@ -191,13 +191,50 @@
         </div>
         <div class="col-lg-12 mt-4">
           <div class="card dash-cards w-100">
-            <div class="card-header">
-              <h4>Click</h4>
+            <div class="card-header" style="padding: 0">
+              <ul
+                class="dashborad-menus"
+                style="
+                  justify-content: center !important;
+                  margin: 0 !important;
+                  border-bottom-left-radius: 0;
+                  border-bottom-right-radius: 0;
+                  box-shadow: none;
+                "
+              >
+                <li
+                  [ngClass]="isShow ? 'active' : ''"
+                  (click)="checkShow(true)"
+                  style="cursor: pointer"
+                >
+                  <a> <span>Hour Click</span> </a>
+                </li>
+                <li
+                  (click)="checkShow(false)"
+                  style="cursor: pointer"
+                  [ngClass]="!isShow ? 'active' : ''"
+                >
+                  <a> <span>Date Click</span> </a>
+                </li>
+              </ul>
             </div>
-            <div class="card-body" *ngIf="columnWithDataChartClick">
+            <div class="card-body">
               <div id="review-chart">
                 <div id="chart">
                   <apx-chart
+                    *ngIf="isShow"
+                    [series]="clickLineHourChart?.series"
+                    [chart]="clickLineHourChart?.chart"
+                    [markers]="clickLineHourChart?.markers"
+                    [dataLabels]="clickLineHourChart?.dataLabels"
+                    [stroke]="clickLineHourChart?.stroke"
+                    [colors]="clickLineHourChart?.colors"
+                    [title]="clickLineHourChart?.title"
+                    [xaxis]="clickLineHourChart?.xaxis"
+                    dir="ltr"
+                  ></apx-chart>
+                  <apx-chart
+                    *ngIf="!isShow"
                     [series]="columnWithDataChartClick?.series"
                     [chart]="columnWithDataChartClick?.chart"
                     [dataLabels]="columnWithDataChartClick?.dataLabels"

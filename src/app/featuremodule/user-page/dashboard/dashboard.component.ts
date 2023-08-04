@@ -21,6 +21,7 @@ export class DashboardComponent {
   dashboardreview: any = [];
   pieChartAgentType: any;
   pieChartStatisticDevice: any;
+  clickLineHourChart: any;
   columnWithDataChart: any;
   columnWithDataChartCountry: any;
   columnWithDataChartReference: any;
@@ -35,7 +36,10 @@ export class DashboardComponent {
     backdropBorderRadius: '3px',
   };
   loading = false;
+  isShow = true;
   quotaData: any;
+  formattedDateFrom: any;
+  formattedDateTo: any;
 
   constructor(
     private DataService: DataService,
@@ -70,13 +74,36 @@ export class DashboardComponent {
     };
   }
 
+  checkShow(check: boolean): void {
+    this.isShow = check;
+
+    if (check) {
+      this.getClickHour(
+        this.formattedDateFrom,
+        this.formattedDateTo,
+        this.idPage!
+      );
+    } else {
+      this.getStatisticClick(
+        this.formattedDateFrom,
+        this.formattedDateTo,
+        this.idPage!
+      );
+    }
+  }
+
   filterDashboard(from: string, to: string, idPage: string): void {
     this.getStatisticOverviewDashboard(from, to, idPage);
     this.getStatisticAgentType(from, to, idPage);
     this.getStatisticDevice(from, to, idPage);
     this.getStatisticCountry(from, to, idPage);
     this.getStatisticReference(from, to, idPage);
-    this.getStatisticClick(from, to, idPage);
+
+    if (this.isShow) {
+      this.getClickHour(from, to, idPage);
+    } else {
+      this.getStatisticClick(from, to, idPage);
+    }
   }
 
   getAllPage(): void {
@@ -113,9 +140,7 @@ export class DashboardComponent {
             {
               img: 'assets/img/icons/link.png',
               title: 'Total Link',
-              amount: `${res.totalLink}/${
-                this.quotaData?.totalQuotaLink ?? 0
-              }`,
+              amount: `${res.totalLink}/${this.quotaData?.totalQuotaLink ?? 0}`,
             },
             {
               img: 'assets/img/icons/country-icon.png',
@@ -177,15 +202,39 @@ export class DashboardComponent {
   }
 
   getStatisticClick(from: string, to: string, idPage: string): void {
-    this.uLinkService.getStatisticClick(from, to, idPage).subscribe({
-      next: (res: any) => {
-        this._columnWithDataChartClick(
-          '["#299cdb"]',
-          res.totalClicks,
-          res.date
-        );
-      },
-    });
+    this.loading = true;
+    this.uLinkService
+      .getStatisticClick(from, to, idPage)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe({
+        next: (res: any) => {
+          this._columnWithDataChartClick(
+            '["#299cdb"]',
+            res.totalClicks,
+            res.date
+          );
+        },
+      });
+  }
+
+  getClickHour(from: string, to: string, idPage: string): void {
+    this.loading = true;
+    this.uLinkService
+      .getClickHourChart(from, to, idPage)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe({
+        next: (res: any) => {
+          this._clickHourChart('["#299cdb"]', res.totalClicks, res.date);
+        },
+      });
   }
 
   searchDashboard(): void {
@@ -204,6 +253,8 @@ export class DashboardComponent {
 
     const formattedDateFrom = moment(from, 'DD/MM/YYYY').format('YYYYMMDD');
     const formattedDateTo = moment(to, 'DD/MM/YYYY').format('YYYYMMDD');
+    this.formattedDateFrom = formattedDateFrom;
+    this.formattedDateTo = formattedDateTo;
 
     this.filterDashboard(formattedDateFrom!, formattedDateTo!, this.idPage!);
   }
@@ -216,6 +267,9 @@ export class DashboardComponent {
       'yyyyMMdd'
     );
     const formattedPastDate = this.datePipe.transform(pastDate, 'yyyyMMdd');
+
+    this.formattedDateFrom = formattedPastDate;
+    this.formattedDateTo = formattedCurrentDate;
 
     this.filterDashboard(formattedPastDate!, formattedCurrentDate!, undefined!);
     this.idPage = undefined;
@@ -602,6 +656,48 @@ export class DashboardComponent {
           color: '#444',
           fontWeight: 500,
         },
+      },
+    };
+  }
+
+  private _clickHourChart(colors: any, seri: any, category: any) {
+    colors = this.getChartColorsArray(colors);
+    this.clickLineHourChart = {
+      series: [
+        {
+          name: 'Total Clicks',
+          data: seri,
+        },
+      ],
+      chart: {
+        height: 350,
+        type: 'line',
+        zoom: {
+          enabled: true,
+        },
+        toolbar: {
+          show: true,
+        },
+      },
+      markers: {
+        size: 4,
+      },
+      dataLabels: {
+        enabled: true,
+      },
+      stroke: {
+        curve: 'straight',
+      },
+      colors: colors,
+      title: {
+        text: '',
+        align: 'left',
+        style: {
+          fontWeight: 500,
+        },
+      },
+      xaxis: {
+        categories: category,
       },
     };
   }

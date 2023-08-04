@@ -2,7 +2,7 @@
 <header class="header">
   <div class="container">
     <nav class="navbar navbar-expand-lg header-nav">
-      <div class="navbar-header">
+      <div class="navbar-header" [routerLink]="'/'" style="cursor: pointer;">
         <a (click)="toggleSidebar()" id="mobile_btn" href="javascript:void(0);">
           <span class="bar-icon">
             <span></span>
@@ -12,10 +12,8 @@
         </a>
         <a
           class="navbar-brand logo section-search section-search-eight aos"
-          [routerLink]="'/'"
           style="font-weight: 800; font-size: 28px; color: #c10037"
         >
-          <!-- <img src="assets/img/logo1.png" class="img-fluid" alt="Logo" style="width: 112px;"/> -->
           ULINK
         </a>
       </div>
@@ -33,8 +31,12 @@
 
       <ul class="nav header-navbar-rht" *ngIf="nav == true">
         <li class="nav-item">
-          <a class="nav-link header-reg" href="https://t.me/ulinkkkk" target="_blank" class="btn btn-light-success"
-          >Contact us</a
+          <a
+            class="nav-link header-reg"
+            href="https://t.me/ulinkkkk"
+            target="_blank"
+            class="btn btn-light-success"
+            >Contact us</a
           >
         </li>
         <li class="nav-item">
@@ -51,12 +53,21 @@
 
       <ul class="nav header-navbar-rht" *ngIf="nav == false">
         <li class="nav-item">
-          <a class="nav-link header-reg" href="https://t.me/ulinkkkk" target="_blank" class="btn btn-light-success"
-          >Contact us</a
+          <a
+            class="nav-link header-reg"
+            href="https://t.me/ulinkkkk"
+            target="_blank"
+            class="btn btn-light-success"
+            >Contact us</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link header-reg" (click)="logout()" style="cursor: pointer;">Logout</a>
+          <a
+            class="nav-link header-reg"
+            (click)="logout()"
+            style="cursor: pointer"
+            >Logout</a
+          >
         </li>
       </ul>
     </nav>

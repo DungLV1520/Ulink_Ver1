@@ -89,6 +89,21 @@ export class ULinkService {
     );
   }
 
+  getClickHourChart(from: string, to: string, pageId: string) {
+    const req = {
+      from,
+      to,
+      pageId,
+    };
+    const options = createRequestOption(req);
+    return this.http.get(
+      GlobalComponent.API_URL_LOCAL + `links/statistic-click-hour`,
+      {
+        params: options,
+      }
+    );
+  }
+
   getStatisticDevice(from: string, to: string, pageId: string) {
     const req = {
       from,
