@@ -1,11 +1,4 @@
-.marquee-container {
-  overflow: hidden;
-  white-space: nowrap;
-}
-.marquee-text {
-  animation: marquee 20s linear infinite;
-  display: inline-block;
-}
+
 .log-out{
   display: none;
 }
@@ -33,5 +26,18 @@
     font-size: 17px
   }
 }
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+.marquee-text {
+  animation: marquee 35s linear infinite;
+  display: inline-block;
+}
+
+
 
 
