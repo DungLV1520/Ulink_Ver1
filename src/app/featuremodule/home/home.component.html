@@ -1,6 +1,7 @@
 <app-header></app-header>
-<section class="banner-section banner-eight">
-  <div class="container">
+
+<section class="banner-section banner-eight" style="margin-top: 62px;">
+  <div class="container mobile-intro">
     <div class="home-banner">
       <div class="row align-items-center">
         <div class="col-lg-7">
@@ -131,7 +132,7 @@
 </section>
 
 <section class="category-section category-eight">
-  <div class="container">
+  <div class="container category-section-mb">
     <div class="section-heading heading-eight">
       <div class="row align-items-center">
         <div
@@ -142,21 +143,21 @@
         </div>
         <div class="dashboard-content" style="padding: 0; background: none">
           <div class="container">
-            <div class="">
+            <div >
               <ul class="dashborad-menus">
                 <li
                   [ngClass]="isShow ? 'active' : ''"
                   (click)="checkShow(true)"
                   style="cursor: pointer"
                 >
-                  <a> <i class="feather-link"></i> <span>Short Link</span> </a>
+                  <a class="pad-link"> <i class="feather-link"></i> <span>Short Link</span> </a>
                 </li>
                 <li
                   (click)="checkShow(false)"
                   style="cursor: pointer"
                   [ngClass]="!isShow ? 'active' : ''"
                 >
-                  <a> <i class="feather-list"></i> <span>Fake Link</span> </a>
+                  <a class="pad-link"> <i class="feather-list"></i> <span>Fake Link</span> </a>
                 </li>
               </ul>
             </div>
@@ -272,9 +273,9 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <div class="pass-group group-img d-flex">
-                          <div>
+                          <div class="btn-link-mb">
                             <button
-                              class="category-btn"
+                              class="category-btn btn-link-mb"
                               type="submit"
                               style="padding: 12px"
                             >
@@ -511,9 +512,9 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <div class="pass-group group-img d-flex">
-                          <div>
+                          <div class="btn-link-mb">
                             <button
-                              class="category-btn"
+                              class="category-btn btn-link-mb"
                               type="submit"
                               style="padding: 12px"
                             >
@@ -533,376 +534,5 @@
     </div>
   </div>
 </section>
-<!-- /Category Section -->
-
-<!-- <section class="pricingplan-section">
-  <div class="section-heading">
-    <div class="container">
-      <div class="row text-center">
-        <h2>Our Pricing <span>Pla</span>n</h2>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row" style="display: flex; justify-content: center">
-      <div class="col-lg-3 d-flex col-md-6" *ngFor="let slide of pricing">
-        <div class="price-card flex-fill">
-          <div class="price-head">
-            <div class="price-level">
-              <h6>{{ slide.title }}</h6>
-            </div>
-            <h4>
-              {{ slide.pricedate }} <span>{{ slide.pricemonth }}</span>
-            </h4>
-          </div>
-          <div class="price-body">
-            <p>{{ slide.pricebody }}</p>
-            <ul>
-              <li class="active">{{ slide.pricebodyList }}</li>
-              <li class="active">{{ slide.pricebodyList1 }}</li>
-              <li class="active">{{ slide.pricebodyList2 }}</li>
-              <li class="inactive">{{ slide.pricebodyList3 }}</li>
-              <li class="inactive">{{ slide.pricebodyList4 }}</li>
-            </ul>
-            <div>
-              <a [routerLink]="routes.login" class="btn viewdetails-btn"
-                >View details</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-<!-- Job Section -->
-<!-- <section class="cta-section job-section-eight">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6 position-relative aos" data-aos="fade-up">
-        <div class="job-img">
-          <img src="assets/img/job-img.png" class="img-fluid" alt="CTA" />
-        </div>
-        <div class="job-role job-one">
-          <div class="job-role-img">
-            <img
-              src="assets/img/icons/job-role.png"
-              class="img-fluid"
-              alt="CTA"
-            />
-          </div>
-        </div>
-        <div class="job-role job-two">
-          <div class="job-role-img">
-            <img
-              src="assets/img/icons/job-role.png"
-              class="img-fluid"
-              alt="CTA"
-            />
-          </div>
-        </div>
-        <div class="job-role job-three">
-          <div class="job-role-img">
-            <img
-              src="assets/img/icons/job-role.png"
-              class="img-fluid"
-              alt="CTA"
-            />
-          </div>
-        </div>
-        <div class="job-role job-four">
-          <div class="job-role-img">
-            <img
-              src="assets/img/icons/job-role.png"
-              class="img-fluid"
-              alt="CTA"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 aos" data-aos="fade-up">
-        <div class="cta-content job-content">
-          <div class="preferred-part mb-3">
-            <div class="prefer-img">
-              <img
-                src="assets/img/icons/icons-2.png"
-                class="img-fluid"
-                alt="no-img"
-              />
-            </div>
-            <div class="preferred-content">
-              <h5>500K global paying customers</h5>
-            </div>
-          </div>
-          <div class="preferred-part mb-3">
-            <div class="prefer-img">
-              <img
-                src="assets/img/icons/icons-9.png"
-                class="img-fluid"
-                alt="no-img"
-              />
-            </div>
-            <div class="preferred-content">
-              <h5>5.7M monthly active users</h5>
-            </div>
-          </div>
-          <div class="preferred-part mb-3">
-            <div class="prefer-img">
-              <img
-                src="assets/img/icons/icons-11.png"
-                class="img-fluid"
-                alt="no-img"
-              />
-            </div>
-            <div class="preferred-content">
-              <h5>256M links & QR codes created monthly</h5>
-            </div>
-          </div>
-          <div class="preferred-part mb-3">
-            <div class="prefer-img">
-              <img
-                src="assets/img/icons/icons-5.png"
-                class="img-fluid"
-                alt="no-img"
-              />
-            </div>
-            <div class="preferred-content">
-              <h5>10B connections (clicks & scans) monthly</h5>
-            </div>
-          </div>
-          <div class="preferred-part mb-3">
-            <div class="prefer-img">
-              <img
-                src="assets/img/icons/icons-7.png"
-                class="img-fluid"
-                alt="no-img"
-              />
-            </div>
-            <div class="preferred-content">
-              <h5>800+ app integrations</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
-<!-- /Job Section -->
-
-<!-- Partners Section -->
-<!-- <div class="partners-section partner-section-eight">
-  <div class="container">
-    <div class="section-heading heading-eight">
-      <div class="row align-items-center">
-        <div
-          class="col-md-12 aos aos-init aos-animate text-center"
-          data-aos="fade-up"
-        >
-          <h2>Our Partners</h2>
-        </div>
-      </div>
-    </div>
-    <owl-carousel-o [options]="universitiesCompaniesOwlOptions">
-      <ng-container *ngFor="let slide of universitiesCompanies">
-        <ng-template carouselSlide>
-          <ul class="partnerslist d-flex">
-            <li>
-              <a href="javascript:void(0);"
-                ><img class="img-fluid" [src]="slide.img" alt="partners"
-              /></a>
-            </li>
-          </ul>
-        </ng-template>
-      </ng-container>
-    </owl-carousel-o>
-  </div>
-</div> -->
-<!-- /Partners  Section -->
-
-<!-- Testimonial  Section -->
-<!-- <section class="testimonial-section-eight">
-  <div class="container">
-    <div class="section-heading heading-eight">
-      <div class="row align-items-center">
-        <div
-          class="col-md-12 aos aos-init aos-animate text-center"
-          data-aos="fade-up"
-        >
-          <h2>What Customers Say’s About Us</h2>
-          <p>Highlight the most popular owners</p>
-        </div>
-      </div>
-    </div>
-    <div class="testi-carousel">
-      <div class="job-slider owl-loaded owl-drag">
-        <div class="owl-stage-outer">
-          <div class="owl-stage">
-            <owl-carousel-o [options]="jobholderOwlOptions">
-              <ng-container *ngFor="let slide of jobholder">
-                <ng-template carouselSlide>
-                  <div class="owl-item cloned">
-                    <div
-                      class="testi-widget-eight aos aos-init aos-animate"
-                      data-aos="fade-up"
-                    >
-                      <div class="testi-content">
-                        <p>{{ slide.para }}</p>
-                      </div>
-                      <div class="testi-location">
-                        <h4>{{ slide.name }}</h4>
-                        <p>{{ slide.position }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
-              </ng-container>
-            </owl-carousel-o>
-          </div>
-        </div>
-        <div class="owl-dots disabled"></div>
-      </div>
-    </div>
-    <div class="testimonial-nav"></div>
-  </div>
-  <div class="test-bg">
-    <img src="assets/img/test-bg.png" class="img-fluid" alt="img" />
-  </div>
-</section> -->
-<!-- /Testimonial Section -->
-
-<!-- <section class="faq-section">
-  <div class="container">
-    <div class="faq-info">
-      <div class="page-title">
-        <h2>Frequently asked questions</h2>
-      </div>
-      <div class="faq-card">
-        <h4 class="faq-title">
-          <a
-            class="collapsed"
-            data-bs-toggle="collapse"
-            href="#faqFive"
-            aria-expanded="false"
-          >
-            What is a URL shortener?</a
-          >
-        </h4>
-        <div id="faqFive" class="card-collapse collapse">
-          <p>
-            A URL shortener, also known as a link shortener, seems like a simple
-            tool, but it is a service that can have a dramatic impact on your
-            marketing efforts.<br />
-            Link shorteners work by transforming any long URL into a shorter,
-            more readable link. When a user clicks the shortened version,
-            they’re automatically forwarded to the destination URL.<br />
-            Think of a short URL as a more descriptive and memorable nickname
-            for your long webpage address. You can, for example, use a short URL
-            like bit.ly/CelebrateBitly so people will have a good idea about
-            where your link will lead before they click it.<br />
-            If you’re contributing content to the online world, you need a URL
-            shortener.<br />
-            Make your URLs stand out with our easy to use free link shortener
-            above.
-          </p>
-        </div>
-      </div>
-      <div class="faq-card">
-        <h4 class="faq-title">
-          <a
-            class="collapsed"
-            data-bs-toggle="collapse"
-            href="#faqSix"
-            aria-expanded="false"
-            >Benefits of a short URL</a
-          >
-        </h4>
-        <div id="faqSix" class="card-collapse collapse">
-          <p>
-            How many people can even remember a long web address, especially if
-            it has tons of characters and symbols? A short URL can make your
-            link more memorable. Not only does it allow people to easily recall
-            and share your link with others, it can also dramatically improve
-            traffic to your content.<br />
-
-            On a more practical side, a short URL is also easier to incorporate
-            into your collateral – whether you’re looking to engage with your
-            customers offline or online.<br />
-
-            Bitly is the best URL shortener for everyone, from influencers to
-            small brands to large enterprises, who are looking for a simple way
-            to create, track and manage their links.
-          </p>
-        </div>
-      </div>
-      <div class="faq-card">
-        <h4 class="faq-title">
-          <a
-            class="collapsed"
-            data-bs-toggle="collapse"
-            href="#faqSeven"
-            aria-expanded="false"
-            >What is a custom URL shortener?</a
-          >
-        </h4>
-        <div id="faqSeven" class="card-collapse collapse">
-          <p>
-            Quick response or QR, is a type of barcode that can store a
-            multitude of information. The obvious difference between a QR Code
-            and Barcode is its appearance. A QR Code is always in the shape of a
-            square and contains smaller, even blocks similar to Tetris. A
-            Barcode, on the other hand, has vertical bars in different
-            thicknesses and is often accompanied by a serial number.
-          </p>
-        </div>
-      </div>
-      <div class="faq-card">
-        <h4 class="faq-title">
-          <a
-            class="collapsed"
-            data-bs-toggle="collapse"
-            href="#faqEight"
-            aria-expanded="false"
-          >
-            What can a QR Code do?</a
-          >
-        </h4>
-        <div id="faqEight" class="card-collapse collapse">
-          <p>
-            Because of its versatility, a QR Code can be programmed to do a
-            multitude of things. It can be split into two formats: Dynamic and
-            Static. A Dynamic QR Code is useful for businesses or nonprofits in
-            their marketing strategy because of its advantages. Though it needs
-            a subscription to work, it is a small price to pay compared to the
-            benefits it offers. Dynamic QR Code solutions are editable, which
-            means if you made a mistake and only noticed it after the QR Codes
-            are printed, you can easily log in to the dashboard and fix them
-            without changing the appearance of the already printed Codes.
-          </p>
-        </div>
-      </div>
-      <div class="faq-card">
-        <h4 class="faq-title">
-          <a
-            class="collapsed"
-            data-bs-toggle="collapse"
-            href="#faqN"
-            aria-expanded="false"
-          >
-            Why choose Ulink?</a
-          >
-        </h4>
-        <div id="faqN" class="card-collapse collapse">
-          <p>
-            Whether you’re sharing one link or scan or millions, our platform
-            was built to help you make every point of connection between your
-            content and your audience ignite action. It’s why the most
-            recognized brands in the world love our platform.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
 
 <app-footer></app-footer>

@@ -1,0 +1,8 @@
+@media only screen and (max-width: 567px) {
+    .dashborad-menus{
+      margin-top: 78px!important;
+    }
+    ul li a{
+        padding:11px !important
+    }
+  }

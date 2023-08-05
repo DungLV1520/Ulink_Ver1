@@ -7,18 +7,23 @@ td {
   vertical-align: middle !important;
 }
 
-.listing-table th, .listing-table td {
+.listing-table th,
+.listing-table td {
   padding: 15px 15px;
 }
 
-.mat-column-myColumn{
+.mat-column-myColumn {
   display: flex !important;
   justify-content: center !important; /* Left aligned*/
 }
 
 @keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 #rotate-icon {
@@ -40,4 +45,18 @@ td:hover {
 
 .labelBold {
   font-weight: bold;
+}
+@media only screen and (max-width: 567px) {
+  .dashborad-menus {
+    margin-top: 78px !important;
+  }
+  ul li a {
+    padding: 11px !important;
+  }
+  .mobile-link {
+    width: 100% !important;
+  }
+  .listingtable-img{
+    width: 100%!important;
+  }
 }

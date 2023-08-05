@@ -1,0 +1,37 @@
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-text {
+  animation: marquee 20s linear infinite;
+  display: inline-block;
+}
+.log-out{
+  display: none;
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.marquee-container{
+  background:#C10037;height:43px; color:white;display:flex;align-items:center
+}
+@media only screen and (max-width: 567px) {
+  .main-menu-wrapper{
+    display: none;
+  }
+  .navbar-brand{
+    padding:0
+  }
+  .log-out{
+    display: block;
+    cursor: pointer; 
+    font-size: 17px
+  }
+}
+
+
