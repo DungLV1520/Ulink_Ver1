@@ -105,8 +105,8 @@ export class HomeComponent {
     AOS.init({ disable: 'mobile' });
     this.formFake = this.formBuilder.group({
       originalLink: ['', [Validators.required, Validators.maxLength(1000)]],
-      title: ['', [Validators.required, Validators.maxLength(50)]],
-      description: ['', [Validators.required, Validators.maxLength(50)]],
+      title: ['', [Validators.required, Validators.maxLength(100)]],
+      description: ['', [Validators.required, Validators.maxLength(100)]],
       aliasRegister: ['', [Validators.minLength(2), Validators.maxLength(50)]],
       file: ['', [Validators.required]],
       displayType: ['', [Validators.required]],
