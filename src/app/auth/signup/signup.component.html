@@ -1,4 +1,3 @@
-<!-- Login Section -->
 <div class="login-content">
   <div class="container">
     <div class="row">
@@ -27,7 +26,8 @@
                     Please enter username
                   </div>
                   <div *ngIf="f['username'].errors['pattern']">
-                    Username must be lowercase letters only and should not contain spaces
+                    Username must be lowercase letters only and should not
+                    contain spaces
                   </div>
                 </div>
               </div>
@@ -74,7 +74,7 @@
               <div class="pass-group group-img">
                 <i class="feather-award"></i>
                 <input
-                 type="text"
+                  type="text"
                   class="form-control pass-input"
                   placeholder="Enter invitation code"
                   formControlName="referralUser"
@@ -97,10 +97,8 @@
             <!--              >-->
             <!--            </div>-->
           </form>
-          <!-- /Login Form -->
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- /Login Section -->

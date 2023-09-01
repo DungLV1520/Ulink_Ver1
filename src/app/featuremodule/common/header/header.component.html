@@ -14,7 +14,7 @@
         >📣 Từ ngày 8/8/2023: Tất cả các tài khoản đang sử dụng miễn phí sẽ bị
         giới hạn 20 link và 1200 click trên mỗi tài khoản, vui lòng vào 'My
         Payment' thanh toán và tiếp tục sử dụng dịch vụ. Mọi ý kiến góp ý, cần
-        hỗ trợ vui lòng click vào button  <a href="https://t.me/ulinkkkk" style="text-decoration: underline;color:white">Contact US</a> bên dưới</b
+        hỗ trợ vui lòng click vào button  <a href="https://t.me/ulinkkkk" style="text-decoration: underline;color:white" target="_blank">Contact US</a> bên dưới</b
       >
     </span>
     <span class="marquee-text mx-3">
@@ -22,13 +22,11 @@
         >📣 Starting from August 8, 2023: All free accounts will be limited
         to 20 links and 1200 clicks per account. Please go to 'My Payment' to
         make a payment and continue using the service. For any feedback or
-        assistance, please click the <a href="https://t.me/ulinkkkk" style="text-decoration: underline;color:white">Contact US</a> button below</b
+        assistance, please click the <a href="https://t.me/ulinkkkk" style="text-decoration: underline;color:white" target="_blank">Contact US</a> button below</b
       >
     </span>
   </div>
   <div class="container">
-    <!-- Header -->
-
     <nav class="navbar navbar-expand-lg header-nav">
       <div class="navbar-header" [routerLink]="'/'" style="cursor: pointer">
         <a (click)="toggleSidebar()" id="mobile_btn" href="javascript:void(0);">
@@ -59,7 +57,6 @@
           </ng-container>
         </ul>
       </div>
-
       <ul class="nav header-navbar-rht" *ngIf="nav == true">
         <li class="nav-item">
           <a
@@ -81,7 +78,6 @@
           >
         </li>
       </ul>
-
       <ul class="nav header-navbar-rht" *ngIf="nav == false">
         <li class="nav-item">
           <a
@@ -104,3 +100,5 @@
     </nav>
   </div>
 </header>
+
+

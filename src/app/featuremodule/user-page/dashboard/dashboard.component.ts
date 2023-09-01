@@ -40,6 +40,8 @@ export class DashboardComponent {
   quotaData: any;
   formattedDateFrom: any;
   formattedDateTo: any;
+  maxSelectableEndDate!: Date;
+  minSelectableEndDate!: Date;
 
   constructor(
     private DataService: DataService,
@@ -54,6 +56,22 @@ export class DashboardComponent {
     this.getDateInput();
     this.getAllPage();
     this.clearFilter();
+  }
+
+  onSelect(e: any): void {
+    this.minSelectableEndDate = e.from;
+    if (this.minSelectableEndDate) {
+      this.maxSelectableEndDate = new Date(
+        this.minSelectableEndDate.getFullYear(),
+        this.minSelectableEndDate.getMonth() + 1,
+        this.minSelectableEndDate.getDate()
+      );
+    }
+
+    if (e.from && e.to) {
+      this.minSelectableEndDate = null!;
+      this.maxSelectableEndDate = null!;
+    }
   }
 
   getQuota(): void {

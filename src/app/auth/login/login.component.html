@@ -1,4 +1,3 @@
-<!-- Login Section -->
 <div class="login-content">
   <div class="container">
     <div class="row">
@@ -8,8 +7,6 @@
             <h3>Welcome Back</h3>
             <p>Please Enter your Details</p>
           </div>
-
-          <!-- Login Form -->
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="form-group group-img">
               <div class="group-img">
@@ -23,8 +20,13 @@
                     'is-invalid': submitted && f['username'].errors
                   }"
                 />
-                <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
-                  <div *ngIf="f['username'].errors['required']">Username is required</div>
+                <div
+                  *ngIf="submitted && f['username'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['username'].errors['required']">
+                    Username is required
+                  </div>
                 </div>
               </div>
             </div>
@@ -32,7 +34,7 @@
               <div class="pass-group group-img">
                 <i class="feather-lock"></i>
                 <input
-                  [type]="Toggledata?'password':'text'"
+                  [type]="Toggledata ? 'password' : 'text'"
                   class="form-control pass-input"
                   placeholder="Enter Password"
                   formControlName="password"
@@ -49,19 +51,24 @@
                   (click)="iconLogle()"
                 ></span>
                 <div
-                *ngIf="submitted && f['password'].errors"
-                class="invalid-feedback"
-              >
-                <span *ngIf="f['password'].errors['required']"
-                  >Password is required</span
+                  *ngIf="submitted && f['password'].errors"
+                  class="invalid-feedback"
                 >
-              </div>
+                  <span *ngIf="f['password'].errors['required']"
+                    >Password is required</span
+                  >
+                </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 col-sm-6">
                 <label class="custom_check">
-                  <input type="checkbox" name="rememberMe" class="rememberMe" checked/>
+                  <input
+                    type="checkbox"
+                    name="rememberMe"
+                    class="rememberMe"
+                    checked
+                  />
                   <span class="checkmark"></span>Remember Me
                 </label>
               </div>
@@ -73,10 +80,7 @@
                 </div>
               </div> -->
             </div>
-            <button
-              class="btn btn-primary w-100 login-btn"
-              type="submit"
-            >
+            <button class="btn btn-primary w-100 login-btn" type="submit">
               Sign in
             </button>
           </form>
@@ -86,15 +90,8 @@
               <a class="forgot-link" [routerLink]="routes.signup">Signup</a>
             </p>
           </div>
-<!--          <div class="social-login">-->
-<!--            <a class="btn btn-google w-100"-->
-<!--              ><img src="assets/img/google.svg" class="me-1" alt="img" />Sign in-->
-<!--              with Google</a-->
-<!--            >-->
-<!--          </div>-->
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- /Login Section -->

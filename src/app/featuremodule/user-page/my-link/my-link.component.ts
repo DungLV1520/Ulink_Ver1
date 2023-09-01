@@ -1,5 +1,5 @@
 import { DatePipe, registerLocaleData } from '@angular/common';
-import { Component, PipeTransform, TemplateRef } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import * as moment from 'moment';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -40,7 +40,7 @@ export class MyLinkComponent {
   pagesize = 10;
   maxSize = 5;
   selectedDate!: any;
-  searchValue: string = '';
+  searchValue!: string;
   pageIdStreamingClick: any;
   intervalId: any;
   urlResultULink: string = '';
@@ -54,6 +54,10 @@ export class MyLinkComponent {
   statusUpdate: boolean = true;
   originalLinkUpdate: string = '';
   noteUpdate: string = '';
+  maxSelectableEndDate!: Date;
+  minSelectableEndDate!: Date;
+  formattedDateFrom: any;
+  formattedDateTo: any;
 
   public loadingTemplate!: TemplateRef<any>;
   public config = {
@@ -68,7 +72,7 @@ export class MyLinkComponent {
     private modalService: NgbModal,
     private clipboard: Clipboard,
     private toast: HotToastService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     this.electronics = this.DataService.electronicsList;
   }
@@ -76,6 +80,22 @@ export class MyLinkComponent {
   ngOnInit(): void {
     this.getProfile();
     this.getLink(1, this.pagesize, this.searchValue);
+  }
+
+  onSelect(e: any): void {
+    this.minSelectableEndDate = e.from;
+    if (this.minSelectableEndDate) {
+      this.maxSelectableEndDate = new Date(
+        this.minSelectableEndDate.getFullYear(),
+        this.minSelectableEndDate.getMonth() + 1,
+        this.minSelectableEndDate.getDate()
+      );
+    }
+
+    if (e.from && e.to) {
+      this.minSelectableEndDate = null!;
+      this.maxSelectableEndDate = null!;
+    }
   }
 
   sortData(sort: Sort) {
@@ -115,8 +135,30 @@ export class MyLinkComponent {
   }
 
   loadingData(): void {
-    this.getLink(1, this.pagesize, this.searchValue);
-    this.selectedDate = undefined;
+    const from = this.datePipe.transform(
+      new Date(this.selectedDate.from),
+      'dd/MM/yyyy'
+    );
+    const to = this.datePipe.transform(
+      new Date(this.selectedDate.to),
+      'dd/MM/yyyy'
+    );
+
+    if (!this.selectedDate) {
+      return;
+    }
+
+    const formattedDateFrom = moment(from, 'DD/MM/YYYY').format('YYYYMMDD');
+    const formattedDateTo = moment(to, 'DD/MM/YYYY').format('YYYYMMDD');
+    this.formattedDateFrom = formattedDateFrom;
+    this.formattedDateTo = formattedDateTo;
+    this.getLink(
+      1,
+      this.pagesize,
+      this.searchValue,
+      this.formattedDateFrom,
+      this.formattedDateTo
+    );
   }
 
   getLink(
@@ -213,13 +255,13 @@ export class MyLinkComponent {
       note: this.noteUpdate,
     };
     this.uLinkService.updateLink(this.pageIdUpdate, pageUpdate).subscribe(
-      (res: any) => {
+      () => {
         this.toast.success('Update Link Success');
         this.pageIdUpdate = null;
         this.modalService.dismissAll();
         this.loadingData();
       },
-      (error) => {
+      () => {
         this.toast.error('Update Link Failed');
       }
     );
@@ -228,13 +270,13 @@ export class MyLinkComponent {
   hideLink(): void {
     if (this.pageIdHide) {
       this.uLinkService.hideLink(this.pageIdHide).subscribe(
-        (res: any) => {
+        () => {
           this.toast.success('Hide Link Success');
           this.pageIdHide = null;
           this.modalService.dismissAll();
           this.loadingData();
         },
-        (error) => {
+        () => {
           this.toast.error('Hide Link Failed');
         }
       );
@@ -273,5 +315,4 @@ export class MyLinkComponent {
       this.profileData = profile;
     });
   }
-
 }

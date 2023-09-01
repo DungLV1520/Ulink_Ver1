@@ -43,8 +43,36 @@
       <div class="dash-cards card">
         <div class="card-body">
           <div class="listing-search" style="justify-content: start">
+            <div>
+              <ul>
+                <li class="active">
+                  <div class="form-group">
+                    <div class="pass-group group-img">
+                      <input
+                        class="form-control flatpickr-input"
+                        type="text"
+                        placeholder="Choose datepicker"
+                        mwlFlatpickr
+                        [allowInput]="true"
+                        [convertModelValue]="true"
+                        dateFormat="d/m/Y"
+                        locale="de"
+                        mode="range"
+                        [(ngModel)]="selectedDate"
+                        [maxDate]="maxSelectableEndDate"
+                        [minDate]="minSelectableEndDate"
+                        (ngModelChange)="onSelect($event)"
+                      />
+                      <span class="lock-icon"
+                        ><i class="feather-calendar"></i
+                      ></span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
             <div
-              class="filter-content form-group"
+              class="filter-content form-group mx-2"
               style="margin-bottom: 8px !important"
             >
               <div class="group-img">
@@ -57,6 +85,7 @@
                 />
               </div>
             </div>
+
             <div>
               <button
                 class="category-btn btn-primary mobile-link"
@@ -67,7 +96,6 @@
                 Search
               </button>
             </div>
-            <div class="sorting-div"></div>
           </div>
           <div class="table-responsive mt-2">
             <table

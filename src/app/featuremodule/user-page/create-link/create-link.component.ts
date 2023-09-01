@@ -338,6 +338,7 @@ export class CreateLinkComponent {
 
   checkShow(check: boolean): void {
     this.isShow = check;
+    this.urlULink = "";
     this.formFake.patchValue({
       displayType: 'video.other',
     });

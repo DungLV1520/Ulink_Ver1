@@ -5,15 +5,14 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css']
+  styleUrls: ['./forgot-password.component.css'],
 })
 export class ForgotPasswordComponent {
   public routes = routes;
 
-  constructor(public router: Router){
+  constructor(public router: Router) {}
 
-  }
-  direction(){
-    this.router.navigate([routes.login])
+  direction(): void {
+    this.router.navigate([routes.login]);
   }
 }

@@ -84,6 +84,9 @@
                         locale="de"
                         mode="range"
                         [(ngModel)]="selectedDate"
+                        [maxDate]="maxSelectableEndDate"
+                        [minDate]="minSelectableEndDate"
+                        (ngModelChange)="onSelect($event)"
                       />
                       <span class="lock-icon"
                         ><i class="feather-calendar"></i
