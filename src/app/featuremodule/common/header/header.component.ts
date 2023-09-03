@@ -77,4 +77,10 @@ export class HeaderComponent implements OnInit {
     }
     this.authService.logout();
   }
+
+  login(e: any): void {
+    e.preventDefault();
+    e.stopPropagation();
+    this.router.navigate(['auth/login']);
+  }
 }

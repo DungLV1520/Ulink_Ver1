@@ -59,4 +59,8 @@ td:hover {
   .listingtable-img{
     width: 100%!important;
   }
+
+  .filter-content{
+    margin: 0 !important;
+  }
 }
