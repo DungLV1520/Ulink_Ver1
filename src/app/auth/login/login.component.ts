@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -16,6 +16,8 @@ export class LoginComponent {
   routes = routes;
   Toggledata = true;
   submitted = false;
+  loadingTemplate!: TemplateRef<any>;
+  loading = false;
 
   constructor(
     public router: Router,
@@ -49,12 +51,7 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       return;
     }
-
-    const toastRef = this.toast.loading('Loading...', {
-      duration: 50000,
-      position: 'top-center',
-    });
-
+    this.loading = true;
     this.authService
       .login(
         this.f['username'].value,
@@ -63,7 +60,9 @@ export class LoginComponent {
       )
       .pipe(
         first(),
-        finalize(() => toastRef.close())
+        finalize(() => {
+          this.loading = false;
+        })
       )
       .subscribe({
         next: () => {

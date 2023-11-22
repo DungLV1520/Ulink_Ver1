@@ -3874,7 +3874,7 @@ a:focus {
   box-shadow: none;
 }
 .filter-content {
-  margin-bottom: 20px;
+  margin-bottom: 0px !important;
   color: #8d8d8d;
 }
 .listings-sidebar .filter-content.amenities,
@@ -17307,7 +17307,7 @@ section.advertisement {
     z-index: 99;
   }
   .category-section.category-eight {
-    padding: 40px 0 40px;
+    padding: 81px 0 0;
   }
   .vaciencies-section.vaciencies-eight {
     padding: 40px 0 40px;
@@ -18263,7 +18263,7 @@ section.advertisement {
     padding: 30px 0 30px;
   }
   .footer .footer-bottom .copyright {
-    padding: 0 0 30px;
+    padding: 11px 0 30px;
   }
   .footercount p {
     margin-bottom: 10px;
@@ -19055,7 +19055,7 @@ section.advertisement {
   }
   .policy-menu {
     margin: 10px 0 0 0;
-    text-align: left;
+    text-align: center;
   }
   .cta-section .col-lg-7,
   .cta-section .col-lg-5 {
@@ -19693,10 +19693,12 @@ section.advertisement {
   }
   .footer {
     padding: 0;
+    margin-top: 154px;
   }
   .policy-menu li a,
   .footer .footer-bottom .copyright-text p {
     font-size: 12px;
+    text-align: center;
   }
   .search-box .select2-container {
     width: 100%;

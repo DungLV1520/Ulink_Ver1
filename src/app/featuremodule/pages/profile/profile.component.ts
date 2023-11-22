@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -13,15 +14,17 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class ProfileComponent {
   profileForm!: FormGroup;
   passwordForm!: FormGroup;
-  public routes = routes;
-  public Toggledata = false;
-  public ToggledataPassword = false;
-  public Toggle = false;
+  loadingTemplate!: TemplateRef<any>;
+  routes = routes;
+  Toggledata = false;
+  ToggledataPassword = false;
+  Toggle = false;
   submitted = false;
   isPassword = true;
   profile: any;
   isCopy = false;
   isCopyLink = false;
+  loading = false;
 
   constructor(
     private authService: AuthService,
@@ -62,19 +65,27 @@ export class ProfileComponent {
   }
 
   getProfile(): void {
-    this.authService.getProfile().subscribe(
-      (profile) => {
-        this.profile = profile;
-        this.profileForm.setValue({
-          fullName: profile.fullName || '',
-          phone: profile.phone || '',
-          email: profile.email || '',
-        });
-      },
-      (err) => {
-        this.toast.error(err);
-      }
-    );
+    this.loading = true;
+    this.authService
+      .getProfile()
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(
+        (profile) => {
+          this.profile = profile;
+          this.profileForm.setValue({
+            fullName: profile.fullName || '',
+            phone: profile.phone || '',
+            email: profile.email || '',
+          });
+        },
+        (err) => {
+          this.toast.error(err);
+        }
+      );
   }
 
   updateProfile(): void {

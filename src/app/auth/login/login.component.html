@@ -1,3 +1,8 @@
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+  [template]="loadingTemplate"
+></ngx-loading>
 <div class="login-content">
   <div class="container">
     <div class="row">
@@ -5,7 +10,7 @@
         <div class="login-wrap">
           <div class="login-header">
             <h3>Welcome Back</h3>
-            <p>Please Enter your Details</p>
+            <p>Please enter your account</p>
           </div>
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="form-group group-img">

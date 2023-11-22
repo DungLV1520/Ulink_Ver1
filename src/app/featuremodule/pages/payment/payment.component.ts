@@ -18,7 +18,6 @@ export class PaymentComponent {
   Toggle = false;
   packagesData: any[] = [];
   loading = false;
-  loadingRegister = false;
   loadingTemplate!: TemplateRef<any>;
   totalClick = 0;
   config = {
@@ -75,14 +74,8 @@ export class PaymentComponent {
   }
 
   getPackagePackageData(): void {
-    this.loadingRegister = true;
     this.uLinkService
       .getPackagePackageData()
-      .pipe(
-        finalize(() => {
-          this.loadingRegister = false;
-        })
-      )
       .subscribe((data: any) => {
         this.packagesData = data;
       });

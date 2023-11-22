@@ -11,7 +11,11 @@
   }
 }
 .marquee-container{
-  background:#C10037;height:43px; color:white;display:flex;align-items:center
+  background:#C10037;
+  height:43px;
+  color:white;
+  display:flex;
+  align-items:center
 }
 @media only screen and (max-width: 567px) {
   .main-menu-wrapper{
@@ -22,7 +26,7 @@
   }
   .log-out{
     display: block;
-    cursor: pointer; 
+    cursor: pointer;
     font-size: 17px
   }
 }
@@ -30,8 +34,8 @@
   overflow: hidden;
   white-space: nowrap;
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
 }
 .marquee-text {
   animation: marquee 35s linear infinite;
