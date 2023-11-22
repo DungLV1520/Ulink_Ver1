@@ -18,6 +18,7 @@ export class PaymentComponent {
   Toggle = false;
   packagesData: any[] = [];
   loading = false;
+  loadingRegister = false;
   loadingTemplate!: TemplateRef<any>;
   totalClick = 0;
   config = {
@@ -65,15 +66,26 @@ export class PaymentComponent {
   }
 
   getPackageRegister(): void {
-    this.uLinkService.getPackageRegister().subscribe((packages) => {
-      this.packages = packages;
-    });
+    this.uLinkService
+      .getPackageRegister()
+
+      .subscribe((packages) => {
+        this.packages = packages;
+      });
   }
 
   getPackagePackageData(): void {
-    this.uLinkService.getPackagePackageData().subscribe((data: any) => {
-      this.packagesData = data;
-    });
+    this.loadingRegister = true;
+    this.uLinkService
+      .getPackagePackageData()
+      .pipe(
+        finalize(() => {
+          this.loadingRegister = false;
+        })
+      )
+      .subscribe((data: any) => {
+        this.packagesData = data;
+      });
   }
 
   registerPackage(): void {

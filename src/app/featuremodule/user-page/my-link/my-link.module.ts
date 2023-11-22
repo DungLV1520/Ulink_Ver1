@@ -8,11 +8,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgxLoadingModule } from 'ngx-loading';
 
-
 @NgModule({
-  declarations: [
-    MyLinkComponent
-  ],
+  declarations: [MyLinkComponent],
   imports: [
     CommonModule,
     MyLinkRoutingModule,
@@ -20,6 +17,6 @@ import { NgxLoadingModule } from 'ngx-loading';
     SharedModule,
     FlatpickrModule.forRoot(),
     NgxLoadingModule.forRoot({}),
-  ]
+  ],
 })
-export class MyLinkModule { }
+export class MyLinkModule {}

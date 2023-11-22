@@ -6,6 +6,6 @@ const routes: Routes = [{ path: '', component: Error404Component }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class Error404RoutingModule { }
+export class Error404RoutingModule {}

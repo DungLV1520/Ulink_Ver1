@@ -18,6 +18,7 @@ export class DomainComponent {
   public Toggle = false;
   domainAll: any[] = [];
   loading = false;
+  loadingDomain = false;
   public loadingTemplate!: TemplateRef<any>;
   public config = {
     animationType: ngxLoadingAnimationTypes.none,
@@ -93,13 +94,18 @@ export class DomainComponent {
   }
 
   getAllMyDomain(): void {
-    this.uLinkService.getAllMyDomain().subscribe({
-      next: (res: any) => {
-        this.domainAll = res;
-      },
-      error:()=>{
-
-      }
-    });
+    this.loadingDomain = true;
+    this.uLinkService
+      .getAllMyDomain()
+      .pipe(
+        finalize(() => {
+          this.loadingDomain = false;
+        })
+      )
+      .subscribe({
+        next: (res: any) => {
+          this.domainAll = res;
+        },
+      });
   }
 }

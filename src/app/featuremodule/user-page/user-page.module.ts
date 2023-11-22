@@ -6,20 +6,16 @@ import { UserPageComponent } from './user-page.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { SharedModule } from 'src/app/shared/shared.module';
-import {CreateLinkComponent} from "./create-link/create-link.component";
-
+import { CreateLinkComponent } from './create-link/create-link.component';
 
 @NgModule({
-  declarations: [
-    UserPageComponent,
-    CreateLinkComponent,
-  ],
+  declarations: [UserPageComponent, CreateLinkComponent],
   imports: [
     CommonModule,
     UserPageRoutingModule,
     NgApexchartsModule,
     SharedModule,
-    FlatpickrModule.forRoot()
-  ]
+    FlatpickrModule.forRoot(),
+  ],
 })
-export class UserPageModule { }
+export class UserPageModule {}

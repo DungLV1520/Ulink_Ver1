@@ -14,7 +14,7 @@ import { LightboxModule } from 'ngx-lightbox/lightbox.module';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CountUpModule } from 'ngx-countup';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
@@ -39,7 +39,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     MatNativeDateModule,
 
     BsDatepickerModule.forRoot(),
-
   ],
 
   exports: [
@@ -60,8 +59,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     CountUpModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    BsDatepickerModule
-
+    BsDatepickerModule,
   ],
 })
 export class SharedModule {}

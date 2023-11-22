@@ -7,19 +7,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxLoadingModule } from 'ngx-loading';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-
 @NgModule({
-  declarations: [
-    PaymentComponent,
-  ],
+  declarations: [PaymentComponent],
   imports: [
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
     PaymentRoutingModule,
     NgxLoadingModule.forRoot({}),
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-
-export class PaymentModule { }
+export class PaymentModule {}

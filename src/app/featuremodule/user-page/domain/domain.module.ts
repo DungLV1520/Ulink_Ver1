@@ -6,17 +6,13 @@ import { DomainComponent } from './domain.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxLoadingModule } from 'ngx-loading';
 
-
 @NgModule({
-  declarations: [
-    DomainComponent
-  ],
+  declarations: [DomainComponent],
   imports: [
     ReactiveFormsModule,
     CommonModule,
     DomainRoutingModule,
     NgxLoadingModule.forRoot({}),
-  ]
+  ],
 })
-
-export class DomainModule { }
+export class DomainModule {}
