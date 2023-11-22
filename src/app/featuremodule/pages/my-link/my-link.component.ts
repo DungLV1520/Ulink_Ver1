@@ -26,7 +26,7 @@ interface RawClick {
 }
 
 @Component({
-  selector: 'app-my-listing',
+  selector: 'app-my-link',
   templateUrl: './my-link.component.html',
   styleUrls: ['./my-link.component.css'],
   providers: [DatePipe],
@@ -43,17 +43,17 @@ export class MyLinkComponent {
   searchValue!: string;
   pageIdStreamingClick: any;
   intervalId: any;
-  urlResultULink: string = '';
+  urlResultULink = '';
   dataStreamingClick: RawClick[] = [];
   checkLoading = 0;
   loading = false;
   profileData: any;
   pageIdHide: any;
   pageIdUpdate: any;
-  originUrlUpdateSource: string = '';
-  statusUpdate: boolean = true;
-  originalLinkUpdate: string = '';
-  noteUpdate: string = '';
+  originUrlUpdateSource = '';
+  statusUpdate = true;
+  originalLinkUpdate = '';
+  noteUpdate = '';
   maxSelectableEndDate!: Date;
   minSelectableEndDate!: Date;
   formattedDateFrom: any;

@@ -1,22 +1,18 @@
 td {
   padding: 0px 14px !important;
 }
-
 .centered-header {
   text-align: center !important;
   vertical-align: middle !important;
 }
-
 .listing-table th,
 .listing-table td {
   padding: 15px 15px;
 }
-
 .mat-column-myColumn {
   display: flex !important;
-  justify-content: center !important; /* Left aligned*/
+  justify-content: center !important;
 }
-
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -25,24 +21,19 @@ td {
     transform: rotate(360deg);
   }
 }
-
 #rotate-icon {
   animation: rotate 2s linear infinite;
 }
-
 td:hover {
   cursor: pointer;
 }
-
 .margin-btn {
   margin-right: 5px;
 }
-
 .btn-success {
   --bs-btn-color: #fff;
   --bs-btn-bg: #06bf69;
 }
-
 .labelBold {
   font-weight: bold;
 }
@@ -56,11 +47,10 @@ td:hover {
   .mobile-link {
     width: 100% !important;
   }
-  .listingtable-img{
-    width: 100%!important;
+  .listingtable-img {
+    width: 100% !important;
   }
-
-  .filter-content{
+  .filter-content {
     margin: 0 !important;
   }
 }

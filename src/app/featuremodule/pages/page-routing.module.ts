@@ -15,7 +15,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'my-listing',
+        path: 'my-link',
         loadChildren: () =>
           import('./my-link/my-link.module').then((m) => m.MyLinkModule),
       },

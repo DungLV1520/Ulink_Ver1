@@ -19,7 +19,7 @@ export class routes {
     return this.baseUrl + '/ulink/dashboard';
   }
   public static get mylisting(): string {
-    return this.baseUrl + '/ulink/my-listing';
+    return this.baseUrl + '/ulink/my-link';
   }
   public static get profile(): string {
     return this.baseUrl + '/ulink/profile';

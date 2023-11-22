@@ -13,9 +13,9 @@ import { ngxLoadingAnimationTypes } from 'ngx-loading';
 })
 export class DomainComponent {
   myDomainForm!: FormGroup;
-  public routes = routes;
-  public Toggledata = false;
-  public Toggle = false;
+  routes = routes;
+  Toggledata = false;
+  Toggle = false;
   domainAll: any[] = [];
   loading = false;
   loadingDomain = false;
