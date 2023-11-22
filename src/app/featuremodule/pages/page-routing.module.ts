@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserPageComponent } from './user-page.component';
-import {CreateLinkComponent} from "./create-link/create-link.component";
+import { PageComponent } from './page.component';
+import { CreateLinkComponent } from './create-link/create-link.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: UserPageComponent,
+    component: PageComponent,
     children: [
       {
         path: 'dashboard',
@@ -17,9 +17,7 @@ const routes: Routes = [
       {
         path: 'my-listing',
         loadChildren: () =>
-          import('./my-link/my-link.module').then(
-            (m) => m.MyLinkModule
-          ),
+          import('./my-link/my-link.module').then((m) => m.MyLinkModule),
       },
       {
         path: 'profile',
@@ -48,4 +46,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserPageRoutingModule {}
+export class PageRoutingModule {}

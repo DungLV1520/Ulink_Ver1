@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommonService {
   public base: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -14,10 +14,12 @@ export class CommonService {
   public isHeaderTwo: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-  public isHeaderThree: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(false);
-    public isHeaderFour: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(false);  
+  public isHeaderThree: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  public isHeaderFour: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
-  constructor() { }
+  constructor() {}
 }

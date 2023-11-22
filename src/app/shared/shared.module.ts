@@ -37,10 +37,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     CountUpModule,
     MatDatepickerModule,
     MatNativeDateModule,
-
     BsDatepickerModule.forRoot(),
   ],
-
   exports: [
     CarouselModule,
     HeaderComponent,

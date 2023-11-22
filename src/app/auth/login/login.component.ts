@@ -67,7 +67,7 @@ export class LoginComponent {
       )
       .subscribe({
         next: () => {
-          this.router.navigate(['/user-page/my-listing']);
+          this.router.navigate(['/ulink/my-listing']);
         },
         error: (error) => {
           this.toast.error(error, {

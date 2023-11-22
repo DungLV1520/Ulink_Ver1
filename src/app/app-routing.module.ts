@@ -9,7 +9,6 @@ const routes: Routes = [
         (m) => m.FeaturemoduleModule
       ),
   },
-
   {
     path: 'error',
     loadChildren: () =>

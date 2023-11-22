@@ -16,7 +16,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        component:HomeComponent
+        component: HomeComponent,
       },
       {
         path: 'auth',
@@ -24,15 +24,10 @@ const routes: Routes = [
           import('../auth/auth.module').then((m) => m.AuthModule),
       },
       {
-        path: 'pages',
+        path: 'ulink',
         loadChildren: () =>
-          import('./pages/pages.module').then((m) => m.PagesModule),
-      },
-      {
-        path: 'user-page',
-        loadChildren: () =>
-          import('./user-page/user-page.module').then((m) => m.UserPageModule),
-        canActivate:[AuthGuard]
+          import('./pages/page.module').then((m) => m.PageModule),
+        canActivate: [AuthGuard],
       },
     ],
   },

@@ -15,7 +15,7 @@ export interface SearchWithPagination extends Search, Pagination {}
 export const createRequestOption = (req?: any): HttpParams => {
   let options: HttpParams = new HttpParams();
   if (req) {
-    Object.keys(req).forEach(key => {
+    Object.keys(req).forEach((key) => {
       const value = req[key];
       if (value !== undefined) {
         if (key !== 'sort') {

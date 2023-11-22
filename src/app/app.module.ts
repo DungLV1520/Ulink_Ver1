@@ -7,10 +7,10 @@ import { AppComponent } from './app.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { ToastrModule } from 'ngx-toastr';
+import { FlatpickrModule } from 'angularx-flatpickr';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
-import { FlatpickrModule } from 'angularx-flatpickr';
-import { ToastrModule } from 'ngx-toastr';
 import {
   NgbAlertModule,
   NgbPaginationModule,

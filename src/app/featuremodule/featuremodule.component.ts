@@ -1,31 +1,25 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { routes } from '../core/helpers/routes/routes';
 import { SidebarService } from '../shared/service/sidebar.service';
-import { CommonService } from '../shared/service/common.service';
 
 @Component({
   selector: 'app-featuremodule',
   templateUrl: './featuremodule.component.html',
 })
 export class FeaturemoduleComponent implements OnInit {
-  showMiniSidebar: boolean = false;
-  public base: string = '';
-  public page: string = '';
-  public last: string = '';
-  public routes = routes;
-  public tittle: string = 'Home';
+  showMiniSidebar = false;
+  base = '';
+  page = '';
+  last = '';
+  routes = routes;
+  tittle = 'Home';
+  strokeValue = 0;
+  progress = 0;
+  firstHeader = false;
+  hideFooter = false;
 
-  public strokeValue = 0;
-  public progress = 0;
-  public firstHeader: boolean = false;
-  public hideFooter: boolean = false;
-
-  constructor(
-    private router: Router,
-    private sidebar: SidebarService,
-    private common: CommonService
-  ) {
+  constructor(private router: Router, private sidebar: SidebarService) {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         // call the function to apply condition in page changes
@@ -106,16 +100,6 @@ export class FeaturemoduleComponent implements OnInit {
       this.firstHeader = false;
     } else {
       this.firstHeader = true;
-    }
-
-    // hide the footer in list map and grid page
-    if (
-      route.url == routes.listingmaplist ||
-      route.url == routes.listingmapgrid
-    ) {
-      this.hideFooter = true;
-    } else {
-      this.hideFooter = false;
     }
   }
 }

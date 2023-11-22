@@ -355,7 +355,7 @@ export class CreateLinkComponent {
   }
 
   goToPayment(): void {
-    this.router.navigate(['user-page/payment']);
+    this.router.navigate(['ulink/payment']);
     this.modalService.dismissAll();
   }
 }
