@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FeaturemoduleRoutingModule } from './featuremodule-routing.module';
+import { UlinkRoutingModule } from './ulink-routing.module';
 import { FlatpickrModule } from 'angularx-flatpickr';
-import { FeaturemoduleComponent } from './featuremodule.component';
+import { UlinkComponent } from './ulink.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [FeaturemoduleComponent, HomeComponent],
+  declarations: [UlinkComponent, HomeComponent],
   imports: [
     CommonModule,
-    FeaturemoduleRoutingModule,
+    UlinkRoutingModule,
     SharedModule,
     FlatpickrModule.forRoot(),
   ],
 })
-export class FeaturemoduleModule {}
+export class UlinkModule {}

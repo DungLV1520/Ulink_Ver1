@@ -4,10 +4,10 @@ import { routes } from '../core/helpers/routes/routes';
 import { SidebarService } from '../shared/service/sidebar.service';
 
 @Component({
-  selector: 'app-featuremodule',
-  templateUrl: './featuremodule.component.html',
+  selector: 'app-ulink',
+  templateUrl: './ulink.component.html',
 })
-export class FeaturemoduleComponent implements OnInit {
+export class UlinkComponent implements OnInit {
   showMiniSidebar = false;
   base = '';
   page = '';

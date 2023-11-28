@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FeaturemoduleComponent } from './featuremodule.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '../core/guards/auth.guard';
+import { UlinkComponent } from './ulink.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: FeaturemoduleComponent,
+    component: UlinkComponent,
     children: [
       {
         path: '',
@@ -37,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FeaturemoduleRoutingModule {}
+export class UlinkRoutingModule {}

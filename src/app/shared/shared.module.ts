@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { HeaderComponent } from 'src/app/featuremodule/common/header/header.component';
-import { FooterComponent } from 'src/app/featuremodule/common/footer/footer.component';
+import { HeaderComponent } from 'src/app/ulink/common/header/header.component';
+import { FooterComponent } from 'src/app/ulink/common/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';

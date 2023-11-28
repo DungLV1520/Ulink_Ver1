@@ -5,9 +5,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./featuremodule/featuremodule.module').then(
-        (m) => m.FeaturemoduleModule
-      ),
+      import('./ulink/ulink.module').then((m) => m.UlinkModule),
   },
   {
     path: 'error',
