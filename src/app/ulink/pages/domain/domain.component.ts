@@ -57,6 +57,7 @@ export class DomainComponent {
 
     const objMyDomain = {
       ...this.myDomainForm.value,
+      domain,
       isSubDomain: false,
     };
 
