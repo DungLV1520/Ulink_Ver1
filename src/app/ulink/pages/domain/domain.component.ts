@@ -50,7 +50,7 @@ export class DomainComponent {
 
   registerDomain(): void {
     this.loading = true;
-    const domain = this.myDomainForm.get('domain')!.value;
+    const domain = this.myDomainForm.get('domain')!.value.trim().toLowerCase();
     const user = JSON.parse(
       localStorage.getItem(GlobalComponent.CUSTOMER_KEY)!
     );
