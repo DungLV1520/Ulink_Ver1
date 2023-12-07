@@ -1,10 +1,11 @@
 import { Component, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { catchError, finalize, of, switchMap } from 'rxjs';
+import { Observable, finalize, of, switchMap } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { ULinkService } from 'src/app/shared/service/ulink.service';
 import { ToastrService } from 'ngx-toastr';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { GlobalComponent } from 'src/app/app.constant';
 
 @Component({
   selector: 'app-domain',
@@ -50,12 +51,34 @@ export class DomainComponent {
   registerDomain(): void {
     this.loading = true;
     const domain = this.myDomainForm.get('domain')!.value;
-    this.uLinkService
-      .checkDNSDomain(domain)
-      .pipe(
-        catchError(() => {
-          return of(null);
-        }),
+    const user = JSON.parse(
+      localStorage.getItem(GlobalComponent.CUSTOMER_KEY)!
+    );
+
+    const objMyDomain = {
+      ...this.myDomainForm.value,
+      isSubDomain: false,
+    };
+
+    const handleError = () => {
+      this.toastr.error(
+        `No permission. Add domain [${domain}] failed. Please contact us`
+      );
+    };
+
+    const handleResponse = (res: any) => {
+      if (res !== null) {
+        if ('OK' === res) {
+          this.toastr.success(`Add domain [${domain}] success`);
+          this.getAllMyDomain();
+        } else {
+          handleError();
+        }
+      }
+    };
+
+    const apiCall = (observable: Observable<any>) => {
+      return observable.pipe(
         switchMap((res: any) => {
           if (!res.isPointing) {
             this.toastr.error(
@@ -63,34 +86,27 @@ export class DomainComponent {
             );
             return of(null);
           }
-
-          const objMyDomain = {
-            ...this.myDomainForm.value,
-            isSubDomain: false,
-          };
           return this.uLinkService.createMyDomain(objMyDomain);
         }),
         finalize(() => {
           this.loading = false;
         })
-      )
-      .subscribe({
-        next: (res) => {
-          if (res !== null) {
-            if ('OK' === res) {
-              this.toastr.success(`Add domain [${domain}] success`);
-              this.getAllMyDomain();
-            } else {
-              this.toastr.error(`No permission. Add domain [${domain}] failed.
-              Please contact us`);
-            }
-          }
-        },
-        error: () => {
-          this.toastr.error(`No permission. Add domain [${domain}] failed.
-            Please contact us`);
-        },
+      );
+    };
+
+    if (user.id === 2799) {
+      apiCall(
+        this.uLinkService.createMyDomainCustomForUserId(objMyDomain)
+      ).subscribe({
+        next: handleResponse,
+        error: handleError,
       });
+    } else {
+      apiCall(this.uLinkService.checkDNSDomain(domain)).subscribe({
+        next: handleResponse,
+        error: handleError,
+      });
+    }
   }
 
   getAllMyDomain(): void {

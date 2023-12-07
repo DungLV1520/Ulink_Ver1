@@ -201,6 +201,14 @@ export class ULinkService {
     });
   }
 
+  //userId = 2799
+  //ip server = 192.53.112.97:8888
+  createMyDomainCustomForUserId(data: any) {
+    return this.http.post(GlobalComponent.API_URL_LOCAL_CUSTOM + 'domain', data, {
+      responseType: 'text',
+    });
+  }
+
   checkDNSDomain(domain: string) {
     return this.http.get(
       GlobalComponent.API_URL_LOCAL +
