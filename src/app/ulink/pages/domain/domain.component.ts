@@ -69,7 +69,7 @@ export class DomainComponent {
 
     const handleResponse = (res: any) => {
       if (res !== null) {
-        if ('OK' === res) {
+        if (res === 'OK') {
           this.toastr.success(`Add domain [${domain}] success`);
           this.getAllMyDomain();
         } else {
@@ -78,31 +78,36 @@ export class DomainComponent {
       }
     };
 
-    const apiCall = (observable: Observable<any>) => {
-      return observable.pipe(
-        switchMap((res: any) => {
-          if (!res.isPointing) {
-            this.toastr.error(
-              `Domain [${domain}] does not point to IP: ${res.serverIp}`
-            );
-            return of(null);
-          }
-          return this.uLinkService.createMyDomain(objMyDomain);
-        }),
-        finalize(() => {
-          this.loading = false;
-        })
-      );
-    };
-
     if (user.id === 2799) {
-      apiCall(
-        this.uLinkService.createMyDomainCustomForUserId(objMyDomain)
-      ).subscribe({
-        next: handleResponse,
-        error: handleError,
-      });
+      this.uLinkService
+        .createMyDomainCustomForUserId(objMyDomain)
+        .pipe(
+          finalize(() => {
+            this.loading = false;
+          })
+        )
+        .subscribe({
+          next: handleResponse,
+          error: handleError,
+        });
     } else {
+      const apiCall = (observable: Observable<any>) => {
+        return observable.pipe(
+          switchMap((res: any) => {
+            if (!res.isPointing) {
+              this.toastr.error(
+                `Domain [${domain}] does not point to IP: ${res.serverIp}`
+              );
+              return of(null);
+            }
+            return this.uLinkService.createMyDomain(objMyDomain);
+          }),
+          finalize(() => {
+            this.loading = false;
+          })
+        );
+      };
+
       apiCall(this.uLinkService.checkDNSDomain(domain)).subscribe({
         next: handleResponse,
         error: handleError,
