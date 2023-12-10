@@ -203,8 +203,16 @@ export class ULinkService {
 
   //userId = 2799
   //ip server = 192.53.112.97:8888
-  createMyDomainCustomForUserId(data: any) {
-    return this.http.post(GlobalComponent.API_URL_LOCAL_CUSTOM + 'domain', data, {
+  createMyDomainCustomForUserId2799(data: any) {
+    return this.http.post(GlobalComponent.API_URL_LOCAL_CUSTOM_2799 + 'domain', data, {
+      responseType: 'text',
+    });
+  }
+
+  //userId = 2526
+  //ip server = 192.53.112.97:8888
+  createMyDomainCustomForUserId2526(data: any) {
+    return this.http.post(GlobalComponent.API_URL_LOCAL_CUSTOM_2526 + 'domain', data, {
       responseType: 'text',
     });
   }

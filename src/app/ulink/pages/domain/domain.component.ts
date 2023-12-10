@@ -80,7 +80,19 @@ export class DomainComponent {
 
     if (user.id === 2799) {
       this.uLinkService
-        .createMyDomainCustomForUserId(objMyDomain)
+        .createMyDomainCustomForUserId2799(objMyDomain)
+        .pipe(
+          finalize(() => {
+            this.loading = false;
+          })
+        )
+        .subscribe({
+          next: handleResponse,
+          error: handleError,
+        });
+    } else if (user.id === 2526) {
+      this.uLinkService
+        .createMyDomainCustomForUserId2526(objMyDomain)
         .pipe(
           finalize(() => {
             this.loading = false;
